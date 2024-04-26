@@ -41,14 +41,14 @@ function AssetsPerformanceCard() {
         borderRadius: "1.25rem",
       }}
     >
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "space-evenly",
           alignItems: "center",
         }}
-      >
-        <div
+      > */}
+      {/* <div
           style={{
             display: "flex",
             flexDirection: "column",
@@ -83,8 +83,52 @@ function AssetsPerformanceCard() {
             success={{ percent: null }}
           />
           <h4>Overall Asset Availability</h4>
-        </div>
-      </div>
+        </div> */}
+      <Row
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+        }}
+      >
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Progress
+            key="OEE"
+            type="dashboard"
+            strokeColor="#1b3a71"
+            percent={OAE}
+            gapDegree={50}
+            success={{ percent: null }}
+          />
+          <h4>Overall Asset Effectiveness</h4>
+        </Col>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Progress
+            key="Availability"
+            type="dashboard"
+            strokeColor="#1b3a71"
+            percent={OAA}
+            gapDegree={50}
+            success={{ percent: null }}
+          />
+          <h4>Overall Asset Availability</h4>
+        </Col>
+      </Row>
+      {/* </div> */}
       <Divider />
       <Stat statText={"MTBF"} statValue={200} statSuffix={"Hrs"} />
       <Stat

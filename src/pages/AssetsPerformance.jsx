@@ -32,7 +32,8 @@ import {
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
-import "./PageStyle.css";
+import AICard from "../components/common/AICard";
+import "../css/pages/AssetsPerformance.css";
 
 ChartJS.register(
   ArcElement,
@@ -237,10 +238,10 @@ const AssetsPerformance = () => {
 
   const [columnsData, setColumnsData] = useState(data);
 
-  const handleDelete = (key) => {
-    const newData = columnsData.filter((item) => item.key !== key);
-    setColumnsData(newData);
-  };
+  // const handleDelete = (key) => {
+  //   const newData = columnsData.filter((item) => item.key !== key);
+  //   setColumnsData(newData);
+  // };
   const handleAdd = () => {
     const newData = [
       ...columnsData,
@@ -311,22 +312,22 @@ const AssetsPerformance = () => {
         </>
       ),
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          {/* <a>Edit {record.name}</a> */}
-          <a>Edit</a>
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <a>Delete</a>
-          </Popconfirm>
-        </Space>
-      ),
-    },
+    // {
+    //   title: "Action",
+    //   key: "action",
+    //   render: (_, record) => (
+    //     <Space size="middle">
+    //       {/* <a>Edit {record.name}</a> */}
+    //       <a>Edit</a>
+    //       <Popconfirm
+    //         title="Sure to delete?"
+    //         onConfirm={() => handleDelete(record.key)}
+    //       >
+    //         <a>Delete</a>
+    //       </Popconfirm>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   // const {
@@ -366,8 +367,8 @@ const AssetsPerformance = () => {
             }}
           >
             <Row
-              gutter={[8, 8]}
-              style={{ paddingBottom: 10, justifyContent: "space-evenly" }}
+              // gutter={[8, 8]}
+              style={{ paddingBottom: 0, justifyContent: "space-evenly" }}
             >
               {kpis.map((item, index) => (
                 <Col
@@ -422,7 +423,7 @@ const AssetsPerformance = () => {
                 alignItems: "center",
                 padding: "24px",
                 borderRadius: "1.25rem",
-                marginBottom: 10,
+                // marginBottom: 10,
               }}
               bodyStyle={{
                 padding: 0,
@@ -454,7 +455,9 @@ const AssetsPerformance = () => {
                 </GoogleMapReact>
               </div>
             </Card>
-
+            <Flex style={{ marginBottom: 0 }}>
+              <AICard />
+            </Flex>
             <Flex
               className="flex-1-2"
               style={{
@@ -463,20 +466,21 @@ const AssetsPerformance = () => {
                 // border: "1px solid red",
               }}
             >
-              <Button
+              {/* <Button
                 onClick={handleAdd}
                 type="primary"
                 style={{
                   width: "200px",
-                  marginBottom: 16,
+                  marginBottom: 5,
+                  marginLeft: 5,
                 }}
               >
                 Add a row
-              </Button>
+              </Button> */}
               <Table
                 columns={columns}
                 dataSource={columnsData}
-                style={{ width: "100%" }}
+                style={{ width: "100%", borderRadius: "1.25rem" }}
                 // size="small"
               />
             </Flex>

@@ -83,12 +83,12 @@ export function getProductivityChartData() {
         ...prevChartData,
         datasets: prevChartData.datasets.map((dataset) => ({
           ...dataset,
-          data: dataset.data
-            .slice(-(prevChartData.labels.length - 1))
-            .concat([
-              dataset.data[prevChartData.labels.length - 1] +
-                Math.floor(Math.random() * (30 + 10 + 1) - 10),
-            ]),
+          data: dataset.data.slice(-(prevChartData.labels.length - 1)).concat([
+            dataset.data[prevChartData.labels.length - 1] +
+              Math.floor(Math.random() * (30 + 10 + 1) - 10),
+            // Math.floor(Math.random() * (15 + 15 + 1) - 15),
+            // Math.floor(Math.random() * (max - min + 1) + min)
+          ]),
           // data: prevChartData.labels.map((item) =>
           //   Math.floor(Math.random() * (350 - 50 + 1) + 50)
           // ),

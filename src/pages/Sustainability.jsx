@@ -18,6 +18,7 @@ import {
 } from "chart.js";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
+import AICard from "../components/common/AICard";
 
 ChartJS.register(
   ArcElement,
@@ -302,6 +303,9 @@ const Sustainability = () => {
               </Card>
             </Col>
           </Row>
+          <Flex>
+            <AICard />
+          </Flex>
         </Flex>
       </Layout>
     </MainLayout>

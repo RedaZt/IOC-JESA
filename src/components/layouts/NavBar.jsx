@@ -86,7 +86,7 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
           }}
         >
           <img
-            src="/imgs/OCP-logo-horizontal.png"
+            src="/img/OCP-logo-horizontal.png"
             style={{
               // display: "block",
               // margin: "auto",
@@ -129,9 +129,9 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
           //   console.log(e.target.value);
           //   // console.log(e.target.defaultValue);
           // }}
-          onSearch={(txt) => {
-            console.log(txt);
-          }}
+          // onSearch={(txt) => {
+          //   console.log(txt);
+          // }}
         />
       </Header>
       <div

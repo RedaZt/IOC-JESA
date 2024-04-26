@@ -15,17 +15,6 @@ import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
 import { Typography } from "antd";
 import {
-  SafetyCertificateOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  DeploymentUnitOutlined,
-  CheckCircleOutlined,
-  BarChartOutlined,
-  TableOutlined,
-  TeamOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import {
   Chart as ChartJS,
   ArcElement,
   Tooltip,
@@ -39,17 +28,18 @@ import {
   Filler,
   BarElement,
 } from "chart.js";
-import { Doughnut, Line, Radar, Bar } from "react-chartjs-2";
 import SustainabilityCard from "../components/pages/Home/SustainabilityCard";
 import OpportunityCard from "../components/pages/Home/OpportunityCard";
 import BusinessRisksCard from "../components/pages/Home/BusinessRisksCard";
 // import { Context } from "../App";
 import { RootContext } from "../store";
-import "./Home.css";
+import "../css/pages/Home.css";
 import { getProductivityChartData, getAssetsInfos } from "../data/data";
 import AssetsPerformanceCard from "../components/pages/Home/AssetsPerformanceCard";
 import IntegratedOperationsCard from "../components/pages/Home/IntegratedOperationsCard";
 import TimeCard from "../components/pages/Home/DateCard";
+import WeatherCard from "../components/pages/Home/WeatherCard";
+import AICard from "../components/common/AICard";
 
 ChartJS.register(
   ArcElement,
@@ -69,18 +59,6 @@ ChartJS.register(
 
 const { Title } = Typography;
 const { Header, Sider, Content } = Layout;
-
-const contentStyle = {
-  margin: 0,
-  marginRight: 10,
-  height: "160px",
-  width: "500px",
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  // background: "#364d79",
-  background: "#1b3a71",
-};
 
 const onChange = (currentSlide) => {
   console.log(currentSlide);
@@ -136,7 +114,7 @@ const Home = () => {
             className="flex-1"
             style={{
               height: "100%",
-              width: "100%",
+              width: "75%",
               display: "flex",
               flexDirection: "column",
             }}
@@ -155,18 +133,9 @@ const Home = () => {
             </div>
             <div
               style={{
-                // height: "100%",
-                // height: "fit-content",
                 width: "100%",
-                // margin: "10px 16px",
-                // marginTop: 0,
-                // marginRight: 0,
                 display: "flex",
                 flexDirection: "column",
-                // border: "1px solid blue",
-                // padding: 24,
-                // padding: "20px 15px",
-                // Height: "100vh",
               }}
             >
               <Card
@@ -294,7 +263,7 @@ const Home = () => {
                   >
                     <img
                       className="process-image"
-                      src={`/imgs/Process - ${selectedView}.png`}
+                      src={`/img/Process - ${selectedView}.png`}
                       alt="Process"
                       style={{
                         position: "absolute",
@@ -318,63 +287,12 @@ const Home = () => {
                 flexDirection: "row",
               }}
             >
-              <Card
-                // title="Weather"
-                style={{
-                  width: "40%",
-                  borderRadius: "1.25rem",
-                }}
-                bodyStyle={{
-                  display: "flex",
-                  height: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src="/imgs/weather-4-512.webp"
-                  alt="cloud"
-                  style={{
-                    maxWidth: "200px",
-                  }}
-                />
-              </Card>
-              <Card
-                title="AI-Recommendations"
-                style={{
-                  // height: "100%",
-                  width: "60%",
-                  borderRadius: "1.25rem",
-                }}
-                bodyStyle={{
-                  display: "flex",
-                  height: "80%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <div
-                  style={{
-                    width: "600px",
-                    overflowX: "scroll",
-                    scrollbarWidth: "none",
-                    display: "flex",
-                  }}
-                >
-                  <div>
-                    <h3 style={contentStyle}>1</h3>
-                  </div>
-                  <div>
-                    <h3 style={contentStyle}>2</h3>
-                  </div>
-                  <div>
-                    <h3 style={contentStyle}>3</h3>
-                  </div>
-                  <div>
-                    <h3 style={contentStyle}>4</h3>
-                  </div>
-                </div>
-              </Card>
+              <div style={{ height: "100%", width: "35%" }}>
+                <WeatherCard />
+              </div>
+              <div style={{ height: "100%", width: "65%" }}>
+                <AICard />
+              </div>
             </div>
           </div>
           <div
@@ -382,6 +300,7 @@ const Home = () => {
             style={{
               flexDirection: "row",
               width: "25%",
+              // border: "1px solid red",
             }}
           >
             <TimeCard />
@@ -410,7 +329,7 @@ const Home = () => {
                 }}
               >
                 <img
-                  src="/imgs/CCTV.png"
+                  src="/img/CCTV.png"
                   alt="CCTV-Footage"
                   style={{
                     maxWidth: "100%",

@@ -159,7 +159,7 @@ function SideBar({ handleClick, collapsed, menuKey }) {
           }}
         >
           <img
-            src="/imgs/JESA-logo.png"
+            src="/img/JESA-logo.png"
             style={{
               width: "90%",
               paddingBottom: 0,

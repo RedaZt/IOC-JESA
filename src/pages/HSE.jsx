@@ -18,7 +18,7 @@ import {
 } from "chart.js";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
-import "./PageStyle.css";
+import "../css/pages/PageStyle.css";
 
 ChartJS.register(
   ArcElement,
@@ -486,7 +486,7 @@ const HSE = () => {
                 }}
               >
                 <img
-                  src="/imgs/CCTV.png"
+                  src="/img/CCTV.png"
                   alt="CCTV-Footage"
                   style={{
                     // position: "absolute",

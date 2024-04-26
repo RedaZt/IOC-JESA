@@ -12,12 +12,16 @@ function TimeCard() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrTime((prevData) => {
-        const newData = { ...prevData };
-        newData.date = new Date().toLocaleDateString();
-        newData.time = new Date().toLocaleTimeString();
-        return newData;
+      setCurrTime({
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
       });
+      // setCurrTime((prevData) => {
+      //   const newData = { ...prevData };
+      //   newData.date = new Date().toLocaleDateString();
+      //   newData.time = new Date().toLocaleTimeString();
+      //   return newData;
+      // });
     }, 1000);
     return () => clearInterval(interval);
   }, []);

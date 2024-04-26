@@ -15,7 +15,7 @@ import MainLayout from "../layouts/MainLayout";
 import { Typography } from "antd";
 import { RootContext } from "../store";
 // import { Context } from "../App";
-import "./PageStyle.css";
+import "../css/pages/PageStyle.css";
 
 // 1c3b72 1b3a71
 
