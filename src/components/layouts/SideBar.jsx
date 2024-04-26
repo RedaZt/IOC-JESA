@@ -12,7 +12,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, Input, Divider } from "antd";
 import { Typography, Row, Col } from "antd";
-import "./SideBar.css";
+import "../../css/components/layouts/SideBar.css";
 
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;

@@ -29,7 +29,7 @@ const contentStyle = {
 function AICard() {
   return (
     <Card
-      title="AI-Recommendations"
+      title="AI Recommendations"
       style={{
         height: "100%",
         width: "100%",
