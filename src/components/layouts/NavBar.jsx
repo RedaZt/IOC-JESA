@@ -3,8 +3,8 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Button, Input, theme, Divider, Segmented } from "antd";
 import { Typography } from "antd";
 import { updateActiveTab } from "../../store/actions/dashboard";
-import "./NavBar.css";
 import { RootContext } from "../../store";
+import "../../css/components/layouts/NavBar.css";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
