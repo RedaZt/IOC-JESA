@@ -19,7 +19,8 @@ import {
 } from "chart.js";
 import { Bar, Line } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
-import "./PageStyle.css";
+import AICard from "../components/common/AICard";
+import "../css/pages/PageStyle.css";
 
 ChartJS.register(
   BarElement,
@@ -725,6 +726,7 @@ const Production = () => {
               </Card>
             </Flex>
           </Flex>
+          <AICard />
           <Flex
             key={"Inventory"}
             style={{

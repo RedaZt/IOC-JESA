@@ -19,6 +19,8 @@ import {
 import { Bar, Line, Doughnut, Pie } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
+import AICard from "../components/common/AICard";
+import "../css/pages/PageStyle.css";
 
 ChartJS.register(
   ArcElement,
@@ -476,6 +478,9 @@ const Cybersecurity = () => {
               >
                 <Line options={areaChartOptions} data={activityData} />
               </Card>
+            </Flex>
+            <Flex>
+              <AICard />
             </Flex>
           </Flex>
           <Flex
