@@ -23,7 +23,8 @@ const contentStyle = {
   color: "#fff",
   lineHeight: "160px",
   textAlign: "center",
-  background: "#364d79",
+  // background: "#364d79",
+  background: "#1b3a71",
 };
 
 function AICard() {
