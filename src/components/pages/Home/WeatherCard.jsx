@@ -22,15 +22,15 @@ import "../../../css/components/pages/Home/WeatherCard.css";
 const { Title } = Typography;
 
 const weatherConditions = {
-  "Mostly sunny": "/svg/a_1_sunny.svg",
-  "Partially sunny": "/svg/a_2_little_sunny.svg",
-  "Partially cloudy": "/svg/b_1_partly_cloudy.svg",
-  "Mostly cloudy": "/svg/b_3_very_cloudy.svg",
-  Cloudy: "/svg/b_2_cloudy.svg",
-  Hazy: "/svg/d_4_fog.svg",
-  Thunderstorm: "/svg/c_3_thunderstorm.svg",
-  Rain: "/svg/c_1_rainy.svg",
-  Sleet: "/svg/c_2_heavy_rain.svg",
+  snow: "/svg/d_1_snow.svg",
+  rain: "/svg/c_1_rainy.svg",
+  fog: "/svg/d_4_fog.svg",
+  windy: "/svg/f_4_very_windy.svg",
+  cloudy: "/svg/b_2_cloudy.svg",
+  "partly-cloudy-day": "/svg/b_1_partly_cloudy.svg",
+  "partly-cloudy-night": "/svg/b_4_cloudy_night.svg",
+  "clear-day": "/svg/a_1_sunny.svg",
+  "clear-night": "/svg/a_4_night.svg",
 };
 
 function capitalizeTxt(string) {
@@ -59,12 +59,7 @@ async function getWeather() {
 }
 
 function WeatherCard() {
-  let [isLoading, setIsLoading] = useState(true);
-  const [weatherInfos, setWeatherInfos] = useState({
-    city: null,
-    temperature: null,
-    condition: null,
-  });
+  const [weatherInfos, setWeatherInfos] = useState(null);
   useEffect(() => {
     getWeather()
       .then((data) => {
@@ -73,10 +68,10 @@ function WeatherCard() {
             city: data.address,
             temperature: data.currentConditions.temp,
             condition: data.currentConditions.conditions,
+            icon: data.currentConditions.icon,
           };
           console.log(weather);
           setWeatherInfos(weather);
-          setIsLoading(false);
         }
       })
       .catch((error) => {
@@ -92,10 +87,10 @@ function WeatherCard() {
               city: data.address,
               temperature: data.currentConditions.temp,
               condition: data.currentConditions.conditions,
+              icon: data.currentConditions.icon,
             };
             console.log(weather);
             setWeatherInfos(weather);
-            setIsLoading(false);
           }
         })
         .catch((error) => {
@@ -122,7 +117,7 @@ function WeatherCard() {
       }}
     >
       {/* <div class="wrapper"> */}
-      {isLoading ? (
+      {!weatherInfos ? (
         <Spin tip="Loading" size="large" />
       ) : (
         <>
@@ -139,7 +134,7 @@ function WeatherCard() {
           <Flex>
             <iframe
               className="frame"
-              src={weatherConditions[weatherInfos.condition]}
+              src={weatherConditions[weatherInfos.icon]}
               width={150}
               // height={200}
               // width={"100%"}
@@ -147,6 +142,30 @@ function WeatherCard() {
             ></iframe>
           </Flex>
         </>
+        //   <>
+        //   <Flex style={{ flexDirection: "column", padding: "20px" }}>
+        //     <h2 style={{ fontWeight: 100 }}>
+        //       {capitalizeTxt(weatherInfos.city)}
+        //     </h2>
+        //     <h1 style={{ fontSize: 45 }}>
+        //       {`${
+        //         Math.round((((weatherInfos.temperature - 32) * 5) / 9) * 10) /
+        //         10
+        //       } °C`}
+        //     </h1>
+        //     <h2>{weatherInfos.condition}</h2>
+        //   </Flex>
+        //   <Flex>
+        //     <iframe
+        //       className="frame"
+        //       src={weatherConditions[weatherInfos.icon]}
+        //       width={150}
+        //       // height={200}
+        //       // width={"100%"}
+        //       style={{ border: "none" }}
+        //     ></iframe>
+        //   </Flex>
+        // </>
       )}
     </Card>
   );

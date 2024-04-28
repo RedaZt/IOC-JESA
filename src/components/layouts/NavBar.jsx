@@ -151,7 +151,13 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
         <Segmented
           className="segment"
           // size="large"
-          options={["General View", "Mine & Beneficiary", "MPH", "SPH - PSA"]}
+          options={[
+            "General View",
+            "Mine & Beneficiary",
+            "Corridors",
+            "MPH",
+            "SPH - PSA",
+          ]}
           // options={[
           //   {
           //     label: (
@@ -178,6 +184,36 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
           }}
           // block
         />
+        {/* <Segmented
+          className="segment subvalue-chains"
+          // size="large"
+          options={["test"]}
+          // options={[
+          //   {
+          //     label: (
+          //       <div style={{ padding: 4 }}>
+          //         <div>Summer</div>
+          //         <div>Apr-Jun</div>
+          //       </div>
+          //     ),
+          //     value: "summer",
+          //   },
+          // ]}
+          // value={activeTab}
+          // onChange={(value) => {
+          //   // console.log(value); // string
+          //   dispatch(updateActiveTab(value));
+          // }}
+          style={{
+            fontSize: "18px",
+            fontWeight: "800",
+            margin: "20px",
+            // background: "#f0f0f0",
+            // background: "#e5e5e5",
+            background: "#e0e0e0",
+          }}
+          // block
+        /> */}
       </div>
     </div>
   );
