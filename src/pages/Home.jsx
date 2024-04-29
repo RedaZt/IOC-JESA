@@ -66,7 +66,7 @@ const onChange = (currentSlide) => {
 
 const totalOpportunityData = {
   "General View": 92,
-  "Mine & Beneficiary": 93,
+  "Mine & Beneficiation": 93,
   Corridors: 94,
   MPH: 95,
   "SPH - PSA": 96,
