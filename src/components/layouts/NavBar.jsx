@@ -1,14 +1,27 @@
 import React, { useEffect, useState, useContext } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Layout, Button, Input, theme, Divider, Segmented } from "antd";
+import {
+  Layout,
+  Button,
+  Input,
+  theme,
+  Divider,
+  Segmented,
+  Menu,
+  Dropdown,
+  TreeSelect,
+  Flex,
+} from "antd";
 import { Typography } from "antd";
 import { updateActiveTab } from "../../store/actions/dashboard";
 import { RootContext } from "../../store";
 import "../../css/components/layouts/NavBar.css";
+import { Children } from "react";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
 const { Title } = Typography;
+const { TreeNode } = TreeSelect;
 
 function NavBar({ collapsed, setCollapsed, onSearch }) {
   const {
@@ -19,6 +32,12 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
     dashboard: { activeTab },
     dispatch,
   } = useContext(RootContext);
+
+  const [selectedProcess, setSelectedProcess] = useState(undefined);
+
+  const handleChange = (value) => {
+    setSelectedProcess(value);
+  };
   // const {
   //   dashboard: { activeTab },
   // } = context;
@@ -153,7 +172,7 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
           // size="large"
           options={[
             "General View",
-            "Mine & Beneficiary",
+            "Mine & Beneficiation",
             "Corridors",
             "MPH",
             "SPH - PSA",
@@ -184,36 +203,33 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
           }}
           // block
         />
-        {/* <Segmented
-          className="segment subvalue-chains"
-          // size="large"
-          options={["test"]}
-          // options={[
-          //   {
-          //     label: (
-          //       <div style={{ padding: 4 }}>
-          //         <div>Summer</div>
-          //         <div>Apr-Jun</div>
-          //       </div>
-          //     ),
-          //     value: "summer",
-          //   },
-          // ]}
-          // value={activeTab}
-          // onChange={(value) => {
-          //   // console.log(value); // string
-          //   dispatch(updateActiveTab(value));
-          // }}
-          style={{
-            fontSize: "18px",
-            fontWeight: "800",
-            margin: "20px",
-            // background: "#f0f0f0",
-            // background: "#e5e5e5",
-            background: "#e0e0e0",
-          }}
-          // block
-        /> */}
+        {/* <Flex>
+          <h2>Select Process:</h2>
+          <TreeSelect
+            showSearch
+            style={{ width: "100%" }}
+            value={selectedProcess}
+            dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+            placeholder="Please select"
+            allowClear
+            treeDefaultExpandAll
+            onChange={handleChange}
+          >
+            <TreeNode value="process1" title="Process 1">
+              <TreeNode value="subProcess1" title="Sub-Process 1" />
+              <TreeNode value="subProcess2" title="Sub-Process 2" />
+            </TreeNode>
+            <TreeNode value="process2" title="Process 2">
+              <TreeNode value="subProcess3" title="Sub-Process 3" />
+              <TreeNode value="subProcess4" title="Sub-Process 4" />
+            </TreeNode>
+          </TreeSelect>
+          {selectedProcess && (
+            <div>
+              <h3>KPIs for {selectedProcess}</h3>
+            </div>
+          )}
+        </Flex> */}
       </div>
     </div>
   );
