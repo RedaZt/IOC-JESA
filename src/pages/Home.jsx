@@ -14,6 +14,17 @@ import {
 import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
 import { Typography } from "antd";
+import SustainabilityCard from "../components/pages/Home/SustainabilityCard";
+import OpportunityCard from "../components/pages/Home/OpportunityCard";
+import BusinessRisksCard from "../components/pages/Home/BusinessRisksCard";
+// import { Context } from "../App";
+import { RootContext } from "../store";
+import "../css/pages/Home.css";
+import AssetsPerformanceCard from "../components/pages/Home/AssetsPerformanceCard";
+import IntegratedOperationsCard from "../components/pages/Home/IntegratedOperationsCard";
+import TimeCard from "../components/pages/Home/DateCard";
+import WeatherCard from "../components/pages/Home/WeatherCard";
+import AICard from "../components/common/AICard";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -28,18 +39,9 @@ import {
   Filler,
   BarElement,
 } from "chart.js";
-import SustainabilityCard from "../components/pages/Home/SustainabilityCard";
-import OpportunityCard from "../components/pages/Home/OpportunityCard";
-import BusinessRisksCard from "../components/pages/Home/BusinessRisksCard";
-// import { Context } from "../App";
-import { RootContext } from "../store";
-import "../css/pages/Home.css";
-import { getProductivityChartData, getAssetsInfos } from "../data/data";
-import AssetsPerformanceCard from "../components/pages/Home/AssetsPerformanceCard";
-import IntegratedOperationsCard from "../components/pages/Home/IntegratedOperationsCard";
-import TimeCard from "../components/pages/Home/DateCard";
-import WeatherCard from "../components/pages/Home/WeatherCard";
-import AICard from "../components/common/AICard";
+import { Doughnut, Line, Radar, Bar } from "react-chartjs-2";
+import { getProductivityChartData } from "../data/data";
+import { getAssetsInfos } from "../data/data";
 
 ChartJS.register(
   ArcElement,
@@ -70,6 +72,35 @@ const totalOpportunityData = {
   Corridors: 94,
   MPH: 95,
   "SPH - PSA": 96,
+};
+
+const lineChartOptions2 = {
+  maintainAspectRatio: false,
+  responsive: true,
+  scales: {
+    // to remove the labels
+    x: {
+      display: false,
+    },
+    // to remove the y-axis labels
+    y: {
+      display: false,
+    },
+  },
+  plugins: {
+    legend: {
+      position: "right",
+      display: true,
+      labels: {
+        usePointStyle: true,
+        pointStyle: "line",
+      },
+    },
+    // title: {
+    //   display: true,
+    //   text: "Chart.js Line Chart",
+    // },
+  },
 };
 
 const Home = () => {
@@ -108,7 +139,7 @@ const Home = () => {
           className="content"
           style={{
             width: "100%",
-            maxWidth: "1600px",
+            maxWidth: "1800px",
           }}
         >
           <div
@@ -143,105 +174,147 @@ const Home = () => {
                 title="Process"
                 style={{
                   width: "100%",
+                  height: "100%",
                   borderRadius: "1.25rem",
                 }}
               >
                 <Card
                   style={{
+                    height: "fit-content",
                     borderRadius: "1.25rem",
                     marginBottom: 10,
                   }}
                 >
                   <Row
                     style={{
+                      width: "100%",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-evenly",
-                      height: "200px",
+                      // height: "200px",
                     }}
                   >
-                    <Col
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Progress
-                        key="total-opportunity"
-                        type="dashboard"
-                        strokeColor="#1b3a71"
-                        percent={totalOpportunityData[selectedView]}
-                        gapDegree={50}
-                        success={{ percent: null }}
-                      />
-                      <h3>Total Opportunity</h3>
+                    <Col xl={24} xxl={12} style={{ padding: "10px" }}>
+                      <Row
+                        style={{
+                          // display: "flex",
+                          // width: "100%",
+                          alignItems: "center",
+                          justifyContent: "space-evenly",
+                          // height: "200px",
+                        }}
+                      >
+                        <Col
+                          lg={24}
+                          xl={12}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Progress
+                            key="total-opportunity"
+                            type="dashboard"
+                            strokeColor="#1b3a71"
+                            percent={totalOpportunityData[selectedView]}
+                            gapDegree={50}
+                            success={{ percent: null }}
+                          />
+                          <h3>Total Opportunity</h3>
+                        </Col>
+                        <Col
+                          lg={24}
+                          xl={12}
+                          style={{
+                            display: "flex",
+                            height: "100%",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Stat
+                            statText={"Loss vs APC Target"}
+                            statValue={7.6}
+                            statSuffix={"%"}
+                            arrow={"down"}
+                            arrowColor={"red"}
+                          />
+                          <Stat
+                            statText={"% APC Run Time"}
+                            statValue={95}
+                            statSuffix={"%"}
+                          />
+                          <Stat
+                            statText={"% Loss vs APC Target"}
+                            statValue={21}
+                            statSuffix={"%"}
+                            arrow={"down"}
+                            arrowColor={"red"}
+                          />
+                          <Stat
+                            statText={"% Emissions Limit"}
+                            statValue={94}
+                            statSuffix={"%"}
+                          />
+                        </Col>
+                      </Row>
                     </Col>
-                    <Col
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Stat
-                        statText={"Loss vs APC Target"}
-                        statValue={7.6}
-                        statSuffix={"%"}
-                        arrow={"down"}
-                        arrowColor={"red"}
-                      />
-                      <Stat
-                        statText={"% APC Run Time"}
-                        statValue={95}
-                        statSuffix={"%"}
-                      />
-                    </Col>
-                    <Col
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Stat
-                        statText={"% Loss vs APC Target"}
-                        statValue={21}
-                        statSuffix={"%"}
-                        arrow={"down"}
-                        arrowColor={"red"}
-                      />
-                      <Stat
-                        statText={"% Emissions Limit"}
-                        statValue={94}
-                        statSuffix={"%"}
-                      />
-                    </Col>
-                    <Col
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Stat
-                        statText={"Reformate Production"}
-                        statValue={-10.7}
-                        statSuffix={"%"}
-                        arrow={"down"}
-                        arrowColor={"red"}
-                      />
-                      <Stat
-                        statText={"CS + Actual"}
-                        statValue={-4.7}
-                        statSuffix={"%"}
-                        arrow={"down"}
-                        arrowColor={"red"}
-                      />
+                    <Col xl={24} xxl={12} style={{ padding: "10px" }}>
+                      <Row>
+                        <Col
+                          lg={24}
+                          xl={12}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
+                            <Line
+                              options={lineChartOptions2}
+                              data={getProductivityChartData()}
+                              // style={{ width: "100%", height: "100px" }}
+                            />
+                          </div>
+                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
+                            <Line
+                              options={lineChartOptions2}
+                              data={getProductivityChartData()}
+                              // style={{ width: "100%", height: "100px" }}
+                            />
+                          </div>
+                        </Col>
+                        <Col
+                          lg={24}
+                          xl={12}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
+                            <Line
+                              options={lineChartOptions2}
+                              data={getProductivityChartData()}
+                              // style={{ width: "100%", height: "100px" }}
+                            />
+                          </div>
+                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
+                            <Line
+                              options={lineChartOptions2}
+                              data={getProductivityChartData()}
+                              // style={{ width: "100%", height: "100px" }}
+                            />
+                          </div>
+                        </Col>
+                      </Row>
                     </Col>
                   </Row>
                 </Card>

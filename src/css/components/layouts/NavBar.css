@@ -19,3 +19,15 @@
 .segment {
   font-family: myFont;
 }
+
+h2 {
+  font-family: lightFont;
+}
+
+.ant-tree-select * {
+  font-family: lightFont;
+}
+
+.ant-select-tree-node-content-wrapper * {
+  font-family: lightFont;
+}
