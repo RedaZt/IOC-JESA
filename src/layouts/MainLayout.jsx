@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, theme, Flex } from "antd";
 import SideBar from "../components/layouts/SideBar.jsx";
 import NavBar from "../components/layouts/NavBar.jsx";
+// import NavBar from "../components/layouts/NavBarOld.jsx";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
