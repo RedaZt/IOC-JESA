@@ -248,7 +248,7 @@ const HSE = () => {
           className="bento-box"
           style={{
             width: "100%",
-            maxWidth: "1600px",
+            maxWidth: "1800px",
           }}
         >
           <Flex

@@ -145,7 +145,12 @@ function WeatherCard() {
             span={24}
             style={{ display: "flex", justifyContent: "space-between" }}
           >
-            <Flex style={{ flexDirection: "column", padding: "20px" }}>
+            <Flex
+              style={{
+                flexDirection: "column",
+                padding: "20px",
+              }}
+            >
               <h2>{capitalizeTxt(weatherInfos.city)}</h2>
               <h1 style={{ fontSize: 40 }}>
                 {`${

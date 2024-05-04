@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, theme, Flex } from "antd";
 import SideBar from "../components/layouts/SideBar.jsx";
 import NavBar from "../components/layouts/NavBar.jsx";
+import ProcessSelector from "../components/layouts/ProcessSelector.jsx";
 // import NavBar from "../components/layouts/NavBarOld.jsx";
 
 function getWindowDimensions() {
@@ -43,6 +44,7 @@ const MainLayout = ({ children, selectedMenuKey }) => {
             collapsed={collapsed}
             setCollapsed={setCollapsed}
           ></NavBar>
+          <ProcessSelector />
           {children}
         </Layout>
       </Layout>

@@ -56,7 +56,7 @@ function BusinessRisksCard() {
         justifyContent: "center",
         // height: "200px",
         height: "100%",
-        width: "25%",
+        width: "100%",
         // padding: "auto",
         borderRadius: "1.25rem",
         // margin: "auto",

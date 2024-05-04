@@ -9,14 +9,18 @@ import CircularProgress from "../components/CircularProgress";
 import {
   Chart as ChartJS,
   ArcElement,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  // Title,
   Tooltip,
   Legend,
+  Title as ChartTitle,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  RadialLinearScale,
+  Filler,
+  BarElement,
 } from "chart.js";
-import { Bar, Line, Doughnut, Pie } from "react-chartjs-2";
+import { Bar, Line, Doughnut, Pie, Radar } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
 import AICard from "../components/common/AICard";
@@ -27,13 +31,30 @@ ChartJS.register(
   BarElement,
   CategoryScale,
   LinearScale,
+  PointElement,
+  LineElement,
+  RadialLinearScale,
   Tooltip,
-  Legend
-  // ChartTitle,
+  Legend,
+  ChartTitle,
+  Filler
 );
 
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
+
+const radarChartData = {
+  labels: ["Thing 1", "Thing 2", "Thing 3", "Thing 4", "Thing 5", "Thing 6"],
+  datasets: [
+    {
+      label: "# of Votes",
+      data: [5, 9, 8, 5, 2, 3],
+      backgroundColor: "rgba(54, 162, 235, 0.2)",
+      borderColor: "rgba(54, 162, 235)",
+      borderWidth: 1,
+    },
+  ],
+};
 
 const vulnerabilitiesData = {
   labels: ["Critical", "High", "Medium", "Low"],
@@ -250,7 +271,7 @@ const Cybersecurity = () => {
           className="content"
           style={{
             width: "100%",
-            maxWidth: "1600px",
+            maxWidth: "1800px",
           }}
         >
           <Flex
@@ -651,6 +672,58 @@ const Cybersecurity = () => {
                 borderRadius: "1.25rem",
               }}
             />
+            <Card
+              title={
+                <div style={{ width: "100%", textWrap: "wrap" }}>
+                  DNSSI Compliance
+                </div>
+              }
+              style={{
+                justifyContent: "center",
+                width: "100%",
+                borderRadius: "1.25rem",
+              }}
+              headStyle={{ height: "fit-content", padding: "10px 24px" }}
+              bodyStyle={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  maxHeight: "300px",
+                }}
+              >
+                <Radar
+                  data={radarChartData}
+                  options={{
+                    plugins: {
+                      legend: {
+                        display: false, // Hide legend
+                      },
+                      tooltip: {
+                        enabled: false, // Disable tooltip
+                      },
+                    },
+                    scales: {
+                      r: {
+                        pointLabels: {
+                          display: false, // Hide labels on data points
+                        },
+                        // grid: {
+                        //   display: false, // Hide grid lines
+                        // },
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </Card>
           </Flex>
         </Flex>
       </Layout>
