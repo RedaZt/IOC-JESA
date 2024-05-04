@@ -175,7 +175,7 @@ const Production = () => {
             flexDirection: "column",
             width: "100%",
             // height: "100%",
-            maxWidth: "1600px",
+            maxWidth: "1800px",
           }}
         >
           <Flex

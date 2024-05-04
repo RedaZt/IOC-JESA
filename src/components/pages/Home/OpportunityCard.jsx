@@ -37,7 +37,7 @@ function OpportunityCard() {
         // height: "200px",
         // height: "fit-content",
         height: "100%",
-        width: "25%",
+        width: "100%",
         // padding: "auto",
         borderRadius: "1.25rem",
         // margin: "auto",

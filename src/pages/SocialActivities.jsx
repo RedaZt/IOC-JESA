@@ -137,17 +137,9 @@ const SocialActivities = () => {
         <Flex
           // className="content-container"
           style={{
-            alignItems: "center",
-            // justifyContent: "center",
-            width: "100%",
-            // height: "100%",
-            // marginTop: 0,
-            // height: "100%",
-            height: "fit-content",
-            // maxWidth: "1000px",
-            // padding: "20px 15px",
             // flexDirection: "column",
-            // border: "1px solid blue",
+            width: "100%",
+            maxWidth: "1800px",
           }}
         >
           <Flex

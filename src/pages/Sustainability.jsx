@@ -128,7 +128,7 @@ const Sustainability = () => {
           style={{
             flexDirection: "column",
             width: "100%",
-            maxWidth: "1600px",
+            maxWidth: "1800px",
           }}
         >
           <Row>

@@ -159,9 +159,15 @@ const Home = () => {
                 flexDirection: "row",
               }}
             >
-              <OpportunityCard />
-              <SustainabilityCard />
-              <BusinessRisksCard />
+              <div style={{ width: "25%" }}>
+                <OpportunityCard />
+              </div>
+              <div style={{ width: "50%" }}>
+                <SustainabilityCard />
+              </div>
+              <div style={{ width: "25%" }}>
+                <BusinessRisksCard />
+              </div>
             </div>
             <div
               style={{
@@ -338,6 +344,7 @@ const Home = () => {
                     <img
                       className="process-image"
                       src={`/img/Process - ${selectedView}.png`}
+                      // src="/img/Process - General View.png"
                       alt="Process"
                       style={{
                         position: "absolute",

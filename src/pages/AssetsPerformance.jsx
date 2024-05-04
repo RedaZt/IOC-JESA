@@ -353,7 +353,7 @@ const AssetsPerformance = () => {
           className="content"
           style={{
             width: "100%",
-            maxWidth: "1600px",
+            maxWidth: "1800px",
             flexDirection: "column",
           }}
         >

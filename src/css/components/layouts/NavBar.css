@@ -31,3 +31,23 @@ h2 {
 .ant-select-tree-node-content-wrapper * {
   font-family: lightFont;
 }
+
+.navbar .ant-input {
+  border-radius: 50px;
+}
+
+.navbar .ant-input-group-wrapper-outlined .ant-input-group-addon {
+  background: transparent;
+}
+
+.navbar
+  .ant-input-search
+  .ant-input-group
+  .ant-input-group-addon:last-child
+  .ant-input-search-button {
+  /* border: 1px solid red; */
+  border-start-start-radius: 0;
+  border-start-end-radius: 50px;
+  border-end-end-radius: 50px;
+  border-end-start-radius: 0;
+}

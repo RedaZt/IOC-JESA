@@ -106,7 +106,7 @@ function SustainabilityCard() {
       style={{
         justifyContent: "center",
         height: "100%",
-        width: "50%",
+        width: "100%",
         boxSizing: "border-box",
         // padding: "auto",
         borderRadius: "1.25rem",
