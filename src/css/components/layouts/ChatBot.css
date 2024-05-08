@@ -1,0 +1,11 @@
+.ant-float-btn-default .ant-float-btn-body {
+  background-color: #1d3b7e !important;
+  /* color: red; */
+}
+
+.ant-float-btn-default
+  .ant-float-btn-body
+  .ant-float-btn-content
+  .ant-float-btn-icon {
+  color: #fff;
+}
