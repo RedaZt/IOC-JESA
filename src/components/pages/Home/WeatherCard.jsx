@@ -23,15 +23,15 @@ import "../../../css/components/pages/Home/WeatherCard.css";
 const { Search } = Input;
 
 const weatherConditions = {
-  snow: "/svg/d_1_snow.svg",
-  rain: "/svg/c_1_rainy.svg",
-  fog: "/svg/d_4_fog.svg",
-  windy: "/svg/f_4_very_windy.svg",
-  cloudy: "/svg/b_2_cloudy.svg",
-  "partly-cloudy-day": "/svg/b_1_partly_cloudy.svg",
-  "partly-cloudy-night": "/svg/b_4_cloudy_night.svg",
-  "clear-day": "/svg/a_1_sunny.svg",
-  "clear-night": "/svg/a_4_night.svg",
+  snow: "/svg/weather svgs/d_1_snow.svg",
+  rain: "/svg/weather svgs/c_1_rainy.svg",
+  fog: "/svg/weather svgs/d_4_fog.svg",
+  windy: "/svg/weather svgs/f_4_very_windy.svg",
+  cloudy: "/svg/weather svgs/b_2_cloudy.svg",
+  "partly-cloudy-day": "/svg/weather svgs/b_1_partly_cloudy.svg",
+  "partly-cloudy-night": "/svg/weather svgs/b_4_cloudy_night.svg",
+  "clear-day": "/svg/weather svgs/a_1_sunny.svg",
+  "clear-night": "/svg/weather svgs/a_4_night.svg",
 };
 
 function capitalizeTxt(string) {
@@ -61,6 +61,7 @@ async function getWeather(selectedLocation) {
 
 function WeatherCard() {
   const [weatherInfos, setWeatherInfos] = useState(null);
+  const [daysWeather, setDaysWeather] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState("casablanca");
 
   const onSearch = (value, _e, info) => {
@@ -81,6 +82,7 @@ function WeatherCard() {
           };
           // console.log(weather);
           setWeatherInfos(weather);
+          setDaysWeather(data.days.slice(1, 5));
         } else {
           const weather = "No data";
           setWeatherInfos(weather);
@@ -95,23 +97,24 @@ function WeatherCard() {
   return (
     <Card
       className="weather-card"
-      title="Weather"
+      // title="Weather"
       style={{
         width: "100%",
         height: "100%",
         borderRadius: "1.25rem",
       }}
       bodyStyle={{
-        height: "80%",
+        height: "100%",
         display: "flex",
         // flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        padding: "20px",
       }}
     >
       {/* <div class="wrapper"> */}
       {!weatherInfos ? (
-        <Spin tip="Loading" size="large" />
+        <Spin className="weather-spin" tip="Loading" size="large" />
       ) : weatherInfos === "No data" ? (
         <Row>
           <Col span={24} style={{ padding: "0 15px" }}>
@@ -127,7 +130,7 @@ function WeatherCard() {
               </h1>
               <iframe
                 className="frame"
-                src="/svg/e_1_temperature.svg"
+                src="/svg/weather svgs/e_1_temperature.svg"
                 width={150}
                 // height={200}
                 // width={"100%"}
@@ -148,7 +151,7 @@ function WeatherCard() {
             <Flex
               style={{
                 flexDirection: "column",
-                padding: "20px",
+                padding: " 10px 20px",
               }}
             >
               <h2>{capitalizeTxt(weatherInfos.city)}</h2>
@@ -168,8 +171,53 @@ function WeatherCard() {
                 // height={200}
                 // width={"100%"}
                 style={{ border: "none" }}
-              ></iframe>
+              />
             </Flex>
+          </Col>
+          {/* <Divider /> */}
+          <Col
+            span={24}
+            style={{
+              // padding: "0 15px",
+              // display: "flex",
+              height: "100%",
+              // maxwidth: "60px",
+              // border: "1px solid red",
+            }}
+          >
+            <Row gutter={7} style={{ padding: "0 20px" }}>
+              {daysWeather.map((item, index) => (
+                <Col key={`day-${index + 1}`} span={6}>
+                  <Flex
+                    style={{
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "10px 0px",
+                      border: "2px solid #f0f0f0",
+                      borderRadius: "1.25rem",
+                    }}
+                  >
+                    <h5>{`${item.datetime.split("-")[2]}-${
+                      item.datetime.split("-")[1]
+                    }`}</h5>
+                    <iframe
+                      className="mini-frame"
+                      src={weatherConditions[item.icon]}
+                      width={50}
+                      height={60}
+                      // width={"100%"}
+                      style={{ border: "none" }}
+                    />
+                    <h5>
+                      {`${
+                        Math.round((((item.temp - 32) * 5) / 9) * 10) / 10
+                      } °C`}
+                    </h5>
+                  </Flex>
+                </Col>
+              ))}
+            </Row>
           </Col>
         </Row>
       )}
