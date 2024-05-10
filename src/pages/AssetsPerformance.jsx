@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import GoogleMapReact from "google-map-react";
+import { Map, Marker, ZoomControl } from "pigeon-maps";
 import {
   theme,
   Flex,
@@ -24,11 +24,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import {
-  CheckCircleOutlined,
-  DollarOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
@@ -108,84 +104,6 @@ const lineChartData = {
   ],
 };
 
-// datasource
-// const handleDelete = (key) => {
-//   const newData = columns.filter((item) => item.key !== key);
-//   setColumns(newData);
-// };
-// const handleDelete = (key) => {
-//   const newData = columnsData.filter((item) => item.key !== key);
-//   setColumnsData(newData);
-// };
-
-// const columns = [
-//   {
-//     title: "ID",
-//     dataIndex: "id",
-//     key: "id",
-//     render: (text) => (
-//       <h4
-//         style={{
-//           margin: 0,
-//         }}
-//       >
-//         {text}
-//       </h4>
-//     ),
-//   },
-//   {
-//     title: "Name",
-//     dataIndex: "name",
-//     key: "name",
-//     render: (text) => (
-//       <h4
-//         style={{
-//           margin: 0,
-//         }}
-//       >
-//         {text}
-//       </h4>
-//     ),
-//   },
-//   {
-//     title: "Location",
-//     dataIndex: "location",
-//     key: "location",
-//   },
-//   {
-//     title: "Tags",
-//     key: "tags",
-//     dataIndex: "tags",
-//     render: (_, { tags }) => (
-//       <>
-//         {tags.map((tag) => {
-//           let color =
-//             tag == "Available"
-//               ? "green"
-//               : tag == "Not Available"
-//               ? "red"
-//               : "gold";
-//           return (
-//             <Tag color={color} key={tag}>
-//               {tag.toUpperCase()}
-//             </Tag>
-//           );
-//         })}
-//       </>
-//     ),
-//   },
-//   {
-//     title: "Action",
-//     key: "action",
-//     render: (_, record) => (
-//       <Space size="middle">
-//         {/* <a>Edit {record.name}</a> */}
-//         <a>Edit</a>
-//         <a onClick={handleDelete(record.key)}>Delete</a>
-//       </Space>
-//     ),
-//   },
-// ];
 const data = [
   {
     key: "1",
@@ -436,23 +354,22 @@ const AssetsPerformance = () => {
                 style={{
                   height: "400px",
                   width: "100%",
-                  borderRadius: "1.25rem",
+                  borderRadius: "1rem",
+                  overflow: "hidden",
                 }}
               >
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    // key: "AIzaSyCsLPIwn0-OEGTccawEtFwoa5UfGG89RmU",
-                    key: "",
-                  }}
-                  defaultCenter={defaultProps.center}
-                  defaultZoom={defaultProps.zoom}
+                <Map
+                  // height={300}
+                  borderRadius={"1.25rem"}
+                  defaultCenter={[33.52493481489739, -7.637054622716135]}
+                  defaultZoom={15}
                 >
-                  {/* <AnyReactComponent
-                    lat={33.52493481489739}
-                    lng={-7.637054622716135}
-                    text="My Marker"
-                  /> */}
-                </GoogleMapReact>
+                  <ZoomControl />
+                  <Marker
+                    // width={50}
+                    anchor={[33.52493481489739, -7.637054622716135]}
+                  />
+                </Map>
               </div>
             </Card>
             <Flex style={{ marginBottom: 0 }}>

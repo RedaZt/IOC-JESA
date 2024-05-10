@@ -38,8 +38,10 @@ function NavBar({ collapsed, setCollapsed, onSearch }) {
           // zIndex: "1100",
           // left: "auto",
           // right: "0px",
+          // boxShadow:
+          //   "rgba(255, 255, 255, 0.9) 0rem 0rem 0.0625rem 0.0625rem inset, rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem",
           boxShadow:
-            "rgba(255, 255, 255, 0.9) 0rem 0rem 0.0625rem 0.0625rem inset, rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem",
+            "rgba(255, 255, 255, 0.9) 0rem 0.0625rem 0.0625rem 0rem inset, rgba(0, 0, 0, 0.05) 0rem 0.3rem 1.5rem 0rem",
           backdropFilter: "blur(2.625rem)",
           // top: "0.75rem",
           // minHeight: "4.6875rem",

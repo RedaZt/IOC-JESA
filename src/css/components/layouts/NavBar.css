@@ -45,7 +45,6 @@ h2 {
   .ant-input-group
   .ant-input-group-addon:last-child
   .ant-input-search-button {
-  /* border: 1px solid red; */
   border-start-start-radius: 0;
   border-start-end-radius: 50px;
   border-end-end-radius: 50px;

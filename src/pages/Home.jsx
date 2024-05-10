@@ -280,20 +280,54 @@ const Home = () => {
                             alignItems: "center",
                           }}
                         >
-                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
-                            <Line
-                              options={lineChartOptions2}
-                              data={getProductivityChartData()}
-                              // style={{ width: "100%", height: "100px" }}
-                            />
-                          </div>
-                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
-                            <Line
-                              options={lineChartOptions2}
-                              data={getProductivityChartData()}
-                              // style={{ width: "100%", height: "100px" }}
-                            />
-                          </div>
+                          <Flex style={{ width: "100%" }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                maxHeight: "80px",
+                                width: "70%",
+                              }}
+                            >
+                              <Line
+                                options={lineChartOptions2}
+                                data={getProductivityChartData()}
+                                // style={{ width: "100%", height: "100px" }}
+                              />
+                            </div>
+                            <Flex
+                              style={{ width: "30%", alignItems: "center" }}
+                            >
+                              <Stat
+                                statValue={-10.7}
+                                arrow={"down"}
+                                arrowColor={"red"}
+                              />
+                            </Flex>
+                          </Flex>
+                          <Flex style={{ width: "100%" }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                maxHeight: "80px",
+                                width: "70%",
+                              }}
+                            >
+                              <Line
+                                options={lineChartOptions2}
+                                data={getProductivityChartData()}
+                                // style={{ width: "100%", height: "100px" }}
+                              />
+                            </div>
+                            <Flex
+                              style={{ width: "30%", alignItems: "center" }}
+                            >
+                              <Stat
+                                statValue={-4.7}
+                                arrow={"down"}
+                                arrowColor={"red"}
+                              />
+                            </Flex>
+                          </Flex>
                         </Col>
                         <Col
                           lg={24}

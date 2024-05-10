@@ -1,5 +1,22 @@
+@font-face {
+  font-family: lightFont;
+  src: url("/HelveticaNeueW01-57Cn_Light.woff2");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: lightFont;
+}
+
+/* .content-container * {
+  font-family: lightFont;
+} */
+
 .ant-float-btn-default .ant-float-btn-body {
   background-color: #1d3b7e !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0rem 0rem 1.6875rem 0rem;
+  /* backdrop-filter: blur(2.625rem); */
   /* color: red; */
 }
 
@@ -8,4 +25,16 @@
   .ant-float-btn-content
   .ant-float-btn-icon {
   color: #fff;
+}
+
+.submit-button {
+  background-color: #1d3b7e !important;
+}
+
+.submit-button:hover {
+  background-color: #3b548a !important;
+}
+
+.chatbot-spin .ant-spin-dot-item {
+  background-color: rgb(27, 58, 113) !important;
 }

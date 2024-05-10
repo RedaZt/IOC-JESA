@@ -26,11 +26,12 @@ async def readRoot() -> dict:
     return {"message": "Hello World!!"}
 
 
-@app.get("/{params}")
-async def readItem(params) -> dict:
-    prompt = ' '.join(params.split("prompt=", 1)[-1].split('+'))
+@app.get("/chatbot")
+async def readItem(prompt: str) -> dict:
+    # print(prompt)
+    # prompt = ' '.join(prompt.split('+'))
     params = {"text": prompt}
     res = requests.get(url, params=params).json()
-    # print(res["output"])
-    # print(prompt)
+    # # print(res["output"])
+    # # print(prompt)
     return res

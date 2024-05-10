@@ -87,7 +87,7 @@ function Stat({
 }
 
 Stat.defaultProps = {
-  statText: "Stat",
+  statText: "",
   statValue: 0,
   titleLevel: 5,
 };
