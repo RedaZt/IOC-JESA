@@ -267,52 +267,33 @@ const AssetsPerformance = () => {
           paddingTop: 0,
         }}
       >
-        <Flex
+        <Row
+          gutter={[8, 8]}
           className="content"
           style={{
             width: "100%",
             maxWidth: "1800px",
-            flexDirection: "column",
           }}
         >
-          <Flex
-            className="flex-1"
-            style={{
-              width: "100%",
-              height: "100%",
-              // border: "1px solid blue",
-              flexDirection: "column",
-            }}
-          >
+          <Col span={24}>
             <Row
-              // gutter={[8, 8]}
+              gutter={[8, 8]}
               style={{ paddingBottom: 0, justifyContent: "space-evenly" }}
             >
               {kpis.map((item, index) => (
                 <Col
                   className="gutter-row"
-                  // xs={24}
                   sm={24}
                   md={12}
                   lg={6}
-                  // xl={4}
                   key={`col-${index + 1}`}
                 >
                   <Card
-                    // title="Assets Performance"
                     style={{
-                      // display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      // height: "200px",
-                      // height: "100%",
-                      // width: "100%",
                       padding: "12px 20px",
-                      // padding: "auto",
                       borderRadius: "1.25rem",
-                      // margin: "auto",
-                      // alignItems: "center",
-                      // justifyContent: "center",
                     }}
                     bodyStyle={{ padding: 0 }}
                   >
@@ -334,14 +315,14 @@ const AssetsPerformance = () => {
                 </Col>
               ))}
             </Row>
-
+          </Col>
+          <Col span={24}>
             <Card
               style={{
                 justifyContent: "center",
                 alignItems: "center",
                 padding: "24px",
                 borderRadius: "1.25rem",
-                // marginBottom: 10,
               }}
               bodyStyle={{
                 padding: 0,
@@ -359,31 +340,21 @@ const AssetsPerformance = () => {
                 }}
               >
                 <Map
-                  // height={300}
                   borderRadius={"1.25rem"}
                   defaultCenter={[33.52493481489739, -7.637054622716135]}
                   defaultZoom={16}
                 >
                   <ZoomControl />
-                  <Marker
-                    // width={50}
-                    anchor={[33.52493481489739, -7.637054622716135]}
-                  />
+                  <Marker anchor={[33.52493481489739, -7.637054622716135]} />
                 </Map>
               </div>
             </Card>
-            <Flex style={{ marginBottom: 0 }}>
-              <AICard />
-            </Flex>
-            <Flex
-              className="flex-1-2"
-              style={{
-                width: "100%",
-                flexDirection: "column",
-                // border: "1px solid red",
-              }}
-            >
-              {/* <Button
+          </Col>
+          <Col span={24}>
+            <AICard />
+          </Col>
+          <Col span={24}>
+            {/* <Button
                 onClick={handleAdd}
                 type="primary"
                 style={{
@@ -394,15 +365,13 @@ const AssetsPerformance = () => {
               >
                 Add a row
               </Button> */}
-              <Table
-                columns={columns}
-                dataSource={columnsData}
-                style={{ width: "100%", borderRadius: "1.25rem" }}
-                // size="small"
-              />
-            </Flex>
-          </Flex>
-        </Flex>
+            <Table
+              columns={columns}
+              dataSource={columnsData}
+              style={{ width: "100%", borderRadius: "1.25rem" }}
+            />
+          </Col>
+        </Row>
       </Layout>
     </MainLayout>
   );

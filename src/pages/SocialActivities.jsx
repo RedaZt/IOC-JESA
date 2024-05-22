@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { theme, Flex, Layout, Card } from "antd";
+import { theme, Flex, Layout, Card, Row, Col } from "antd";
 import { Typography } from "antd";
 import Stat from "../components/common/Stat";
 import {
@@ -57,8 +57,8 @@ const localSuppliersChartData = {
 
 const lineChartOptions = {
   // aspectRatio: 1.35,
-  maintainAspectRatio: false,
   responsive: true,
+  maintainAspectRatio: false,
   scales: {
     // to remove the labels
     // x: {
@@ -120,143 +120,87 @@ const SocialActivities = () => {
         className="content-container"
         style={{
           alignItems: "center",
-          // justifyContent: "center",
           width: "100%",
           padding: "10px 16px",
           paddingTop: 0,
-          // marginTop: 0,
-          // height: "100%",
-          // maxWidth: "1000px",
-          // padding: "20px 15px",
           display: "flex",
-          // flexDirection: "row",
-          // flexDirection: "column",
-          // border: "1px solid black",
         }}
       >
-        <Flex
-          // className="content-container"
+        <Row
+          gutter={[8, 8]}
           style={{
-            // flexDirection: "column",
             width: "100%",
             maxWidth: "1800px",
           }}
         >
-          <Flex
-            className="Flex-1"
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              width: "30%",
-              height: "100%",
-              // marginTop: 0,
-              // height: "100%",
-              // maxWidth: "1000px",
-              // padding: "20px 15px",
-              flexDirection: "column",
-              // border: "1px solid red",
-            }}
-          >
-            <Card
-              title="Local Employment"
-              style={{
-                // display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                // height: "200px",
-                height: "50%",
-                width: "100%",
-                // padding: "24px",
-                // padding: "auto",
-                borderRadius: "1.25rem",
-                // margin: "auto",
-                // alignItems: "center",
-                // justifyContent: "center",
-              }}
-              bodyStyle={{
-                // height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  width: "85%",
-                }}
-              >
-                <Doughnut data={localEmploymentChartData} />
-              </div>
-            </Card>
-            <Card
-              title="% of Local Suppliers"
-              style={{
-                // display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                // height: "200px",
-                height: "50%",
-                width: "100%",
-                // padding: "24px",
-                // padding: "auto",
-                borderRadius: "1.25rem",
-                // margin: "auto",
-                // alignItems: "center",
-                // justifyContent: "center",
-              }}
-              bodyStyle={{
-                // height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  width: "85%",
-                }}
-              >
-                <Doughnut data={localSuppliersChartData} />
-              </div>
-            </Card>
-          </Flex>
-          <Flex
-            className="Flex-2"
-            style={{
-              alignItems: "center",
-              // justifyContent: "center",
-              width: "70%",
-              // height: "100%",
-              // marginTop: 0,
-              // height: "100%",
-              // maxWidth: "1000px",
-              // padding: "20px 15px",
-              flexDirection: "column",
-              // border: "1px solid blue",
-            }}
-          >
+          <Col span={8} className="Flex-1">
+            <Row gutter={[8, 8]}>
+              <Col span={24}>
+                <Card
+                  title="Local Employment"
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "1.25rem",
+                  }}
+                  bodyStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "85%",
+                    }}
+                  >
+                    <Doughnut data={localEmploymentChartData} />
+                  </div>
+                </Card>
+              </Col>
+              <Col span={24}>
+                <Card
+                  title="% of Local Suppliers"
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "1.25rem",
+                  }}
+                  bodyStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "85%",
+                    }}
+                  >
+                    <Doughnut data={localSuppliersChartData} />
+                  </div>
+                </Card>
+              </Col>
+            </Row>
+          </Col>
+          <Col span={16} className="Flex-2">
             <Card
               title="Community Investment"
               style={{
-                // display: "flex",
-                // justifyContent: "center",
-                // alignItems: "center",
-                // height: "200px",
-                // height: "100%",
+                height: "100%",
                 width: "100%",
-                // padding: "24px",
-                // padding: "auto",
                 borderRadius: "1.25rem",
-                // margin: "auto",
-                // alignItems: "center",
-                // justifyContent: "center",
               }}
               bodyStyle={{
-                // height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
+                height: "90%",
               }}
             >
               <div style={{ alignSelf: "end" }}>
@@ -267,35 +211,26 @@ const SocialActivities = () => {
                   titleLevel={1}
                 ></Stat>
               </div>
-              {/* <Line
-                data={communityInvestmentChartData}
-                options={lineChartOptions}
-              /> */}
               <div
                 style={{
-                  position: "relative",
+                  alignItems: "center",
+                  justifyContent: "center",
                   width: "100%",
-                  paddingBottom: "80%",
+                  height: "100%",
                 }}
               >
-                <div
+                <Line
+                  data={communityInvestmentChartData}
+                  options={lineChartOptions}
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
                     width: "100%",
                     height: "100%",
                   }}
-                >
-                  <Line
-                    data={communityInvestmentChartData}
-                    options={lineChartOptions}
-                  />
-                </div>
+                />
               </div>
             </Card>
-          </Flex>
-        </Flex>
+          </Col>
+        </Row>
       </Layout>
     </MainLayout>
   );

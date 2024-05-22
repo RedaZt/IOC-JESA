@@ -16,10 +16,12 @@ import {
   // Title,
   Tooltip,
   Legend,
+  Ticks,
 } from "chart.js";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
 import AICard from "../components/common/AICard";
+import Loader from "../components/common/Loader";
 
 ChartJS.register(
   ArcElement,
@@ -34,44 +36,18 @@ ChartJS.register(
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 
-// const carbonFootprintChartData = {
-//   labels: ["Mine & Treatment", "MPH", "SPH - PSA"],
-//   datasets: [
-//     {
-//       label: "% of Carbon Footprint",
-//       data: [21, 39, 40],
-//       backgroundColor: [
-//         "rgba(54, 162, 235, 0.2)",
-//         "rgba(255, 206, 86, 0.2)",
-//         "rgba(75, 192, 192, 0.2)",
-//       ],
-//       borderColor: [
-//         "rgba(54, 162, 235, 1)",
-//         "rgba(255, 206, 86, 1)",
-//         "rgba(75, 192, 192, 1)",
-//       ],
-//       borderWidth: 1,
-//     },
-//   ],
-// };
-
-// const lineChartLabels = [
-//   "January",
-//   "February",
-//   "March",
-//   "April",
-//   "May",
-//   "June",
-//   "July",
-//   "",
-// ];
 const lineChartOptions = {
   responsive: true,
   scales: {
     //   // to remove the labels
-    //   x: {
-    //     display: false,
-    //   },
+    x: {
+      // display: false,
+      ticks: {
+        font: {
+          size: 10,
+        },
+      },
+    },
     //   // to remove the y-axis labels
     //   y: {
     //     display: false,
@@ -85,6 +61,13 @@ const lineChartOptions = {
     legend: {
       position: "top",
       display: false,
+      legend: {
+        labels: {
+          font: {
+            size: 5,
+          },
+        },
+      },
     },
     // title: {
     //   display: true,
@@ -92,17 +75,6 @@ const lineChartOptions = {
     // },
   },
 };
-// const lineChartData = {
-//   labels: lineChartLabels,
-//   datasets: [
-//     {
-//       label: "Dataset 1",
-//       data: [600, 550, 580, 700, 720, 600, 570],
-//       borderColor: "rgb(255, 99, 132)",
-//       backgroundColor: "rgba(255, 99, 132, 0.5)",
-//     },
-//   ],
-// };
 
 function getSustainabilityData(hostEmail, callback) {
   return fetch("http://localhost:8000/sustainability").then((response) => {
@@ -139,6 +111,7 @@ const Sustainability = () => {
 
   useEffect(() => {
     // Fetch sustainability data
+    setSustainabilityData(null);
     const interval = setInterval(() => {
       // fetch("http://localhost:8000/sustainability")
       //   .then((response) => response.json())
@@ -167,7 +140,7 @@ const Sustainability = () => {
       fetchData();
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [selectedView]);
   // console.log(sustainabilityData);
 
   return (
@@ -187,86 +160,78 @@ const Sustainability = () => {
         }}
       >
         {sustainabilityData ? (
-          <Flex
+          <Row
+            gutter={[8, 8]}
             className="bento-box"
             style={{
-              flexDirection: "column",
               width: "100%",
               maxWidth: "1800px",
             }}
           >
-            <Row>
-              {titles.map((item, index) => {
-                return (
-                  <Col
-                    // xs={24}
-                    // sm={24}
-                    lg={24}
-                    xl={12}
-                    // xl={4}
-                    key={`col-${index + 1}`}
-                  >
-                    <Card
-                      title={`${item.title} ${item.unit}`}
-                      style={{
-                        // justifyContent: "center",
-                        height: "100%",
-                        // maxHeight: "700px",
-                        width: "100%",
-                        boxSizing: "border-box",
-                        // padding: "auto",
-                        borderRadius: "1.25rem",
-                        // margin: "auto",
-                        // alignItems: "center",
-                        // justifyContent: "center",
-                      }}
-                      bodyStyle={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
+            <Col span={[24]}>
+              <Row gutter={[8, 8]}>
+                {titles.map((item, index) => {
+                  return (
+                    <Col
+                      // xs={24}
+                      // sm={24}
+                      lg={24}
+                      xl={12}
+                      // xl={4}
+                      key={`col-${index + 1}`}
                     >
-                      {/* <div style={{ height: "40%", marginBottom: 20 }}>
+                      <Card
+                        title={`${item.title} ${item.unit}`}
+                        style={{
+                          // justifyContent: "center",
+                          height: "100%",
+                          // maxHeight: "700px",
+                          width: "100%",
+                          boxSizing: "border-box",
+                          // padding: "auto",
+                          borderRadius: "1.25rem",
+                          // margin: "auto",
+                          // alignItems: "center",
+                          // justifyContent: "center",
+                        }}
+                        bodyStyle={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {/* TODO: add usage for each child to populate the doughnut chart */}
+                        {/* <div style={{ height: "40%", marginBottom: 20 }}>
                         <Doughnut
                           data={sustainabilityData.sustainabilityData}
                         />
                       </div> */}
-                      <Flex
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Line
-                          options={lineChartOptions}
-                          data={sustainabilityData[item.title]}
-                          style={{ height: "100%", width: "100%" }}
-                        />
-                      </Flex>
-                    </Card>
-                  </Col>
-                );
-              })}
-            </Row>
-            <Flex>
+                        <Flex
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Line
+                            options={lineChartOptions}
+                            data={sustainabilityData[item.title]}
+                            style={{ height: "100%", width: "100%" }}
+                          />
+                        </Flex>
+                      </Card>
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Col>
+            <Col span={[24]}>
               <AICard />
-            </Flex>
-          </Flex>
+            </Col>
+          </Row>
         ) : (
-          <Flex
-            style={{
-              flexDirection: "column",
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100%",
-              maxWidth: "1800px",
-            }}
-          >
-            <Spin />
-          </Flex>
+          <Loader />
         )}
       </Layout>
     </MainLayout>

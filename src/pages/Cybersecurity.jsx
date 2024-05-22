@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { StatCard1 } from "../components/StatCard";
-import { theme, Flex, Layout, Card, List, Statistic, Tag, Space } from "antd";
+import {
+  theme,
+  Flex,
+  Layout,
+  Card,
+  List,
+  Statistic,
+  Tag,
+  Space,
+  Row,
+  Col,
+} from "antd";
 import { Typography } from "antd";
 // import { Pie } from "react-chartjs-2";
 import SideBar from "../components/layouts/SideBar";
@@ -25,6 +36,13 @@ import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
 import AICard from "../components/common/AICard";
 import "../css/pages/PageStyle.css";
+import AreaChartCard from "../components/pages/Cybersecurity/AreaChartCard";
+import PieChartCard from "../components/pages/Cybersecurity/PieChartCard";
+import CriticalEventsCard from "../components/pages/Cybersecurity/CriticalEventsCard";
+import UniqueVulnerabilitiesCard from "../components/pages/Cybersecurity/UniqueVulnerabilitiesCard";
+import TopVulnerabilitiesCard from "../components/pages/Cybersecurity/TopVulnerabilitiesCard";
+import AccountActivityCard from "../components/pages/Cybersecurity/AccountActivityCard";
+import RadarChartCard from "../components/pages/Cybersecurity/RadarChartCard";
 
 ChartJS.register(
   ArcElement,
@@ -114,52 +132,6 @@ const softwarePercentageData = {
     },
   ],
 };
-const areaChartOptions = {
-  // maintainAspectRatio: false,
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "bottom",
-      labels: {
-        boxWidth: 20, // Adjust the width as needed
-      },
-    },
-    // title: {
-    //   display: true,
-    //   text: 'Chart.js Line Chart',
-    // },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
-};
-const pieChartOptions = {
-  // maintainAspectRatio: false,
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-      labels: {
-        boxWidth: 20,
-        font: {
-          size: 12,
-        },
-        // fontSize: "5px",
-      },
-    },
-    // title: {
-    //   display: true,
-    //   text: 'Chart.js Line Chart',
-    // },
-  },
-  // scales: {
-  //   y: {
-  //     beginAtZero: true,
-  //   },
-  // },
-};
 const histogramData = {
   labels: [...Array(15)].map((item) => ""),
   datasets: [
@@ -221,33 +193,6 @@ const activityData = {
     },
   ],
 };
-const vulnerabilitiesCountData = [
-  {
-    label: "Critical",
-    value: 0,
-    color: "red",
-  },
-  {
-    label: "High",
-    value: 3,
-    color: "orange",
-  },
-  {
-    label: "Medium",
-    value: 10,
-    color: "gold",
-  },
-  {
-    label: "Low",
-    value: 15,
-    color: "green",
-  },
-  {
-    label: "Total",
-    value: 28,
-    color: "blue",
-  },
-];
 
 const Cybersecurity = () => {
   const {
@@ -260,472 +205,130 @@ const Cybersecurity = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          // justifyContent: "center",
           width: "100%",
           height: "100%",
           padding: "10px 16px",
           paddingTop: 0,
         }}
       >
-        <Flex
+        <Row
+          gutter={[8, 8]}
           className="content"
           style={{
             width: "100%",
             maxWidth: "1800px",
           }}
         >
-          <Flex
-            className="flex-1"
-            style={{
-              width: "75%",
-              display: "flex",
-              flexDirection: "column",
-              // border: "1px solid green",
-            }}
-          >
-            <Flex
-              className="flex-1-1"
-              style={{
-                // alignItems: "center",
-                // justifyContent: "center",
-                width: "100%",
-                // height: "100%",
-                // maxHeight: "700px",
-                display: "flex",
-                // border: "1px solid blue",
-              }}
-            >
-              <Card
-                title={
-                  <div style={{ width: "100%", textWrap: "wrap" }}>
-                    Events Histogram
-                  </div>
-                }
-                style={{
-                  justifyContent: "center",
-                  // height: "500px",
-                  // height: "500px",
-                  width: "100%",
-                  borderRadius: "1.25rem",
-                }}
-                headStyle={{ height: "fit-content", padding: "10px 24px" }}
-                bodyStyle={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Line options={areaChartOptions} data={histogramData} />
-              </Card>
-            </Flex>
-            <Flex
-              className="flex-1-2"
-              style={{
-                // alignItems: "center",
-                // justifyContent: "center",
-                width: "100%",
-                // height: "100%",
-                display: "flex",
-                // border: "1px solid red",
-              }}
-            >
-              <Card
-                title={
-                  <div style={{ width: "100%", textWrap: "wrap" }}>
-                    Unique Vulnerabilities Distribution By Severity
-                  </div>
-                }
-                style={{
-                  justifyContent: "center",
-                  width: "25%",
-                  borderRadius: "1.25rem",
-                }}
-                headStyle={{ height: "fit-content", padding: "10px 24px" }}
-                bodyStyle={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ width: "85%" }}>
-                  <Pie
-                    options={pieChartOptions}
-                    data={{
-                      ...vulnerabilitiesData,
-                      datasets: [
-                        {
-                          ...vulnerabilitiesData.datasets[0],
-                          data: vulnerabilitiesData.datasets[0].data.map(
-                            (item) => {
-                              return Math.round(
-                                (item /
-                                  vulnerabilitiesData.datasets[0].data.reduce(
-                                    (partialSum, a) => partialSum + a,
-                                    0
-                                  )) *
-                                  100
-                              );
-                            }
-                          ),
-                        },
-                      ],
-                    }}
-                  />
-                </div>
-              </Card>
-              <Card
-                title={
-                  <div style={{ width: "100%", textWrap: "wrap" }}>
-                    Non-unique Vulnerabilities Distribution By Severity
-                  </div>
-                }
-                style={{
-                  justifyContent: "center",
-                  width: "25%",
-                  borderRadius: "1.25rem",
-                }}
-                headStyle={{ height: "fit-content", padding: "10px 24px" }}
-                bodyStyle={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ width: "85%" }}>
-                  <Pie
-                    options={pieChartOptions}
-                    data={{
-                      ...vulnerabilitiesData,
-                      datasets: [
-                        {
-                          ...vulnerabilitiesData.datasets[0],
-                          data: vulnerabilitiesData.datasets[0].data.map(
-                            (item) => {
-                              return Math.round(
-                                (item /
-                                  vulnerabilitiesData.datasets[0].data.reduce(
-                                    (partialSum, a) => partialSum + a,
-                                    0
-                                  )) *
-                                  100
-                              );
-                            }
-                          ),
-                        },
-                      ],
-                    }}
-                  />
-                </div>
-              </Card>
-              <Card
-                title={
-                  <div style={{ width: "100%", textWrap: "wrap" }}>
-                    Safety Level According to IEC-62443
-                  </div>
-                }
-                style={{
-                  justifyContent: "center",
-                  width: "25%",
-                  borderRadius: "1.25rem",
-                }}
-                headStyle={{ height: "fit-content", padding: "10px 24px" }}
-                bodyStyle={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ width: "85%" }}>
-                  <Pie options={pieChartOptions} data={securityLevelData} />
-                </div>
-              </Card>
-              <Card
-                title={
-                  <div style={{ width: "100%", textWrap: "wrap" }}>
-                    Percentage of Reliable Softwares
-                  </div>
-                }
-                style={{
-                  justifyContent: "center",
-                  width: "25%",
-                  borderRadius: "1.25rem",
-                }}
-                headStyle={{ height: "fit-content", padding: "10px 24px" }}
-                bodyStyle={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ width: "85%" }}>
-                  <Pie
-                    options={pieChartOptions}
-                    data={softwarePercentageData}
-                  />
-                </div>
-              </Card>
-            </Flex>
-            <Flex
-              className="flex-1-3"
-              style={{
-                // alignItems: "center",
-                // justifyContent: "center",
-                width: "100%",
-                // height: "100%",
-                // maxHeight: "700px",
-                display: "flex",
-                // border: "1px solid blue",
-              }}
-            >
-              <Card
-                title={
-                  <div style={{ width: "100%", textWrap: "wrap" }}>
-                    Traffic Analysis by Time and IPs
-                  </div>
-                }
-                style={{
-                  justifyContent: "center",
-                  // height: "500px",
-                  // height: "500px",
-                  width: "100%",
-                  borderRadius: "1.25rem",
-                }}
-                headStyle={{ height: "fit-content", padding: "10px 24px" }}
-                bodyStyle={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Line options={areaChartOptions} data={activityData} />
-              </Card>
-            </Flex>
-            <Flex>
-              <AICard />
-            </Flex>
-          </Flex>
-          <Flex
-            className="flex-2"
-            style={{
-              width: "25%",
-              display: "flex",
-              flexDirection: "column",
-              // border: "1px solid green",
-            }}
-          >
-            <Card
-              title={
-                <div style={{ width: "100%", textWrap: "wrap" }}>
-                  Critical Events Count
-                </div>
-              }
-              style={{
-                justifyContent: "center",
-                // height: "500px",
-                // height: "500px",
-                width: "100%",
-                borderRadius: "1.25rem",
-              }}
-              headStyle={{ height: "fit-content", padding: "10px 24px" }}
-              bodyStyle={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div style={{ width: "fit-content" }}>
-                <Stat
-                  // StatIcon={CheckCircleOutlined}
-                  statText={15}
-                  // statSuffix={"%"}
-                  statValue={4}
-                  arrow={"down"}
-                  titleLevel={1}
-                  // arrowColor={"red"}
+          <Col span={18}>
+            <Row gutter={[8, 8]}>
+              <Col span={24}>
+                <AreaChartCard
+                  title={"Events Histogram"}
+                  data={histogramData}
                 />
-              </div>
-            </Card>
-            <List
-              header={<h3>Unique Vulnerabilities</h3>}
-              // footer={<div>Footer</div>}
-              bordered
-              dataSource={vulnerabilitiesCountData}
-              renderItem={(item) => (
-                <List.Item>
-                  {/* <Statistic title={item.label} value={item.value} /> */}
-                  <Tag
-                    color={item.color}
-                    style={{
-                      display: "flex",
-                      padding: "10px 20px",
-                      width: "100%",
-                    }}
-                  >
-                    <Flex
-                      style={{
-                        width: "100%",
-                        alignItems: "center",
-                        justifyContent: "space-between",
+              </Col>
+              <Col span={24}>
+                <Row gutter={[8, 8]}>
+                  <Col span={6}>
+                    <PieChartCard
+                      title={"Unique Vulnerabilities Distribution By Severity"}
+                      data={{
+                        ...vulnerabilitiesData,
+                        datasets: [
+                          {
+                            ...vulnerabilitiesData.datasets[0],
+                            data: vulnerabilitiesData.datasets[0].data.map(
+                              (item) => {
+                                return Math.round(
+                                  (item /
+                                    vulnerabilitiesData.datasets[0].data.reduce(
+                                      (partialSum, a) => partialSum + a,
+                                      0
+                                    )) *
+                                    100
+                                );
+                              }
+                            ),
+                          },
+                        ],
                       }}
-                    >
-                      <h2>{item.label}</h2>
-                      <h2>{item.value}</h2>
-                    </Flex>
-                  </Tag>
-                </List.Item>
-              )}
-              style={{
-                background: colorBgContainer,
-                border: "1px solid #f0f0f0",
-                borderRadius: "1.25rem",
-              }}
-            />
-            <List
-              header={<h3>Top 10 Vulnerabilities</h3>}
-              // footer={<div>Footer</div>}
-              bordered
-              dataSource={[
-                "CVE-2019-0809",
-                "CVE-2018-0599",
-                "CVE-2014-0789",
-                "CVE-2021-42809",
-                "CVE-2021-42808",
-                "CVE-2019-13537",
-                "CVE-2013-2796",
-                "CVE-2011-3330",
-                "CVE-2019-6833",
-                "CVE-2022-45788",
-              ]}
-              renderItem={(item, index) => (
-                <List.Item>
-                  {/* <Statistic title="Active Users" value={item} /> */}
-                  <div>
-                    {index + 1} - {item}
-                  </div>
-                </List.Item>
-              )}
-              style={{
-                background: colorBgContainer,
-                border: "1px solid #f0f0f0",
-                borderRadius: "1.25rem",
-              }}
-            />
-            <List
-              header={<h3>Account Management Activity</h3>}
-              // footer={<div>Footer</div>}
-              bordered
-              dataSource={[
-                {
-                  label: "Request",
-                  value: 50,
-                },
-                {
-                  label: "Online",
-                  value: 200,
-                },
-                {
-                  label: "Offline",
-                  value: 150,
-                },
-                {
-                  label: "Enabled",
-                  value: 350,
-                },
-                {
-                  label: "Disabled",
-                  value: 50,
-                },
-                {
-                  label: "Locked",
-                  value: 25,
-                },
-                {
-                  label: "Unlocked",
-                  value: 12,
-                },
-                {
-                  label: "Created",
-                  value: 550,
-                },
-                {
-                  label: "Deleted",
-                  value: 50,
-                },
-              ]}
-              renderItem={(item) => (
-                <List.Item>
-                  <Flex
-                    style={{
-                      width: "100%",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>{item.label}</div>
-                    <div>{item.value}</div>
-                  </Flex>
-                </List.Item>
-              )}
-              style={{
-                background: colorBgContainer,
-                border: "1px solid #f0f0f0",
-                borderRadius: "1.25rem",
-              }}
-            />
-            <Card
-              title={
-                <div style={{ width: "100%", textWrap: "wrap" }}>
-                  DNSSI Compliance
-                </div>
-              }
-              style={{
-                justifyContent: "center",
-                width: "100%",
-                borderRadius: "1.25rem",
-              }}
-              headStyle={{ height: "fit-content", padding: "10px 24px" }}
-              bodyStyle={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
-                  maxHeight: "300px",
-                }}
-              >
-                <Radar
-                  data={radarChartData}
-                  options={{
-                    plugins: {
-                      legend: {
-                        display: false, // Hide legend
-                      },
-                      tooltip: {
-                        enabled: false, // Disable tooltip
-                      },
-                    },
-                    scales: {
-                      r: {
-                        pointLabels: {
-                          display: false, // Hide labels on data points
-                        },
-                        // grid: {
-                        //   display: false, // Hide grid lines
-                        // },
-                      },
-                    },
-                  }}
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <PieChartCard
+                      title={
+                        "Non-unique Vulnerabilities Distribution By Severity"
+                      }
+                      data={{
+                        ...vulnerabilitiesData,
+                        datasets: [
+                          {
+                            ...vulnerabilitiesData.datasets[0],
+                            data: vulnerabilitiesData.datasets[0].data.map(
+                              (item) => {
+                                return Math.round(
+                                  (item /
+                                    vulnerabilitiesData.datasets[0].data.reduce(
+                                      (partialSum, a) => partialSum + a,
+                                      0
+                                    )) *
+                                    100
+                                );
+                              }
+                            ),
+                          },
+                        ],
+                      }}
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <PieChartCard
+                      title={"Safety Level According to IEC-62443"}
+                      data={securityLevelData}
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <PieChartCard
+                      title={"Percentage of Reliable Softwares"}
+                      data={softwarePercentageData}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+              <Col span={24}>
+                <AreaChartCard
+                  title={"Traffic Analysis by Time and IPs"}
+                  data={activityData}
                 />
-              </div>
-            </Card>
-          </Flex>
-        </Flex>
+              </Col>
+              <Col span={24}>
+                <AICard />
+              </Col>
+            </Row>
+          </Col>
+          <Col span={6}>
+            <Row gutter={[8, 8]}>
+              <Col span={24}>
+                <CriticalEventsCard />
+              </Col>
+              <Col span={24}>
+                <UniqueVulnerabilitiesCard />
+              </Col>
+              <Col span={24}>
+                <TopVulnerabilitiesCard />
+              </Col>
+              <Col span={24}>
+                <AccountActivityCard />
+              </Col>
+              <Col span={24}>
+                <RadarChartCard
+                  title={"DNSSI Compliance"}
+                  data={radarChartData}
+                />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </Layout>
     </MainLayout>
   );

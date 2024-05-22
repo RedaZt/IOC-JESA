@@ -29,6 +29,7 @@ import GraphCard from "../components/common/GraphCard";
 import OEE from "../components/pages/Production/OEE";
 import "../css/pages/PageStyle.css";
 import Loader from "../components/common/Loader";
+import InventoryCard from "../components/pages/Production/InventoryCard";
 
 ChartJS.register(
   BarElement,
@@ -41,62 +42,6 @@ ChartJS.register(
 
 const { Title } = Typography;
 const { Header, Sider, Content } = Layout;
-
-// Bar chart data
-const barChartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    // title: {
-    //   display: true,
-    //   text: "Chart.js Bar Chart",
-    // },
-  },
-  scales: {
-    // x: {
-    //   ticks: {
-    //     display: false, // Hide x-axis text
-    //   },
-    // },
-    y: {
-      ticks: {
-        display: false,
-      },
-    },
-  },
-};
-const barChartLabels = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-const barChartData = {
-  labels: barChartLabels,
-  datasets: [
-    {
-      label: "Product 1",
-      data: [200, 400, 900, 700, 800, 500, 500, 600, 200, 400, 900, 700],
-      backgroundColor: "rgba(75, 192, 192, 0.5)",
-    },
-    {
-      label: "Product 2",
-      data: [500, 400, 700, 700, 700, 650, 700, 700, 700, 700, 700, 650],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
 
 const Production = () => {
   const {
@@ -113,15 +58,8 @@ const Production = () => {
   useEffect(() => {
     setProductionData(null);
     const interval = setInterval(() => {
-      // fetch("http://localhost:8000/sustainability")
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //     setSustainabilityData(data);
-      //   });
       const url = "http://localhost:8000/categories";
       const queryParams = new URLSearchParams({ process: selectedView });
-      // const requestUrl = `${url}?${queryParams}`;
       const requestUrl = `${url}/Production?${queryParams}`;
       // console.log(requestUrl);
       async function fetchData() {
@@ -149,164 +87,94 @@ const Production = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          // justifyContent: "center",
           width: "100%",
           height: "100%",
-          // maxWidth: "1600px",
-          // padding: "20px 15px",
           padding: "10px 16px",
           paddingTop: 0,
         }}
       >
         {productionData ? (
-          <Flex
+          <Row
+            gutter={[8, 8]}
             style={{
-              flexDirection: "column",
+              // flexDirection: "column",
               width: "100%",
-              // height: "100%",
               maxWidth: "1800px",
             }}
           >
-            <Flex
-              // className="content-container"
-              style={{
-                alignItems: "center",
-                // justifyContent: "center",
-                width: "100%",
-                // height: "100%",
-                // marginTop: 0,
-                // height: "100%",
-                // maxWidth: "1000px",
-                // padding: "20px 15px",
-                // display: "flex",
-                // flexDirection: "column",
-                // border: "1px solid blue",
-              }}
-            >
-              <Row>
-                <Col lg={24} xl={10}>
-                  <Row>
-                    <Col span={24}>
-                      <Row>
-                        <Col span={12}>
-                          <Flex style={{ width: "100%", height: "100%" }}>
-                            <GraphCard
-                              title={"Product Quality"}
-                              data={productionData["Product Quality"]}
-                              unit={"%"}
-                            />
-                          </Flex>
-                        </Col>
-                        <Col span={12} style={{ width: "100%" }}>
-                          <Flex style={{ width: "100%", height: "100%" }}>
-                            <GraphCard
-                              title={"Labor Productivity"}
-                              data={productionData["Labor Productivity"]}
-                              unit={"%"}
-                            />
-                          </Flex>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col span={24}>
-                      <Row>
-                        <Col span={12} style={{ width: "100%" }}>
-                          <Flex style={{ width: "100%", height: "100%" }}>
-                            <GraphCard
-                              title={"Operating Cost/Ton"}
-                              data={productionData["Operating Cost/Ton"]}
-                              unit={"$"}
-                            />
-                          </Flex>
-                        </Col>
-                        <Col span={12} style={{ width: "100%" }}>
-                          <Flex style={{ width: "100%", height: "100%" }}>
-                            <GraphCard
-                              title={"Labor Productivity Cost"}
-                              data={productionData["Labor Productivity Cost"]}
-                              unit={"$"}
-                            />
-                          </Flex>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xs={24} sm={24} md={24} lg={24} xl={14}>
-                  <Flex
-                    key={"OEE-Card"}
-                    style={{
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: "100%",
-                      height: "100%",
-                      // marginTop: 0,
-                      // height: "100%",
-                      // maxWidth: "1000px",
-                      // padding: "20px 15px",
-                      display: "flex",
-                      // flexDirection: "column",
-                      // border: "1px solid purple",
-                    }}
-                  >
-                    <OEE data={productionData} />
-                  </Flex>
-                </Col>
-              </Row>
-            </Flex>
-            <Flex>
+            <Row gutter={[8, 8]}>
+              <Col lg={24} xl={10}>
+                <Row gutter={[8, 8]}>
+                  <Col span={24}>
+                    <Row gutter={[8, 8]}>
+                      <Col span={12}>
+                        <Flex style={{ width: "100%", height: "100%" }}>
+                          <GraphCard
+                            title={"Product Quality"}
+                            data={productionData["Product Quality"]}
+                            unit={"%"}
+                          />
+                        </Flex>
+                      </Col>
+                      <Col span={12} style={{ width: "100%" }}>
+                        <Flex style={{ width: "100%", height: "100%" }}>
+                          <GraphCard
+                            title={"Labor Productivity"}
+                            data={productionData["Labor Productivity"]}
+                            unit={"%"}
+                          />
+                        </Flex>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col span={24}>
+                    <Row gutter={[8, 8]}>
+                      <Col span={12} style={{ width: "100%" }}>
+                        <Flex style={{ width: "100%", height: "100%" }}>
+                          <GraphCard
+                            title={"Operating Cost/Ton"}
+                            data={productionData["Operating Cost/Ton"]}
+                            unit={"$"}
+                          />
+                        </Flex>
+                      </Col>
+                      <Col span={12} style={{ width: "100%" }}>
+                        <Flex style={{ width: "100%", height: "100%" }}>
+                          <GraphCard
+                            title={"Labor Productivity Cost"}
+                            data={productionData["Labor Productivity Cost"]}
+                            unit={"$"}
+                          />
+                        </Flex>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+              <Col xs={24} sm={24} md={24} lg={24} xl={14}>
+                <Flex
+                  key={"OEE-Card"}
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                  }}
+                >
+                  <OEE data={productionData} />
+                </Flex>
+              </Col>
+            </Row>
+            <Col span={24}>
               <AICard />
-            </Flex>
-            <Flex
-              key={"Inventory"}
-              style={{
-                alignItems: "center",
-                // justifyContent: "center",
-                width: "100%",
-                height: "100%",
-                // padding: "10px 16px",
-                // paddingTop: 0,
-                // marginTop: 0,
-                // height: "100%",
-                // maxWidth: "1000px",
-                // padding: "20px 15px",
-                display: "flex",
-                // flexDirection: "column",
-                // border: "1px solid blue",
-              }}
-            >
-              <Card
-                title="Inventory"
-                style={{
-                  justifyContent: "center",
-                  // height: "200px",
-                  // height: "100%",
-                  width: "100%",
-                  // padding: "auto",
-                  borderRadius: "1.25rem",
-                  // margin: "auto",
-                  // alignItems: "center",
-                  // justifyContent: "center",
-                }}
-              >
-                <div style={{ height: "300px" }}>
-                  <Bar options={barChartOptions} data={barChartData} />
-                </div>
-              </Card>
-            </Flex>
-          </Flex>
+            </Col>
+            <Col span={24}>
+              <InventoryCard />
+            </Col>
+          </Row>
         ) : (
-          <Flex
-            style={{
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100%",
-              maxWidth: "1800px",
-            }}
-          >
-            <Spin size="large" />
-          </Flex>
+          <Loader />
         )}
       </Layout>
     </MainLayout>

@@ -32,7 +32,7 @@ const lineChartOptions = {
     // to remove the y-axis labels
     y: {
       display: false,
-      beginAtZero: true,
+      // beginAtZero: true,
     },
   },
   plugins: {
