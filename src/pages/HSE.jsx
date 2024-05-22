@@ -19,6 +19,7 @@ import {
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
 import "../css/pages/PageStyle.css";
+import CCTV from "../components/common/CCTV";
 
 ChartJS.register(
   ArcElement,
@@ -458,46 +459,7 @@ const HSE = () => {
               // border: "1px solid red",
             }}
           >
-            <Card
-              title="CCTV-Footage"
-              style={{
-                // justifyContent: "center",
-                // height: "200px",
-                // height: "400px",
-                width: "100%",
-                // padding: "auto",
-                borderRadius: "1.25rem",
-                // margin: "auto",
-                // display: "flex",
-                // alignItems: "center",
-                // justifyContent: "center",
-              }}
-            >
-              {/* <img src="" alt="" /> */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "0.75rem",
-                }}
-              >
-                <img
-                  src="/img/CCTV.png"
-                  alt="CCTV-Footage"
-                  style={{
-                    // position: "absolute",
-                    maxWidth: "100%",
-                    // minHeight: "100%",
-                    // left: "0",
-                    // top: "0",
-                  }}
-                />
-              </div>
-            </Card>
+            <CCTV />
             <Card
               title="Site Manpower"
               style={{
@@ -523,14 +485,7 @@ const HSE = () => {
               title="Site Manhours"
               style={{
                 justifyContent: "center",
-                // height: "200px",
-                // height: "300px",
-                // height: "100%",
-                // width: "100%",
-                // padding: "auto",
                 borderRadius: "1.25rem",
-                // margin: "auto",
-                // display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}

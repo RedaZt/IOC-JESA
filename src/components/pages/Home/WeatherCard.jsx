@@ -20,6 +20,8 @@ import "../../../css/components/pages/Home/WeatherCard.css";
 // visualcrossing.com/weather/weather-data-services account: s.ara.hs.ag.ar.e.n.o@googlemail.com
 // visualcrossing.com/weather/weather-data-services account: p.ar.islowe.r.y1.86@gmail.com
 
+// git ls-files | xargs wc -l
+
 const { Search } = Input;
 
 const weatherConditions = {
@@ -186,16 +188,30 @@ function WeatherCard() {
             }}
           >
             <Row gutter={7} style={{ padding: "0 20px" }}>
-              {daysWeather.map((item, index) => (
-                <Col key={`day-${index + 1}`} span={6}>
+              <Flex
+                // span={24}
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  overflowX: "scroll",
+                  scrollbarWidth: "none",
+                }}
+              >
+                {daysWeather.map((item, index) => (
                   <Flex
+                    key={`forcast-${index}`}
                     style={{
+                      minWidth: 80,
+                      maxWidth: 80,
                       flexDirection: "column",
                       justifyContent: "center",
                       alignItems: "center",
                       padding: "10px 0px",
                       border: "2px solid #f0f0f0",
                       borderRadius: "1.25rem",
+                      marginLeft: index === 0 ? 0 : "5px",
+                      marginRight: index === daysWeather.length - 1 ? 0 : "5px",
                     }}
                   >
                     <h5>{`${item.datetime.split("-")[2]}-${
@@ -215,8 +231,8 @@ function WeatherCard() {
                       } °C`}
                     </h5>
                   </Flex>
-                </Col>
-              ))}
+                ))}
+              </Flex>
             </Row>
           </Col>
         </Row>

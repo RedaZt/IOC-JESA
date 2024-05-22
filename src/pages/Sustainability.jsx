@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { RootContext } from "../store";
 import { StatCard1 } from "../components/StatCard";
-import { theme, Flex, Layout, Card, Row, Col } from "antd";
+import { theme, Flex, Layout, Card, Row, Col, Spin } from "antd";
 import { Typography } from "antd";
 // import { Pie } from "react-chartjs-2";
 import SideBar from "../components/layouts/SideBar";
@@ -33,37 +34,37 @@ ChartJS.register(
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 
-const carbonFootprintChartData = {
-  labels: ["Mine & Treatment", "MPH", "SPH - PSA"],
-  datasets: [
-    {
-      label: "% of Carbon Footprint",
-      data: [21, 39, 40],
-      backgroundColor: [
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-      ],
-      borderColor: [
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
+// const carbonFootprintChartData = {
+//   labels: ["Mine & Treatment", "MPH", "SPH - PSA"],
+//   datasets: [
+//     {
+//       label: "% of Carbon Footprint",
+//       data: [21, 39, 40],
+//       backgroundColor: [
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//       ],
+//       borderWidth: 1,
+//     },
+//   ],
+// };
 
-const lineChartLabels = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "",
-];
+// const lineChartLabels = [
+//   "January",
+//   "February",
+//   "March",
+//   "April",
+//   "May",
+//   "June",
+//   "July",
+//   "",
+// ];
 const lineChartOptions = {
   responsive: true,
   scales: {
@@ -91,22 +92,84 @@ const lineChartOptions = {
     // },
   },
 };
-const lineChartData = {
-  labels: lineChartLabels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [600, 550, 580, 700, 720, 600, 570],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
+// const lineChartData = {
+//   labels: lineChartLabels,
+//   datasets: [
+//     {
+//       label: "Dataset 1",
+//       data: [600, 550, 580, 700, 720, 600, 570],
+//       borderColor: "rgb(255, 99, 132)",
+//       backgroundColor: "rgba(255, 99, 132, 0.5)",
+//     },
+//   ],
+// };
+
+function getSustainabilityData(hostEmail, callback) {
+  return fetch("http://localhost:8000/sustainability").then((response) => {
+    return response
+      .json()
+      .then((data) => {
+        // console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+}
+
+const titles = [
+  { title: "Carbon Footprint", unit: "(CO2-e)" },
+  { title: "Specific Electricity Consumption", unit: "(MHh)" },
+  { title: "Specific Water Consumption", unit: "(ML)" },
+  { title: "Specific Fuel Consumption", unit: "(ML)" },
+];
 
 const Sustainability = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const {
+    dashboard: { activeTab: selectedView },
+    dispatch,
+  } = useContext(RootContext);
+
+  const [sustainabilityData, setSustainabilityData] = useState(null);
+
+  useEffect(() => {
+    // Fetch sustainability data
+    const interval = setInterval(() => {
+      // fetch("http://localhost:8000/sustainability")
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     setSustainabilityData(data);
+      //   });
+      const url = "http://localhost:8000/categories";
+      const queryParams = new URLSearchParams({ process: selectedView });
+      // const requestUrl = `${url}?${queryParams}`;
+      const requestUrl = `${url}/Sustainability?${queryParams}`;
+      // console.log(requestUrl);
+      async function fetchData() {
+        try {
+          const response = await fetch(requestUrl);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          const data = await response.json();
+          setSustainabilityData(data);
+        } catch (error) {
+          console.error("Error fetching sustainability data:", error);
+        }
+      }
+
+      fetchData();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  // console.log(sustainabilityData);
+
   return (
     <MainLayout selectedMenuKey={"3"} style={{ alignItems: "center" }}>
       <Layout
@@ -123,190 +186,88 @@ const Sustainability = () => {
           paddingTop: 0,
         }}
       >
-        <Flex
-          className="bento-box"
-          style={{
-            flexDirection: "column",
-            width: "100%",
-            maxWidth: "1800px",
-          }}
-        >
-          <Row>
-            <Col
-              // xs={24}
-              // sm={24}
-              lg={24}
-              xl={12}
-              // xl={4}
-              key="col-1"
-            >
-              <Card
-                title="Carbon Footprint (CO2-e)"
-                style={{
-                  // justifyContent: "center",
-                  height: "100%",
-                  // maxHeight: "700px",
-                  width: "100%",
-                  boxSizing: "border-box",
-                  // padding: "auto",
-                  borderRadius: "1.25rem",
-                  // margin: "auto",
-                  // alignItems: "center",
-                  // justifyContent: "center",
-                }}
-                bodyStyle={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ height: "40%", marginBottom: 20 }}>
-                  <Doughnut data={carbonFootprintChartData} />
-                </div>
-                {/* <div style={{ height: "40%", width: "100%" }}> */}
-                <Line
-                  options={lineChartOptions}
-                  data={lineChartData}
-                  style={{ maxheight: "40%", maxwidth: "100%" }}
-                />
-                {/* </div> */}
-              </Card>
-            </Col>
-            <Col
-              // xs={24}
-              // sm={24}
-              // md={24}
-              lg={24}
-              xl={12}
-              // xl={4}
-              key="col-2"
-            >
-              <Card
-                title="Specific Electricity Consumption (MHh)"
-                style={{
-                  // justifyContent: "center",
-                  height: "100%",
-                  width: "100%",
-                  // maxHeight: "700px",
-                  // width: "50%",
-                  boxSizing: "border-box",
-                  // padding: "auto",
-                  borderRadius: "1.25rem",
-                  // margin: "auto",
-                  // alignItems: "center",
-                  // justifyContent: "center",
-                }}
-                bodyStyle={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ height: "40%", marginBottom: 20 }}>
-                  <Doughnut data={carbonFootprintChartData} />
-                </div>
-                {/* <div style={{ height: "40%", width: "100%" }}> */}
-                <Line
-                  options={lineChartOptions}
-                  data={lineChartData}
-                  style={{ maxheight: "40%", maxwidth: "100%" }}
-                />
-                {/* </div> */}
-              </Card>
-            </Col>
-            <Col
-              // xs={24}
-              // sm={24}
-              // md={24}
-              lg={24}
-              xl={12}
-              // xl={4}
-              key="col-3"
-            >
-              <Card
-                title="Specific Water Consumption (ML)"
-                style={{
-                  // justifyContent: "center",
-                  height: "100%",
-                  width: "100%",
-                  // maxHeight: "700px",
-                  // width: "50%",
-                  boxSizing: "border-box",
-                  // padding: "auto",
-                  borderRadius: "1.25rem",
-                  // margin: "auto",
-                  // alignItems: "center",
-                  // justifyContent: "center",
-                }}
-                bodyStyle={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ height: "40%", marginBottom: 20 }}>
-                  <Doughnut data={carbonFootprintChartData} />
-                </div>
-                {/* <div style={{ height: "40%", width: "100%" }}> */}
-                <Line
-                  options={lineChartOptions}
-                  data={lineChartData}
-                  style={{ maxheight: "40%", maxwidth: "100%" }}
-                />
-                {/* </div> */}
-              </Card>
-            </Col>
-            <Col
-              // xs={24}
-              // sm={24}
-              // md={24}
-              lg={24}
-              xl={12}
-              // xl={4}
-              key="col-4"
-            >
-              <Card
-                title="Specific Fuel Consumption (ML)"
-                style={{
-                  // justifyContent: "center",
-                  height: "100%",
-                  width: "100%",
-                  // maxHeight: "700px",
-                  // width: "50%",
-                  boxSizing: "border-box",
-                  // padding: "auto",
-                  borderRadius: "1.25rem",
-                  // margin: "auto",
-                  // alignItems: "center",
-                  // justifyContent: "center",
-                }}
-                bodyStyle={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ height: "40%", marginBottom: 20 }}>
-                  <Doughnut data={carbonFootprintChartData} />
-                </div>
-                {/* <div style={{ height: "40%", width: "100%" }}> */}
-                <Line
-                  options={lineChartOptions}
-                  data={lineChartData}
-                  style={{ maxheight: "40%", maxwidth: "100%" }}
-                />
-                {/* </div> */}
-              </Card>
-            </Col>
-          </Row>
-          <Flex>
-            <AICard />
+        {sustainabilityData ? (
+          <Flex
+            className="bento-box"
+            style={{
+              flexDirection: "column",
+              width: "100%",
+              maxWidth: "1800px",
+            }}
+          >
+            <Row>
+              {titles.map((item, index) => {
+                return (
+                  <Col
+                    // xs={24}
+                    // sm={24}
+                    lg={24}
+                    xl={12}
+                    // xl={4}
+                    key={`col-${index + 1}`}
+                  >
+                    <Card
+                      title={`${item.title} ${item.unit}`}
+                      style={{
+                        // justifyContent: "center",
+                        height: "100%",
+                        // maxHeight: "700px",
+                        width: "100%",
+                        boxSizing: "border-box",
+                        // padding: "auto",
+                        borderRadius: "1.25rem",
+                        // margin: "auto",
+                        // alignItems: "center",
+                        // justifyContent: "center",
+                      }}
+                      bodyStyle={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {/* <div style={{ height: "40%", marginBottom: 20 }}>
+                        <Doughnut
+                          data={sustainabilityData.sustainabilityData}
+                        />
+                      </div> */}
+                      <Flex
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Line
+                          options={lineChartOptions}
+                          data={sustainabilityData[item.title]}
+                          style={{ height: "100%", width: "100%" }}
+                        />
+                      </Flex>
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
+            <Flex>
+              <AICard />
+            </Flex>
           </Flex>
-        </Flex>
+        ) : (
+          <Flex
+            style={{
+              flexDirection: "column",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              maxWidth: "1800px",
+            }}
+          >
+            <Spin />
+          </Flex>
+        )}
       </Layout>
     </MainLayout>
   );

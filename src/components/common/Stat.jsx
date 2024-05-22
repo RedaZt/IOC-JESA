@@ -22,38 +22,40 @@ function Stat({
   return (
     <Row
       style={{
-        // justifyContent: "space-between",
+        justifyContent: "space-between",
         width: "100%",
       }}
     >
-      <Col
-        // xs={{ flex: "100%" }}
-        // sm={{ flex: "50%" }}
-        // md={{ flex: "40%" }}
-        // lg={{ flex: "20%" }}
-        // xl={{ flex: "10%" }}
-        // xs={24} sm={12} md={8} lg={6} xl={4}
-        style={{ marginRight: "auto", display: "flex" }}
-      >
-        {StatIcon && <StatIcon style={{ marginRight: "5px" }} />}
-        <Title
-          level={titleLevel}
-          style={{
-            margin: 0,
-            padding: 0,
-            marginRight: "10px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // color: collapsed ? "white" : "#1d3b7e",
-            // fontFamily: collapsed ? null : "myFont",
-            // fontSize: collapsed ? "13px" : "15px",
-          }}
+      {/* {statText ? <Space /> : null} */}
+      {statText && (
+        <Col
+          // xs={{ flex: "100%" }}
+          // sm={{ flex: "50%" }}
+          // md={{ flex: "40%" }}
+          // lg={{ flex: "20%" }}
+          // xl={{ flex: "10%" }}
+          // xs={24} sm={12} md={8} lg={6} xl={4}
+          style={{ display: "flex" }}
         >
-          {statText}
-        </Title>
-      </Col>
-      <Space />
+          {StatIcon && <StatIcon style={{ marginRight: "5px" }} />}
+          <Title
+            level={titleLevel}
+            style={{
+              margin: 0,
+              padding: 0,
+              // marginRight: "10px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              // color: collapsed ? "white" : "#1d3b7e",
+              // fontFamily: collapsed ? null : "myFont",
+              // fontSize: collapsed ? "13px" : "15px",
+            }}
+          >
+            {statText}
+          </Title>
+        </Col>
+      )}
       <Col
         // sm={{ flex: "100%" }}
         // md={{ flex: "50%" }}

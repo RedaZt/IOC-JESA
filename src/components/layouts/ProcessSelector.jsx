@@ -131,7 +131,7 @@ const treeData = [
         value: "3",
         children: [
           {
-            title: "SAPs",
+            title: "SAP",
             value: "3-1",
             children: [
               {
@@ -145,7 +145,7 @@ const treeData = [
             ],
           },
           {
-            title: "PAPs",
+            title: "PAP",
             value: "3-2",
             children: [
               {
@@ -167,7 +167,7 @@ const treeData = [
             value: "3-4",
           },
           {
-            title: "TSPs",
+            title: "TSP",
             value: "3-5",
             children: [
               {
@@ -256,12 +256,14 @@ function ProcessSelector({ collapsed, setCollapsed, onSearch }) {
     dispatch,
   } = useContext(RootContext);
 
-  const [value, setValue] = useState("General View");
+  const [tabValue, setTabValue] = useState("0");
   const onChange = (newValue, title) => {
-    console.log(newValue, title);
-    setValue(newValue);
-    dispatch(updateActiveTab(title[0]));
-    console.log(activeTab);
+    // console.log(newValue, title);
+    // console.log(typeof newValue, newValue);
+    setTabValue(newValue);
+    // dispatch(updateActiveTab(title[0]));
+    dispatch(updateActiveTab(newValue));
+    // console.log(activeTab);
   };
 
   const {
@@ -292,7 +294,7 @@ function ProcessSelector({ collapsed, setCollapsed, onSearch }) {
           width: "300px",
           font: "lightFont",
         }}
-        value={value}
+        value={tabValue}
         dropdownStyle={{
           maxHeight: 3000,
           // overflow: "auto",

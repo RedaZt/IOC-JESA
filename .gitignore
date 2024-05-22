@@ -1,4 +1,5 @@
 **/node_modules
 **/.env
 **/.vscode
-**/src/backend/venv
+**/src/backend/.venv
+**/src/backend/app/DataBaseUpdater.py

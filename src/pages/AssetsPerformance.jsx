@@ -352,7 +352,7 @@ const AssetsPerformance = () => {
             >
               <div
                 style={{
-                  height: "400px",
+                  height: "600px",
                   width: "100%",
                   borderRadius: "1rem",
                   overflow: "hidden",
@@ -362,7 +362,7 @@ const AssetsPerformance = () => {
                   // height={300}
                   borderRadius={"1.25rem"}
                   defaultCenter={[33.52493481489739, -7.637054622716135]}
-                  defaultZoom={15}
+                  defaultZoom={16}
                 >
                   <ZoomControl />
                   <Marker

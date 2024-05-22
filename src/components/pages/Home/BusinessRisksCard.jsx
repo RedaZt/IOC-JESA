@@ -51,7 +51,11 @@ const radarChartData = {
 function BusinessRisksCard() {
   return (
     <Card
-      title="Business Risks"
+      title={
+        <a href="/Cybersecurity" style={{ color: "black" }}>
+          Business Risks
+        </a>
+      }
       style={{
         justifyContent: "center",
         // height: "200px",
