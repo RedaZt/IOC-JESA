@@ -83,17 +83,15 @@ function AICard() {
           }}
           autoplay
         >
-          <div>
-            <h3 style={contentStyle}>1</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>2</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>3</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>4</h3>
+          <div style={{ height: "300px", width: "70%" }}>
+            <Card
+              type="inner"
+              title="Suggestion 1"
+              extra={<a href="#">More</a>}
+              style={{ height: "100%", width: "100%" }}
+            >
+              Suggestion 1
+            </Card>
           </div>
         </Carousel>
       </div>

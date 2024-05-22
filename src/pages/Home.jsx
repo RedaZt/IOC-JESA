@@ -42,6 +42,7 @@ import {
 import { Doughnut, Line, Radar, Bar } from "react-chartjs-2";
 import { getProductivityChartData } from "../data/data";
 import { getAssetsInfos } from "../data/data";
+import CCTV from "../components/common/CCTV";
 
 ChartJS.register(
   ArcElement,
@@ -67,11 +68,11 @@ const onChange = (currentSlide) => {
 };
 
 const totalOpportunityData = {
-  "General View": 92,
-  "Mine & Beneficiation": 93,
-  Corridors: 94,
-  MPH: 95,
-  "SPH - PSA": 96,
+  0: 92,
+  1: 93,
+  2: 94,
+  3: 95,
+  4: 96,
 };
 
 const lineChartOptions2 = {
@@ -281,9 +282,8 @@ const Home = () => {
                           }}
                         >
                           <Flex style={{ width: "100%" }}>
-                            <div
+                            <Flex
                               style={{
-                                display: "flex",
                                 maxHeight: "80px",
                                 width: "70%",
                               }}
@@ -293,9 +293,13 @@ const Home = () => {
                                 data={getProductivityChartData()}
                                 // style={{ width: "100%", height: "100px" }}
                               />
-                            </div>
+                            </Flex>
                             <Flex
-                              style={{ width: "30%", alignItems: "center" }}
+                              style={{
+                                width: "30%",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
                             >
                               <Stat
                                 statValue={-10.7}
@@ -305,9 +309,8 @@ const Home = () => {
                             </Flex>
                           </Flex>
                           <Flex style={{ width: "100%" }}>
-                            <div
+                            <Flex
                               style={{
-                                display: "flex",
                                 maxHeight: "80px",
                                 width: "70%",
                               }}
@@ -317,7 +320,7 @@ const Home = () => {
                                 data={getProductivityChartData()}
                                 // style={{ width: "100%", height: "100px" }}
                               />
-                            </div>
+                            </Flex>
                             <Flex
                               style={{ width: "30%", alignItems: "center" }}
                             >
@@ -339,20 +342,56 @@ const Home = () => {
                             alignItems: "center",
                           }}
                         >
-                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
-                            <Line
-                              options={lineChartOptions2}
-                              data={getProductivityChartData()}
-                              // style={{ width: "100%", height: "100px" }}
-                            />
-                          </div>
-                          <div style={{ maxHeight: "80px", maxWidth: "250px" }}>
-                            <Line
-                              options={lineChartOptions2}
-                              data={getProductivityChartData()}
-                              // style={{ width: "100%", height: "100px" }}
-                            />
-                          </div>
+                          <Flex style={{ width: "100%" }}>
+                            <Flex
+                              style={{
+                                maxHeight: "80px",
+                                width: "70%",
+                              }}
+                            >
+                              <Line
+                                options={lineChartOptions2}
+                                data={getProductivityChartData()}
+                                // style={{ width: "100%", height: "100px" }}
+                              />
+                            </Flex>
+                            <Flex
+                              style={{
+                                width: "30%",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Stat
+                                statValue={-10.7}
+                                arrow={"down"}
+                                arrowColor={"red"}
+                              />
+                            </Flex>
+                          </Flex>
+                          <Flex style={{ width: "100%" }}>
+                            <Flex
+                              style={{
+                                maxHeight: "80px",
+                                width: "70%",
+                              }}
+                            >
+                              <Line
+                                options={lineChartOptions2}
+                                data={getProductivityChartData()}
+                                // style={{ width: "100%", height: "100px" }}
+                              />
+                            </Flex>
+                            <Flex
+                              style={{ width: "30%", alignItems: "center" }}
+                            >
+                              <Stat
+                                statValue={-4.7}
+                                arrow={"down"}
+                                arrowColor={"red"}
+                              />
+                            </Flex>
+                          </Flex>
                         </Col>
                       </Row>
                     </Col>
@@ -419,39 +458,7 @@ const Home = () => {
             }}
           >
             <TimeCard />
-            <Card
-              title="CCTV-Footage"
-              style={{
-                width: "100%",
-                borderRadius: "1.25rem",
-              }}
-              bodyStyle={{
-                padding: 15,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "0.75rem",
-                }}
-              >
-                <img
-                  src="/img/CCTV.png"
-                  alt="CCTV-Footage"
-                  style={{
-                    maxWidth: "100%",
-                  }}
-                />
-              </div>
-            </Card>
+            <CCTV />
             <IntegratedOperationsCard />
             <AssetsPerformanceCard />
           </div>

@@ -3,7 +3,8 @@ import { dashboardActionTypes } from "./actions/dashboard";
 
 export const initialState = {
   dashboard: {
-    activeTab: "General View",
+    // activeTab: "General View",
+    activeTab: "0",
   },
 };
 

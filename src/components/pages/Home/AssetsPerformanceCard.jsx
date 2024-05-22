@@ -33,7 +33,11 @@ function AssetsPerformanceCard() {
   const { OAE, OAA } = getAssetsInfos();
   return (
     <Card
-      title="Assets Performance"
+      title={
+        <a href="/Assets-Performance" style={{ color: "black" }}>
+          Assets Performance
+        </a>
+      }
       style={{
         justifyContent: "center",
         // height: "fit-content",

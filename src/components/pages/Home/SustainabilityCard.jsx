@@ -102,7 +102,11 @@ function SustainabilityCard() {
 
   return (
     <Card
-      title="Sustainability"
+      title={
+        <a href="/Sustainability" style={{ color: "black" }}>
+          Sustainability
+        </a>
+      }
       style={{
         justifyContent: "center",
         height: "100%",

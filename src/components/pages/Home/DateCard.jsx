@@ -20,6 +20,7 @@ function TimeCard() {
 
   const [currTime, setCurrTime] = useState({
     day: date.getDay(),
+    weekday: date.toLocaleString("en-us", { weekday: "long" }),
     month: date.toLocaleString("default", { month: "short" }),
     year: date.getFullYear(),
     time: date.toLocaleTimeString([], {
@@ -35,6 +36,7 @@ function TimeCard() {
       const currDate = new Date();
       setCurrTime({
         day: currDate.getDay(),
+        weekday: currDate.toLocaleString("en-us", { weekday: "long" }),
         month: currDate.toLocaleString("default", { month: "short" }),
         year: currDate.getFullYear(),
         time: currDate.toLocaleTimeString([], {
@@ -69,15 +71,17 @@ function TimeCard() {
       }}
     >
       <Flex style={{ flexDirection: "column" }}>
-        <h1 style={{ marginBottom: -15 }}>{zeroPad(currTime.day, 2)}</h1>
-        <h1>{currTime.month}</h1>
+        <Flex>
+          <h1 style={{ marginBottom: -15, marginRight: 5 }}>
+            {zeroPad(currTime.day, 2)}
+          </h1>
+          <h1>{currTime.month}</h1>
+        </Flex>
+        {/* <h1>{currTime.weekday}</h1> */}
       </Flex>
       <Divider type="vertical" style={{ height: "70px" }} />
       <Flex style={{ flexDirection: "column" }}>
-        <h1 style={{ fontWeight: 200, marginBottom: -15 }}>
-          {currTime.time.split(" ")[0]}
-        </h1>
-        <h1 style={{ fontWeight: 200 }}>{currTime.time.split(" ")[1]}</h1>
+        <h1 style={{ fontWeight: 800 }}>{currTime.time}</h1>
       </Flex>
     </Card>
   );
