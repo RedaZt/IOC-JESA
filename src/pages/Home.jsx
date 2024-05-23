@@ -136,332 +136,336 @@ const Home = () => {
           paddingTop: 0,
         }}
       >
-        <Flex
-          className="content"
-          style={{
-            width: "100%",
-            maxWidth: "1800px",
-          }}
-        >
-          <div
-            className="flex-1"
-            style={{
-              height: "100%",
-              width: "75%",
-              display: "flex",
-              flexDirection: "column",
-            }}
+        <Flex style={{ width: "100%", maxWidth: "1800px" }}>
+          <Row
+            gutter={[8, 8]}
+            className="content"
+            // style={{
+            //   maxWidth: "1800px",
+            // }}
           >
-            <div
-              className="flex-1-1"
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              <div style={{ width: "25%" }}>
-                <OpportunityCard />
-              </div>
-              <div style={{ width: "50%" }}>
-                <SustainabilityCard />
-              </div>
-              <div style={{ width: "25%" }}>
-                <BusinessRisksCard />
-              </div>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Card
-                title="Process"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "1.25rem",
-                }}
-              >
-                <Card
-                  style={{
-                    height: "fit-content",
-                    borderRadius: "1.25rem",
-                    marginBottom: 10,
-                  }}
-                >
-                  <Row
+            <Col span={18}>
+              <Row gutter={[8, 8]}>
+                <Col span={24}>
+                  <Row gutter={[8, 8]}>
+                    <Col span={6}>
+                      <OpportunityCard />
+                    </Col>
+                    <Col span={12}>
+                      <SustainabilityCard />
+                    </Col>
+                    <Col span={6}>
+                      <BusinessRisksCard />
+                    </Col>
+                  </Row>
+                </Col>
+                <Col span={24}>
+                  {/* <div
                     style={{
                       width: "100%",
                       display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-evenly",
-                      // height: "200px",
+                      flexDirection: "column",
                     }}
-                  >
-                    <Col xl={24} xxl={12} style={{ padding: "10px" }}>
-                      <Row
+                  > */}
+                  <Row gutter={[8, 8]}>
+                    <Col span={24}>
+                      <Card
+                        title="Process"
                         style={{
-                          // display: "flex",
-                          // width: "100%",
-                          alignItems: "center",
-                          justifyContent: "space-evenly",
-                          // height: "200px",
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "1.25rem",
                         }}
                       >
-                        <Col
-                          lg={24}
-                          xl={12}
+                        <Card
                           style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            height: "fit-content",
+                            borderRadius: "1.25rem",
+                            marginBottom: 10,
                           }}
                         >
-                          <Progress
-                            key="total-opportunity"
-                            type="dashboard"
-                            strokeColor="#1b3a71"
-                            percent={totalOpportunityData[selectedView]}
-                            gapDegree={50}
-                            success={{ percent: null }}
-                          />
-                          <h3>Total Opportunity</h3>
-                        </Col>
-                        <Col
-                          lg={24}
-                          xl={12}
+                          <Row
+                            style={{
+                              width: "100%",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-evenly",
+                            }}
+                          >
+                            <Col xl={24} xxl={12} style={{ padding: "10px" }}>
+                              <Row
+                                style={{
+                                  alignItems: "center",
+                                  justifyContent: "space-evenly",
+                                }}
+                              >
+                                <Col
+                                  lg={24}
+                                  xl={12}
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Progress
+                                    key="total-opportunity"
+                                    type="dashboard"
+                                    strokeColor="#1b3a71"
+                                    percent={totalOpportunityData[selectedView]}
+                                    gapDegree={50}
+                                    success={{ percent: null }}
+                                  />
+                                  <h3>Total Opportunity</h3>
+                                </Col>
+                                <Col
+                                  lg={24}
+                                  xl={12}
+                                  style={{
+                                    display: "flex",
+                                    height: "100%",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Stat
+                                    statText={"Loss vs APC Target"}
+                                    statValue={7.6}
+                                    statSuffix={"%"}
+                                    arrow={"down"}
+                                    arrowColor={"red"}
+                                  />
+                                  <Stat
+                                    statText={"% APC Run Time"}
+                                    statValue={95}
+                                    statSuffix={"%"}
+                                  />
+                                  <Stat
+                                    statText={"% Loss vs APC Target"}
+                                    statValue={21}
+                                    statSuffix={"%"}
+                                    arrow={"down"}
+                                    arrowColor={"red"}
+                                  />
+                                  <Stat
+                                    statText={"% Emissions Limit"}
+                                    statValue={94}
+                                    statSuffix={"%"}
+                                  />
+                                </Col>
+                              </Row>
+                            </Col>
+                            <Col xl={24} xxl={12} style={{ padding: "10px" }}>
+                              <Row gutter={[8, 8]}>
+                                <Col
+                                  lg={24}
+                                  xl={12}
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Flex style={{ width: "100%" }}>
+                                    <Flex
+                                      style={{
+                                        maxHeight: "80px",
+                                        width: "70%",
+                                      }}
+                                    >
+                                      <Line
+                                        options={lineChartOptions2}
+                                        data={getProductivityChartData()}
+                                        // style={{ width: "100%", height: "100px" }}
+                                      />
+                                    </Flex>
+                                    <Flex
+                                      style={{
+                                        width: "30%",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <Stat
+                                        statValue={-10.7}
+                                        arrow={"down"}
+                                        arrowColor={"red"}
+                                      />
+                                    </Flex>
+                                  </Flex>
+                                  <Flex style={{ width: "100%" }}>
+                                    <Flex
+                                      style={{
+                                        maxHeight: "80px",
+                                        width: "70%",
+                                      }}
+                                    >
+                                      <Line
+                                        options={lineChartOptions2}
+                                        data={getProductivityChartData()}
+                                        // style={{ width: "100%", height: "100px" }}
+                                      />
+                                    </Flex>
+                                    <Flex
+                                      style={{
+                                        width: "30%",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <Stat
+                                        statValue={-4.7}
+                                        arrow={"down"}
+                                        arrowColor={"red"}
+                                      />
+                                    </Flex>
+                                  </Flex>
+                                </Col>
+                                <Col
+                                  lg={24}
+                                  xl={12}
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Flex style={{ width: "100%" }}>
+                                    <Flex
+                                      style={{
+                                        maxHeight: "80px",
+                                        width: "70%",
+                                      }}
+                                    >
+                                      <Line
+                                        options={lineChartOptions2}
+                                        data={getProductivityChartData()}
+                                        // style={{ width: "100%", height: "100px" }}
+                                      />
+                                    </Flex>
+                                    <Flex
+                                      style={{
+                                        width: "30%",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <Stat
+                                        statValue={-10.7}
+                                        arrow={"down"}
+                                        arrowColor={"red"}
+                                      />
+                                    </Flex>
+                                  </Flex>
+                                  <Flex style={{ width: "100%" }}>
+                                    <Flex
+                                      style={{
+                                        maxHeight: "80px",
+                                        width: "70%",
+                                      }}
+                                    >
+                                      <Line
+                                        options={lineChartOptions2}
+                                        data={getProductivityChartData()}
+                                        // style={{ width: "100%", height: "100px" }}
+                                      />
+                                    </Flex>
+                                    <Flex
+                                      style={{
+                                        width: "30%",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <Stat
+                                        statValue={-4.7}
+                                        arrow={"down"}
+                                        arrowColor={"red"}
+                                      />
+                                    </Flex>
+                                  </Flex>
+                                </Col>
+                              </Row>
+                            </Col>
+                          </Row>
+                        </Card>
+                        <Card
                           style={{
-                            display: "flex",
-                            height: "100%",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            borderRadius: "1.25rem",
                           }}
                         >
-                          <Stat
-                            statText={"Loss vs APC Target"}
-                            statValue={7.6}
-                            statSuffix={"%"}
-                            arrow={"down"}
-                            arrowColor={"red"}
-                          />
-                          <Stat
-                            statText={"% APC Run Time"}
-                            statValue={95}
-                            statSuffix={"%"}
-                          />
-                          <Stat
-                            statText={"% Loss vs APC Target"}
-                            statValue={21}
-                            statSuffix={"%"}
-                            arrow={"down"}
-                            arrowColor={"red"}
-                          />
-                          <Stat
-                            statText={"% Emissions Limit"}
-                            statValue={94}
-                            statSuffix={"%"}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col xl={24} xxl={12} style={{ padding: "10px" }}>
-                      <Row>
-                        <Col
-                          lg={24}
-                          xl={12}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Flex style={{ width: "100%" }}>
-                            <Flex
+                          <div
+                            style={{
+                              position: "relative",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              height: "500px",
+                              background: "#1b3a71",
+                              borderRadius: "0.75rem",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <img
+                              className="process-image"
+                              src={`/img/Process - ${selectedView}.png`}
+                              // src="/img/Process - General View.png"
+                              alt="Process"
                               style={{
-                                maxHeight: "80px",
-                                width: "70%",
+                                position: "absolute",
+                                maxWidth: "95%",
+                                maxHeight: "95%",
+                                left: "auto",
+                                top: "auto",
                               }}
-                            >
-                              <Line
-                                options={lineChartOptions2}
-                                data={getProductivityChartData()}
-                                // style={{ width: "100%", height: "100px" }}
-                              />
-                            </Flex>
-                            <Flex
-                              style={{
-                                width: "30%",
-                                alignItems: "center",
-                                justifyContent: "center",
-                              }}
-                            >
-                              <Stat
-                                statValue={-10.7}
-                                arrow={"down"}
-                                arrowColor={"red"}
-                              />
-                            </Flex>
-                          </Flex>
-                          <Flex style={{ width: "100%" }}>
-                            <Flex
-                              style={{
-                                maxHeight: "80px",
-                                width: "70%",
-                              }}
-                            >
-                              <Line
-                                options={lineChartOptions2}
-                                data={getProductivityChartData()}
-                                // style={{ width: "100%", height: "100px" }}
-                              />
-                            </Flex>
-                            <Flex
-                              style={{ width: "30%", alignItems: "center" }}
-                            >
-                              <Stat
-                                statValue={-4.7}
-                                arrow={"down"}
-                                arrowColor={"red"}
-                              />
-                            </Flex>
-                          </Flex>
-                        </Col>
-                        <Col
-                          lg={24}
-                          xl={12}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Flex style={{ width: "100%" }}>
-                            <Flex
-                              style={{
-                                maxHeight: "80px",
-                                width: "70%",
-                              }}
-                            >
-                              <Line
-                                options={lineChartOptions2}
-                                data={getProductivityChartData()}
-                                // style={{ width: "100%", height: "100px" }}
-                              />
-                            </Flex>
-                            <Flex
-                              style={{
-                                width: "30%",
-                                alignItems: "center",
-                                justifyContent: "center",
-                              }}
-                            >
-                              <Stat
-                                statValue={-10.7}
-                                arrow={"down"}
-                                arrowColor={"red"}
-                              />
-                            </Flex>
-                          </Flex>
-                          <Flex style={{ width: "100%" }}>
-                            <Flex
-                              style={{
-                                maxHeight: "80px",
-                                width: "70%",
-                              }}
-                            >
-                              <Line
-                                options={lineChartOptions2}
-                                data={getProductivityChartData()}
-                                // style={{ width: "100%", height: "100px" }}
-                              />
-                            </Flex>
-                            <Flex
-                              style={{ width: "30%", alignItems: "center" }}
-                            >
-                              <Stat
-                                statValue={-4.7}
-                                arrow={"down"}
-                                arrowColor={"red"}
-                              />
-                            </Flex>
-                          </Flex>
-                        </Col>
-                      </Row>
+                              // onMouseOver={() => setMouseOver(true)}
+                              // onMouseOut={() => setMouseOver(false)}
+                            />
+                          </div>
+                        </Card>
+                      </Card>
                     </Col>
                   </Row>
-                </Card>
-                <Card
+                </Col>
+                <Col span={24}>
+                  {/* <div
                   style={{
-                    borderRadius: "1.25rem",
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "row",
                   }}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      height: "500px",
-                      background: "#1b3a71",
-                      borderRadius: "0.75rem",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <img
-                      className="process-image"
-                      src={`/img/Process - ${selectedView}.png`}
-                      // src="/img/Process - General View.png"
-                      alt="Process"
-                      style={{
-                        position: "absolute",
-                        maxWidth: "95%",
-                        maxHeight: "95%",
-                        left: "auto",
-                        top: "auto",
-                      }}
-                      // onMouseOver={() => setMouseOver(true)}
-                      // onMouseOut={() => setMouseOver(false)}
-                    />
-                  </div>
-                </Card>
-              </Card>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              <div style={{ height: "100%", width: "35%" }}>
-                <WeatherCard />
-              </div>
-              <div style={{ height: "100%", width: "65%" }}>
-                <AICard />
-              </div>
-            </div>
-          </div>
-          <div
-            key={"flex-2"}
-            style={{
-              flexDirection: "row",
-              width: "25%",
-              // border: "1px solid red",
-            }}
-          >
-            <TimeCard />
-            <CCTV />
-            <IntegratedOperationsCard />
-            <AssetsPerformanceCard />
-          </div>
+                > */}
+                  <Row gutter={[8, 8]}>
+                    <Col span={9}>
+                      <WeatherCard />
+                    </Col>
+                    <Col span={15}>
+                      <AICard />
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row gutter={[8, 8]}>
+                <Col span={24}>
+                  <TimeCard />
+                </Col>
+                <Col span={24}>
+                  <CCTV />
+                </Col>
+                <Col span={24}>
+                  <IntegratedOperationsCard />
+                </Col>
+                <Col span={24}>
+                  <AssetsPerformanceCard />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Flex>
       </Layout>
     </MainLayout>

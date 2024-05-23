@@ -211,124 +211,127 @@ const Cybersecurity = () => {
           paddingTop: 0,
         }}
       >
-        <Row
-          gutter={[8, 8]}
-          className="content"
-          style={{
-            width: "100%",
-            maxWidth: "1800px",
-          }}
-        >
-          <Col span={18}>
-            <Row gutter={[8, 8]}>
-              <Col span={24}>
-                <AreaChartCard
-                  title={"Events Histogram"}
-                  data={histogramData}
-                />
-              </Col>
-              <Col span={24}>
-                <Row gutter={[8, 8]}>
-                  <Col span={6}>
-                    <PieChartCard
-                      title={"Unique Vulnerabilities Distribution By Severity"}
-                      data={{
-                        ...vulnerabilitiesData,
-                        datasets: [
-                          {
-                            ...vulnerabilitiesData.datasets[0],
-                            data: vulnerabilitiesData.datasets[0].data.map(
-                              (item) => {
-                                return Math.round(
-                                  (item /
-                                    vulnerabilitiesData.datasets[0].data.reduce(
-                                      (partialSum, a) => partialSum + a,
-                                      0
-                                    )) *
-                                    100
-                                );
-                              }
-                            ),
-                          },
-                        ],
-                      }}
-                    />
-                  </Col>
-                  <Col span={6}>
-                    <PieChartCard
-                      title={
-                        "Non-unique Vulnerabilities Distribution By Severity"
-                      }
-                      data={{
-                        ...vulnerabilitiesData,
-                        datasets: [
-                          {
-                            ...vulnerabilitiesData.datasets[0],
-                            data: vulnerabilitiesData.datasets[0].data.map(
-                              (item) => {
-                                return Math.round(
-                                  (item /
-                                    vulnerabilitiesData.datasets[0].data.reduce(
-                                      (partialSum, a) => partialSum + a,
-                                      0
-                                    )) *
-                                    100
-                                );
-                              }
-                            ),
-                          },
-                        ],
-                      }}
-                    />
-                  </Col>
-                  <Col span={6}>
-                    <PieChartCard
-                      title={"Safety Level According to IEC-62443"}
-                      data={securityLevelData}
-                    />
-                  </Col>
-                  <Col span={6}>
-                    <PieChartCard
-                      title={"Percentage of Reliable Softwares"}
-                      data={softwarePercentageData}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-              <Col span={24}>
-                <AreaChartCard
-                  title={"Traffic Analysis by Time and IPs"}
-                  data={activityData}
-                />
-              </Col>
-              <Col span={24}>
-                <AICard />
-              </Col>
-            </Row>
-          </Col>
-          <Col span={6}>
-            <Row gutter={[8, 8]}>
-              <Col span={24}>
-                <CriticalEventsCard />
-              </Col>
-              <Col span={24}>
-                <UniqueVulnerabilitiesCard />
-              </Col>
-              <Col span={24}>
-                <TopVulnerabilitiesCard />
-              </Col>
-              <Col span={24}>
-                <AccountActivityCard />
-              </Col>
-              <Col span={24}>
-                <RadarChartCard
-                  title={"DNSSI Compliance"}
-                  data={radarChartData}
-                />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        <Flex style={{ width: "100%" }}>
+          <Row
+            gutter={[8, 8]}
+            className="content"
+            style={{
+              maxWidth: "1800px",
+            }}
+          >
+            <Col span={18}>
+              <Row gutter={[8, 8]}>
+                <Col span={24}>
+                  <AreaChartCard
+                    title={"Events Histogram"}
+                    data={histogramData}
+                  />
+                </Col>
+                <Col span={24}>
+                  <Row gutter={[8, 8]}>
+                    <Col span={6}>
+                      <PieChartCard
+                        title={
+                          "Unique Vulnerabilities Distribution By Severity"
+                        }
+                        data={{
+                          ...vulnerabilitiesData,
+                          datasets: [
+                            {
+                              ...vulnerabilitiesData.datasets[0],
+                              data: vulnerabilitiesData.datasets[0].data.map(
+                                (item) => {
+                                  return Math.round(
+                                    (item /
+                                      vulnerabilitiesData.datasets[0].data.reduce(
+                                        (partialSum, a) => partialSum + a,
+                                        0
+                                      )) *
+                                      100
+                                  );
+                                }
+                              ),
+                            },
+                          ],
+                        }}
+                      />
+                    </Col>
+                    <Col span={6}>
+                      <PieChartCard
+                        title={
+                          "Non-unique Vulnerabilities Distribution By Severity"
+                        }
+                        data={{
+                          ...vulnerabilitiesData,
+                          datasets: [
+                            {
+                              ...vulnerabilitiesData.datasets[0],
+                              data: vulnerabilitiesData.datasets[0].data.map(
+                                (item) => {
+                                  return Math.round(
+                                    (item /
+                                      vulnerabilitiesData.datasets[0].data.reduce(
+                                        (partialSum, a) => partialSum + a,
+                                        0
+                                      )) *
+                                      100
+                                  );
+                                }
+                              ),
+                            },
+                          ],
+                        }}
+                      />
+                    </Col>
+                    <Col span={6}>
+                      <PieChartCard
+                        title={"Safety Level According to IEC-62443"}
+                        data={securityLevelData}
+                      />
+                    </Col>
+                    <Col span={6}>
+                      <PieChartCard
+                        title={"Percentage of Reliable Softwares"}
+                        data={softwarePercentageData}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+                <Col span={24}>
+                  <AreaChartCard
+                    title={"Traffic Analysis by Time and IPs"}
+                    data={activityData}
+                  />
+                </Col>
+                <Col span={24}>
+                  <AICard />
+                </Col>
+              </Row>
+            </Col>
+            <Col span={6}>
+              <Row gutter={[8, 8]}>
+                <Col span={24}>
+                  <CriticalEventsCard />
+                </Col>
+                <Col span={24}>
+                  <UniqueVulnerabilitiesCard />
+                </Col>
+                <Col span={24}>
+                  <TopVulnerabilitiesCard />
+                </Col>
+                <Col span={24}>
+                  <AccountActivityCard />
+                </Col>
+                <Col span={24}>
+                  <RadarChartCard
+                    title={"DNSSI Compliance"}
+                    data={radarChartData}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Flex>
       </Layout>
     </MainLayout>
   );

@@ -92,7 +92,7 @@ function getSustainabilityData(hostEmail, callback) {
 
 const titles = [
   { title: "Carbon Footprint", unit: "(CO2-e)" },
-  { title: "Specific Electricity Consumption", unit: "(MHh)" },
+  { title: "Specific Electricity Consumption", unit: "(MWh)" },
   { title: "Specific Water Consumption", unit: "(ML)" },
   { title: "Specific Fuel Consumption", unit: "(ML)" },
 ];
@@ -160,76 +160,77 @@ const Sustainability = () => {
         }}
       >
         {sustainabilityData ? (
-          <Row
-            gutter={[8, 8]}
-            className="bento-box"
-            style={{
-              width: "100%",
-              maxWidth: "1800px",
-            }}
-          >
-            <Col span={[24]}>
-              <Row gutter={[8, 8]}>
-                {titles.map((item, index) => {
-                  return (
-                    <Col
-                      // xs={24}
-                      // sm={24}
-                      lg={24}
-                      xl={12}
-                      // xl={4}
-                      key={`col-${index + 1}`}
-                    >
-                      <Card
-                        title={`${item.title} ${item.unit}`}
-                        style={{
-                          // justifyContent: "center",
-                          height: "100%",
-                          // maxHeight: "700px",
-                          width: "100%",
-                          boxSizing: "border-box",
-                          // padding: "auto",
-                          borderRadius: "1.25rem",
-                          // margin: "auto",
-                          // alignItems: "center",
-                          // justifyContent: "center",
-                        }}
-                        bodyStyle={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
+          <Flex style={{ width: "100%" }}>
+            <Row
+              gutter={[8, 8]}
+              className="bento-box"
+              style={{
+                maxWidth: "1800px",
+              }}
+            >
+              <Col span={[24]}>
+                <Row gutter={[8, 8]}>
+                  {titles.map((item, index) => {
+                    return (
+                      <Col
+                        // xs={24}
+                        // sm={24}
+                        lg={24}
+                        xl={12}
+                        // xl={4}
+                        key={`col-${index + 1}`}
                       >
-                        {/* TODO: add usage for each child to populate the doughnut chart */}
-                        {/* <div style={{ height: "40%", marginBottom: 20 }}>
+                        <Card
+                          title={`${item.title} ${item.unit}`}
+                          style={{
+                            // justifyContent: "center",
+                            height: "100%",
+                            // maxHeight: "700px",
+                            width: "100%",
+                            boxSizing: "border-box",
+                            // padding: "auto",
+                            borderRadius: "1.25rem",
+                            // margin: "auto",
+                            // alignItems: "center",
+                            // justifyContent: "center",
+                          }}
+                          bodyStyle={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {/* TODO: add usage for each child to populate the doughnut chart */}
+                          {/* <div style={{ height: "40%", marginBottom: 20 }}>
                         <Doughnut
                           data={sustainabilityData.sustainabilityData}
                         />
                       </div> */}
-                        <Flex
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Line
-                            options={lineChartOptions}
-                            data={sustainabilityData[item.title]}
-                            style={{ height: "100%", width: "100%" }}
-                          />
-                        </Flex>
-                      </Card>
-                    </Col>
-                  );
-                })}
-              </Row>
-            </Col>
-            <Col span={[24]}>
-              <AICard />
-            </Col>
-          </Row>
+                          <Flex
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Line
+                              options={lineChartOptions}
+                              data={sustainabilityData[item.title]}
+                              style={{ height: "100%", width: "100%" }}
+                            />
+                          </Flex>
+                        </Card>
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </Col>
+              <Col span={[24]}>
+                <AICard />
+              </Col>
+            </Row>
+          </Flex>
         ) : (
           <Loader />
         )}

@@ -94,85 +94,88 @@ const Production = () => {
         }}
       >
         {productionData ? (
-          <Row
-            gutter={[8, 8]}
-            style={{
-              // flexDirection: "column",
-              width: "100%",
-              maxWidth: "1800px",
-            }}
-          >
-            <Row gutter={[8, 8]}>
-              <Col lg={24} xl={10}>
+          <Flex style={{ width: "100%", maxWidth: "1800px" }}>
+            <Row
+              gutter={[8, 8]}
+              className="content"
+              // style={{
+              //   maxWidth: "1800px",
+              // }}
+            >
+              <Col span={24}>
                 <Row gutter={[8, 8]}>
-                  <Col span={24}>
+                  <Col lg={24} xl={10}>
                     <Row gutter={[8, 8]}>
-                      <Col span={12}>
-                        <Flex style={{ width: "100%", height: "100%" }}>
-                          <GraphCard
-                            title={"Product Quality"}
-                            data={productionData["Product Quality"]}
-                            unit={"%"}
-                          />
-                        </Flex>
+                      <Col span={24}>
+                        <Row gutter={[8, 8]}>
+                          <Col span={12}>
+                            <Flex style={{ width: "100%", height: "100%" }}>
+                              <GraphCard
+                                title={"Product Quality"}
+                                data={productionData["Product Quality"]}
+                                unit={"%"}
+                              />
+                            </Flex>
+                          </Col>
+                          <Col span={12} style={{ width: "100%" }}>
+                            <Flex style={{ width: "100%", height: "100%" }}>
+                              <GraphCard
+                                title={"Labor Productivity"}
+                                data={productionData["Labor Productivity"]}
+                                unit={"%"}
+                              />
+                            </Flex>
+                          </Col>
+                        </Row>
                       </Col>
-                      <Col span={12} style={{ width: "100%" }}>
-                        <Flex style={{ width: "100%", height: "100%" }}>
-                          <GraphCard
-                            title={"Labor Productivity"}
-                            data={productionData["Labor Productivity"]}
-                            unit={"%"}
-                          />
-                        </Flex>
+                      <Col span={24}>
+                        <Row gutter={[8, 8]}>
+                          <Col span={12} style={{ width: "100%" }}>
+                            <Flex style={{ width: "100%", height: "100%" }}>
+                              <GraphCard
+                                title={"Operating Cost/Ton"}
+                                data={productionData["Operating Cost/Ton"]}
+                                unit={"$"}
+                              />
+                            </Flex>
+                          </Col>
+                          <Col span={12} style={{ width: "100%" }}>
+                            <Flex style={{ width: "100%", height: "100%" }}>
+                              <GraphCard
+                                title={"Labor Productivity Cost"}
+                                data={productionData["Labor Productivity Cost"]}
+                                unit={"$"}
+                              />
+                            </Flex>
+                          </Col>
+                        </Row>
                       </Col>
                     </Row>
                   </Col>
-                  <Col span={24}>
-                    <Row gutter={[8, 8]}>
-                      <Col span={12} style={{ width: "100%" }}>
-                        <Flex style={{ width: "100%", height: "100%" }}>
-                          <GraphCard
-                            title={"Operating Cost/Ton"}
-                            data={productionData["Operating Cost/Ton"]}
-                            unit={"$"}
-                          />
-                        </Flex>
-                      </Col>
-                      <Col span={12} style={{ width: "100%" }}>
-                        <Flex style={{ width: "100%", height: "100%" }}>
-                          <GraphCard
-                            title={"Labor Productivity Cost"}
-                            data={productionData["Labor Productivity Cost"]}
-                            unit={"$"}
-                          />
-                        </Flex>
-                      </Col>
-                    </Row>
+                  <Col xs={24} sm={24} md={24} lg={24} xl={14}>
+                    <Flex
+                      key={"OEE-Card"}
+                      style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                      }}
+                    >
+                      <OEE data={productionData} />
+                    </Flex>
                   </Col>
                 </Row>
               </Col>
-              <Col xs={24} sm={24} md={24} lg={24} xl={14}>
-                <Flex
-                  key={"OEE-Card"}
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                  }}
-                >
-                  <OEE data={productionData} />
-                </Flex>
+              <Col span={24}>
+                <AICard />
+              </Col>
+              <Col span={24}>
+                <InventoryCard />
               </Col>
             </Row>
-            <Col span={24}>
-              <AICard />
-            </Col>
-            <Col span={24}>
-              <InventoryCard />
-            </Col>
-          </Row>
+          </Flex>
         ) : (
           <Loader />
         )}

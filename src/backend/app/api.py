@@ -159,7 +159,7 @@ async def getSustainibilityData() -> dict:
 #     return data
 
 
-def getDataFromDB(process, kpi, label):
+def getDataFromDB(process, kpi, label, fun="AVG"):
     dateLabels = [
         "Second",
         "Minute",
@@ -187,7 +187,7 @@ def getDataFromDB(process, kpi, label):
             {queryStr3},
             idProcess,
             nameKPI,
-            AVG(valueKPI) AS AvgValueKPI
+            {fun}(valueKPI) AS {fun.capitalize()}ValueKPI
         FROM KPI
         WHERE idProcess IN (SELECT idProcess FROM RecursiveProcess)
         GROUP BY
@@ -199,14 +199,14 @@ def getDataFromDB(process, kpi, label):
         SELECT 
             {queryStr1},
             idProcess,
-            AvgValueKPI,
+            {fun.capitalize()}ValueKPI,
             ROW_NUMBER() OVER (PARTITION BY idProcess ORDER BY {queryStr2}) AS rn
         FROM LatestKPIs
         WHERE nameKPI = '{kpi}'
     )
     SELECT 
         {queryStr1},
-        AVG(AvgValueKPI) AS FinalAvgValueKPI
+        {fun}({fun.capitalize()}ValueKPI) AS Final{fun.capitalize()}ValueKPI
     FROM FilteredKPIs
     WHERE rn <= 10
     GROUP BY {queryStr1}
@@ -255,7 +255,7 @@ async def fetchKPI(process: str):
         "Specific Fuel Consumption"
     ]
     for kpi in sustainability_KPIs:
-        data, labels = getDataFromDB(process, kpi, "Second")
+        data, labels = getDataFromDB(process, kpi, "Second", "SUM")
         results[kpi] = {
             "labels": labels,
             "datasets": [
@@ -264,6 +264,39 @@ async def fetchKPI(process: str):
                     "data": data,
                     "borderColor": "rgb(255, 99, 132)",
                     "backgroundColor": "rgba(255, 99, 132, 0.5)",
+                }
+            ],
+            
+        }
+
+    return results
+
+@app.get("/categories/Maintenance")
+async def fetchKPI(process: str):
+    results = {}
+    maintenance_KPIs = [
+        "MTBF",
+        "Maintenance Cost",
+        "MMH",
+        "MTTR",
+        "MDT",
+        "Maintenance Ratio",
+        "Asset Availability",
+        "Maintenance Duration",
+        "Equipment Failures/Day",
+        # "OEE",
+    ]
+    for kpi in maintenance_KPIs:
+        data, labels = getDataFromDB(process, kpi, "Second")
+        results[kpi] = {
+            "labels": labels,
+            "datasets": [
+                {
+                    "label": kpi,
+                    "data": data,
+                    "borderColor": "rgb(53, 162, 235)",
+                    "backgroundColor": "rgba(53, 162, 235, 0.25)",
+                    "fill": True,
                 }
             ],
             
