@@ -16,10 +16,10 @@ const Loader = () => (
   <Flex
     style={{
       width: "100%",
+      height: "100%",
       alignItems: "center",
       justifyContent: "center",
-      height: "100%",
-      maxWidth: "1800px",
+      // maxWidth: "1800px",
     }}
   >
     <Spin size="large" />

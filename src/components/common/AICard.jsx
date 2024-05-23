@@ -1,6 +1,12 @@
 import React from "react";
-import { Layout, Card, Carousel } from "antd";
+import { Layout, Card, Carousel, Flex } from "antd";
+import {
+  CloseCircleOutlined,
+  InfoCircleOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 import { Typography } from "antd";
+import "../../css/components/common/AICard.css";
 
 const { Title } = Typography;
 const { Header, Sider, Content } = Layout;
@@ -77,20 +83,69 @@ function AICard() {
       > */}
       <div style={{ width: "95%" }}>
         <Carousel
+          className="ai-carousel"
           style={{
             width: "100%",
             // height: "160px",
+            color: "red",
           }}
           autoplay
         >
-          <div style={{ height: "300px", width: "70%" }}>
+          <div style={{ height: "500px", width: "70%" }}>
             <Card
+              className="ai-observation"
               type="inner"
-              title="Suggestion 1"
-              extra={<a href="#">More</a>}
-              style={{ height: "100%", width: "100%" }}
+              // title="Observation"
+              title={
+                <Flex style={{ alignItems: "center" }}>
+                  <CheckCircleOutlined />
+                  <h3 style={{ marginLeft: 5 }}>Observation</h3>
+                </Flex>
+              }
+              // extra={<a href="#">More</a>}
+              style={{ height: "80%", width: "100%" }}
             >
-              Suggestion 1
+              <h4>8% increase in asset availability.</h4>
+            </Card>
+          </div>
+          <div style={{ height: "500px", width: "70%" }}>
+            <Card
+              className="ai-warning"
+              type="inner"
+              title={
+                <Flex style={{ alignItems: "center" }}>
+                  <InfoCircleOutlined sty />
+                  <h3 style={{ marginLeft: 5 }}>Warning</h3>
+                </Flex>
+              }
+              // title="Alert"
+              // extra={<a href="#">More</a>}
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <h4>Heavy rain expected next week.</h4>
+            </Card>
+          </div>
+          <div style={{ height: "500px", width: "70%" }}>
+            <Card
+              className="ai-alert"
+              type="inner"
+              title={
+                <Flex style={{ alignItems: "center" }}>
+                  <CloseCircleOutlined sty />
+                  <h3 style={{ marginLeft: 5 }}>Alert</h3>
+                </Flex>
+              }
+              // title="Alert"
+              // extra={<a href="#">More</a>}
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <h4>System Failure in 8hrs.</h4>
             </Card>
           </div>
         </Carousel>

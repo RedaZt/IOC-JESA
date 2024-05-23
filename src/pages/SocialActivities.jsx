@@ -126,111 +126,119 @@ const SocialActivities = () => {
           display: "flex",
         }}
       >
-        <Row
-          gutter={[8, 8]}
-          style={{
-            width: "100%",
-            maxWidth: "1800px",
-          }}
-        >
-          <Col span={8} className="Flex-1">
-            <Row gutter={[8, 8]}>
-              <Col span={24}>
-                <Card
-                  title="Local Employment"
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "1.25rem",
-                  }}
-                  bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <div
+        <Flex style={{ width: "100%" }}>
+          <Row
+            gutter={[8, 8]}
+            style={{
+              width: "100%",
+              maxWidth: "1800px",
+            }}
+          >
+            <Col span={8} className="Flex-1">
+              <Row gutter={[8, 8]}>
+                <Col span={24}>
+                  <Card
+                    title="Local Employment"
                     style={{
-                      width: "85%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                      width: "100%",
+                      borderRadius: "1.25rem",
+                    }}
+                    bodyStyle={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    <Doughnut data={localEmploymentChartData} />
-                  </div>
-                </Card>
-              </Col>
-              <Col span={24}>
-                <Card
-                  title="% of Local Suppliers"
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
-                    width: "100%",
-                    borderRadius: "1.25rem",
-                  }}
-                  bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <div
+                    <div
+                      style={{
+                        width: "85%",
+                      }}
+                    >
+                      <Doughnut data={localEmploymentChartData} />
+                    </div>
+                  </Card>
+                </Col>
+                <Col span={24}>
+                  <Card
+                    title="% of Local Suppliers"
                     style={{
-                      width: "85%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                      width: "100%",
+                      borderRadius: "1.25rem",
+                    }}
+                    bodyStyle={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    <Doughnut data={localSuppliersChartData} />
-                  </div>
-                </Card>
-              </Col>
-            </Row>
-          </Col>
-          <Col span={16} className="Flex-2">
-            <Card
-              title="Community Investment"
-              style={{
-                height: "100%",
-                width: "100%",
-                borderRadius: "1.25rem",
-              }}
-              bodyStyle={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "90%",
-              }}
-            >
-              <div style={{ alignSelf: "end" }}>
-                <Stat
-                  statText={"425900 DH"}
-                  statValue={12700}
-                  statSuffix={"DH"}
-                  titleLevel={1}
-                ></Stat>
-              </div>
-              <div
+                    <div
+                      style={{
+                        width: "85%",
+                      }}
+                    >
+                      <Doughnut data={localSuppliersChartData} />
+                    </div>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={16} className="Flex-2">
+              <Card
+                title="Community Investment"
                 style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
                   height: "100%",
+                  width: "100%",
+                  borderRadius: "1.25rem",
+                }}
+                bodyStyle={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "95%",
                 }}
               >
-                <Line
-                  data={communityInvestmentChartData}
-                  options={lineChartOptions}
+                <Flex
                   style={{
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
                     width: "100%",
                     height: "100%",
                   }}
-                />
-              </div>
-            </Card>
-          </Col>
-        </Row>
+                >
+                  <Stat
+                    statText={"425900 DH"}
+                    statValue={12700}
+                    statSuffix={"DH"}
+                    titleLevel={1}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "100%",
+                      height: "100%",
+                      marginTop: 8,
+                    }}
+                  >
+                    <Line
+                      data={communityInvestmentChartData}
+                      options={lineChartOptions}
+                    />
+                  </div>
+                </Flex>
+              </Card>
+            </Col>
+          </Row>
+        </Flex>
       </Layout>
     </MainLayout>
   );

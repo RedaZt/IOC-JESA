@@ -128,4 +128,8 @@ function GraphCard({ title, data, unit }) {
   );
 }
 
+GraphCard.defaultProps = {
+  evolution: "normal",
+};
+
 export default GraphCard;

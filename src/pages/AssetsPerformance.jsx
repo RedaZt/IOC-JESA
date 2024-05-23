@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { RootContext } from "../store";
 import { Map, Marker, ZoomControl } from "pigeon-maps";
 import {
   theme,
@@ -30,6 +31,8 @@ import MainLayout from "../layouts/MainLayout";
 import Stat from "../components/common/Stat";
 import AICard from "../components/common/AICard";
 import "../css/pages/AssetsPerformance.css";
+import Loader from "../components/common/Loader";
+import GraphCard from "../components/common/GraphCard";
 
 ChartJS.register(
   ArcElement,
@@ -128,16 +131,17 @@ const data = [
   },
 ];
 
-const kpis = [
-  { label: "MTBF" },
-  { label: "MDT" },
-  { label: "MTTR" },
-  { label: "MMH" },
-  { label: "Maintenance Ratio" },
-  { label: "Asset Availability" },
-  { label: "Maintenance Duration" },
-  { label: "Equipement Failure / Day" },
-];
+const maintenanceKPIs = {
+  MTBF: "Hrs",
+  "Maintenance Cost": "$",
+  MMH: "Hrs",
+  MTTR: "Hrs",
+  MDT: "Hrs",
+  "Maintenance Ratio": "",
+  "Asset Availability": "%",
+  "Maintenance Duration": "Hrs",
+  "Equipment Failures/Day": "",
+};
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -145,6 +149,11 @@ const AssetsPerformance = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const {
+    dashboard: { activeTab: selectedView },
+    dispatch,
+  } = useContext(RootContext);
+  const [maintenanceData, setMaintenanceData] = useState(null);
 
   const defaultProps = {
     center: {
@@ -248,10 +257,30 @@ const AssetsPerformance = () => {
     // },
   ];
 
-  // const {
-  //   dashboard: { activeTab: selectedView },
-  //   dispatch,
-  // } = useContext(RootContext);
+  useEffect(() => {
+    setMaintenanceData(null);
+    const interval = setInterval(() => {
+      const url = "http://localhost:8000/categories";
+      const queryParams = new URLSearchParams({ process: selectedView });
+      const requestUrl = `${url}/Maintenance?${queryParams}`;
+      // console.log(requestUrl);
+      async function fetchData() {
+        try {
+          const response = await fetch(requestUrl);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          const data = await response.json();
+          setMaintenanceData(data);
+        } catch (error) {
+          console.error("Error fetching maintenance data:", error);
+        }
+      }
+
+      fetchData();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [selectedView]);
 
   return (
     <MainLayout selectedMenuKey={"4"} style={{ alignItems: "center" }}>
@@ -267,94 +296,102 @@ const AssetsPerformance = () => {
           paddingTop: 0,
         }}
       >
-        <Row
-          gutter={[8, 8]}
-          className="content"
-          style={{
-            width: "100%",
-            maxWidth: "1800px",
-          }}
-        >
-          <Col span={24}>
+        {maintenanceData ? (
+          <Flex style={{ width: "100%" }}>
             <Row
               gutter={[8, 8]}
-              style={{ paddingBottom: 0, justifyContent: "space-evenly" }}
-            >
-              {kpis.map((item, index) => (
-                <Col
-                  className="gutter-row"
-                  sm={24}
-                  md={12}
-                  lg={6}
-                  key={`col-${index + 1}`}
-                >
-                  <Card
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "12px 20px",
-                      borderRadius: "1.25rem",
-                    }}
-                    bodyStyle={{ padding: 0 }}
-                  >
-                    <Stat
-                      StatIcon={CheckCircleOutlined}
-                      statText={item.label}
-                      statSuffix={"%"}
-                      statValue={96}
-                      arrow={"down"}
-                      arrowColor={"red"}
-                      // titleLevel={4}
-                    />
-                    <Line
-                      options={lineChartOptions}
-                      data={lineChartData}
-                      style={{ width: "100%" }}
-                    />
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          </Col>
-          <Col span={24}>
-            <Card
+              className="content"
               style={{
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "24px",
-                borderRadius: "1.25rem",
-              }}
-              bodyStyle={{
-                padding: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                maxWidth: "1800px",
               }}
             >
-              <div
-                style={{
-                  height: "600px",
-                  width: "100%",
-                  borderRadius: "1rem",
-                  overflow: "hidden",
-                }}
-              >
-                <Map
-                  borderRadius={"1.25rem"}
-                  defaultCenter={[33.52493481489739, -7.637054622716135]}
-                  defaultZoom={16}
+              <Col span={24}>
+                <Row
+                  gutter={[8, 8]}
+                  style={{ paddingBottom: 0, justifyContent: "space-evenly" }}
                 >
-                  <ZoomControl />
-                  <Marker anchor={[33.52493481489739, -7.637054622716135]} />
-                </Map>
-              </div>
-            </Card>
-          </Col>
-          <Col span={24}>
-            <AICard />
-          </Col>
-          <Col span={24}>
-            {/* <Button
+                  {Object.keys(maintenanceData).map((item, index) => (
+                    <Col
+                      className="gutter-row"
+                      sm={24}
+                      md={12}
+                      lg={8}
+                      key={`col-${index + 1}`}
+                    >
+                      {/* <GraphCard title={item} data={maintenanceData[item].datasets[0].data} unit={maintenanceKPIs[item]} /> */}
+                      <Card
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          padding: "12px 20px",
+                          borderRadius: "1.25rem",
+                        }}
+                        bodyStyle={{ padding: 0 }}
+                      >
+                        <Stat
+                          StatIcon={CheckCircleOutlined}
+                          statText={item}
+                          statSuffix={maintenanceKPIs[item]}
+                          statValue={
+                            maintenanceData[item].datasets[0].data[
+                              maintenanceData[item].datasets[0].data.length - 1
+                            ]
+                          }
+                          arrow={"down"}
+                          arrowColor={item === "MTTR" ? "green" : "red"}
+                          // titleLevel={4}
+                        />
+                        <Line
+                          options={lineChartOptions}
+                          data={maintenanceData[item]}
+                          style={{ width: "100%" }}
+                        />
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </Col>
+              <Col span={24}>
+                <Card
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "24px",
+                    borderRadius: "1.25rem",
+                  }}
+                  bodyStyle={{
+                    padding: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "600px",
+                      width: "100%",
+                      borderRadius: "1rem",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Map
+                      borderRadius={"1.25rem"}
+                      defaultCenter={[33.52493481489739, -7.637054622716135]}
+                      defaultZoom={16}
+                    >
+                      <ZoomControl />
+                      <Marker
+                        anchor={[33.52493481489739, -7.637054622716135]}
+                      />
+                    </Map>
+                  </div>
+                </Card>
+              </Col>
+              <Col span={24}>
+                <AICard />
+              </Col>
+              <Col span={24}>
+                {/* <Button
                 onClick={handleAdd}
                 type="primary"
                 style={{
@@ -365,13 +402,17 @@ const AssetsPerformance = () => {
               >
                 Add a row
               </Button> */}
-            <Table
-              columns={columns}
-              dataSource={columnsData}
-              style={{ width: "100%", borderRadius: "1.25rem" }}
-            />
-          </Col>
-        </Row>
+                <Table
+                  columns={columns}
+                  dataSource={columnsData}
+                  style={{ width: "100%", borderRadius: "1.25rem" }}
+                />
+              </Col>
+            </Row>
+          </Flex>
+        ) : (
+          <Loader />
+        )}
       </Layout>
     </MainLayout>
   );

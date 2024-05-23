@@ -1,0 +1,19 @@
+.ai-carousel .slick-dots li button {
+  background-color: #dedede; /* Change this to your desired color */
+}
+
+.ai-carousel .slick-dots li.slick-active button {
+  background-color: #1b3a71; /* Change this to your desired active dot color */
+}
+
+.ai-alert .ant-card-head {
+  background: rgba(255, 0, 0, 0.2) !important;
+}
+
+.ai-observation .ant-card-head {
+  background: rgba(0, 200, 0, 0.2) !important;
+}
+
+.ai-warning .ant-card-head {
+  background: rgba(255, 200, 0, 0.2) !important;
+}

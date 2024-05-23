@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
+import { RootContext } from "../../../store";
 import {
   theme,
   Flex,
@@ -25,12 +26,44 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { getAssetsInfos } from "../../../data/data";
+import Loader from "../../common/Loader";
 
 const { Title } = Typography;
 const { Header, Sider, Content } = Layout;
 
 function AssetsPerformanceCard() {
   const { OAE, OAA } = getAssetsInfos();
+  const {
+    dashboard: { activeTab: selectedView },
+    dispatch,
+  } = useContext(RootContext);
+  const [maintenanceData, setMaintenanceData] = useState(null);
+
+  useEffect(() => {
+    setMaintenanceData(null);
+    const interval = setInterval(() => {
+      const url = "http://localhost:8000/categories";
+      const queryParams = new URLSearchParams({ process: selectedView });
+      const requestUrl = `${url}/Maintenance?${queryParams}`;
+      // console.log(requestUrl);
+      async function fetchData() {
+        try {
+          const response = await fetch(requestUrl);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          const data = await response.json();
+          setMaintenanceData(data);
+        } catch (error) {
+          console.error("Error fetching maintenance data:", error);
+        }
+      }
+
+      fetchData();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [selectedView]);
+
   return (
     <Card
       title={
@@ -45,114 +78,101 @@ function AssetsPerformanceCard() {
         borderRadius: "1.25rem",
       }}
     >
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      > */}
-      {/* <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Progress
-            key="OEE"
-            type="dashboard"
-            strokeColor="#1b3a71"
-            percent={OAE}
-            gapDegree={50}
-            success={{ percent: null }}
+      {maintenanceData ? (
+        <>
+          <Row
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <Col
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Progress
+                key="OEE"
+                type="dashboard"
+                strokeColor="#1b3a71"
+                percent={OAE}
+                gapDegree={50}
+                success={{ percent: null }}
+              />
+              <h4>Overall Asset Effectiveness</h4>
+            </Col>
+            <Col
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Progress
+                key="Availability"
+                type="dashboard"
+                strokeColor="#1b3a71"
+                percent={
+                  maintenanceData["Asset Availability"].datasets[0].data[
+                    maintenanceData["Asset Availability"].datasets[0].data
+                      .length - 1
+                  ]
+                }
+                gapDegree={50}
+                success={{ percent: null }}
+              />
+              <h4>Overall Asset Availability</h4>
+            </Col>
+          </Row>
+          <Divider />
+          <Stat
+            statText={"MTBF"}
+            statValue={
+              maintenanceData["MTBF"].datasets[0].data[
+                maintenanceData["MTBF"].datasets[0].data.length - 1
+              ]
+            }
+            statSuffix={"Hrs"}
           />
-          <h4>Overall Asset Effectiveness</h4>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Progress
-            key="Availability"
-            type="dashboard"
-            strokeColor="#1b3a71"
-            percent={OAA}
-            gapDegree={50}
-            success={{ percent: null }}
+          <Stat
+            statText={"MTTR"}
+            statValue={
+              maintenanceData["MTTR"].datasets[0].data[
+                maintenanceData["MTTR"].datasets[0].data.length - 1
+              ]
+            }
+            statSuffix={"Hrs"}
+            arrowColor={"red"}
           />
-          <h4>Overall Asset Availability</h4>
-        </div> */}
-      <Row
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
-        <Col
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Progress
-            key="OEE"
-            type="dashboard"
-            strokeColor="#1b3a71"
-            percent={OAE}
-            gapDegree={50}
-            success={{ percent: null }}
+          <Stat
+            statText={"MDT"}
+            statValue={
+              maintenanceData["MDT"].datasets[0].data[
+                maintenanceData["MDT"].datasets[0].data.length - 1
+              ]
+            }
+            statSuffix={"Hrs"}
+            arrow={"down"}
           />
-          <h4>Overall Asset Effectiveness</h4>
-        </Col>
-        <Col
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Progress
-            key="Availability"
-            type="dashboard"
-            strokeColor="#1b3a71"
-            percent={OAA}
-            gapDegree={50}
-            success={{ percent: null }}
+          <Stat
+            statText={"Maintenance Cost"}
+            statValue={
+              maintenanceData["Maintenance Cost"].datasets[0].data[
+                maintenanceData["Maintenance Cost"].datasets[0].data.length - 1
+              ]
+            }
+            statSuffix={"M$"}
+            arrowColor={"red"}
           />
-          <h4>Overall Asset Availability</h4>
-        </Col>
-      </Row>
-      {/* </div> */}
-      <Divider />
-      <Stat statText={"MTBF"} statValue={200} statSuffix={"Hrs"} />
-      <Stat
-        statText={"MTTR"}
-        statValue={152}
-        statSuffix={"Hrs"}
-        arrowColor={"red"}
-      />
-      <Stat
-        statText={"Downtime Hours"}
-        statValue={620}
-        statSuffix={"Hrs"}
-        arrow={"down"}
-      />
-      <Stat
-        statText={"Maintenance Cost"}
-        statValue={47}
-        statSuffix={"M$"}
-        arrowColor={"red"}
-      />
+        </>
+      ) : (
+        <Loader />
+      )}
     </Card>
   );
 }

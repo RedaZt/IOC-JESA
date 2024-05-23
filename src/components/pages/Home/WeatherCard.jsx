@@ -12,6 +12,7 @@ import {
   Segmented,
   Spin,
   Input,
+  Select,
 } from "antd";
 import { Typography } from "antd";
 import "../../../css/components/pages/Home/WeatherCard.css";
@@ -64,8 +65,11 @@ async function getWeather(selectedLocation) {
 function WeatherCard() {
   const [weatherInfos, setWeatherInfos] = useState(null);
   const [daysWeather, setDaysWeather] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState("casablanca");
+  const [selectedLocation, setSelectedLocation] = useState("benguerir");
 
+  const handleChange = (value) => {
+    setSelectedLocation(value);
+  };
   const onSearch = (value, _e, info) => {
     setWeatherInfos(null);
     setSelectedLocation(value);
@@ -120,8 +124,33 @@ function WeatherCard() {
       ) : weatherInfos === "No data" ? (
         <Row>
           <Col span={24} style={{ padding: "0 15px" }}>
-            <Search placeholder="Choose Location" onSearch={onSearch} />
+            <Select
+              value={selectedLocation}
+              onChange={handleChange}
+              options={[
+                {
+                  value: "benguerir",
+                  label: "Benguerir",
+                },
+                {
+                  value: "lout",
+                  label: "Lout",
+                },
+                {
+                  value: "mzinda",
+                  label: "Mzinda",
+                },
+                {
+                  value: "assafi",
+                  label: "Safi",
+                  // disabled: true,
+                },
+              ]}
+            />
           </Col>
+          {/* <Col span={24} style={{ padding: "0 15px" }}>
+            <Search placeholder="Choose Location" onSearch={onSearch} />
+          </Col> */}
           <Col
             span={24}
             style={{ display: "flex", justifyContent: "space-between" }}
@@ -144,7 +173,37 @@ function WeatherCard() {
       ) : (
         <Row>
           <Col span={24} style={{ padding: "0 15px" }}>
-            <Search placeholder="Choose Location" onSearch={onSearch} />
+            {/* <Radio.Group value={size} onChange={handleSizeChange}>
+            <Radio.Button value="large">Large</Radio.Button>
+            <Radio.Button value="middle">Default</Radio.Button>
+            <Radio.Button value="small">Small</Radio.Button>
+          </Radio.Group> */}
+            <Select
+              value={selectedLocation}
+              onChange={handleChange}
+              options={[
+                {
+                  value: "benguerir",
+                  label: "Benguerir",
+                },
+                {
+                  value: "louta",
+                  label: "Louta",
+                },
+                {
+                  value: "mzinda",
+                  label: "Mzinda",
+                },
+                {
+                  value: "assafi",
+                  label: "Safi",
+                  // disabled: true,
+                },
+              ]}
+              style={{
+                width: "100%",
+              }}
+            />
           </Col>
           <Col
             span={24}
