@@ -6,6 +6,15 @@ export const initialState = {
     // activeTab: "General View",
     activeTab: "0",
   },
+  // api:{
+  //   user_endpoints:{
+  //     login: null,
+  //   }
+  // },
+  // user: {
+  //   token: null,
+  //   display_name: null,
+  // },
 };
 
 export const reducer = (state, action) => {

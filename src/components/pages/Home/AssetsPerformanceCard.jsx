@@ -38,39 +38,43 @@ function AssetsPerformanceCard() {
     dispatch,
   } = useContext(RootContext);
   const [maintenanceData, setMaintenanceData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  let isFetching = true;
 
-  useEffect(() => {
-    setMaintenanceData(null);
-    const interval = setInterval(() => {
+  const fetchData = async () => {
+    if (!isFetching) return;
+    isFetching = false;
+    try {
       const url = "http://localhost:8000/categories";
       const queryParams = new URLSearchParams({ process: selectedView });
-      const requestUrl = `${url}/Maintenance?${queryParams}`;
-      // console.log(requestUrl);
-      async function fetchData() {
-        try {
-          const response = await fetch(requestUrl);
-          if (!response.ok) {
-            throw new Error("Failed to fetch data");
-          }
-          const data = await response.json();
-          setMaintenanceData(data);
-        } catch (error) {
-          console.error("Error fetching maintenance data:", error);
-        }
+      const requestUrl = `${url}/Asset-Performance?${queryParams}`;
+      const response = await fetch(requestUrl);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
       }
+      const data = await response.json();
+      setMaintenanceData(data);
+    } catch (error) {
+      console.error("Error fetching sustainability data:", error);
+    } finally {
+      setLoading(false);
+    }
+    isFetching = true;
+  };
 
-      fetchData();
-    }, 1000);
+  useEffect(() => {
+    setLoading(true);
+
+    const interval = setInterval(fetchData, 1000);
+    fetchData();
+
     return () => clearInterval(interval);
   }, [selectedView]);
 
   return (
     <Card
-      title={
-        <a href="/Assets-Performance" style={{ color: "black" }}>
-          Assets Performance
-        </a>
-      }
+      title={"Assets Performance"}
+      extra={<a href="/Assets-Performance">More</a>}
       style={{
         justifyContent: "center",
         // height: "fit-content",
@@ -78,7 +82,9 @@ function AssetsPerformanceCard() {
         borderRadius: "1.25rem",
       }}
     >
-      {maintenanceData ? (
+      {loading ? (
+        <Loader />
+      ) : (
         <>
           <Row
             style={{
@@ -166,12 +172,10 @@ function AssetsPerformanceCard() {
                 maintenanceData["Maintenance Cost"].datasets[0].data.length - 1
               ]
             }
-            statSuffix={"M$"}
+            statSuffix={"MDH"}
             arrowColor={"red"}
           />
         </>
-      ) : (
-        <Loader />
       )}
     </Card>
   );

@@ -26,8 +26,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     # allow_credentials=True,
-    # allow_methods=["*"],
-    # allow_headers=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 DATABASE_URL = "mssql+pyodbc://DESKTOP-O2AULN6/IOC_DB?driver=ODBC+Driver+17+for+SQL+Server"
@@ -271,7 +271,7 @@ async def fetchKPI(process: str):
 
     return results
 
-@app.get("/categories/Maintenance")
+@app.get("/categories/Asset-Performance")
 async def fetchKPI(process: str):
     results = {}
     maintenance_KPIs = [

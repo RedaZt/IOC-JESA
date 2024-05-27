@@ -76,20 +76,6 @@ const lineChartOptions = {
   },
 };
 
-function getSustainabilityData(hostEmail, callback) {
-  return fetch("http://localhost:8000/sustainability").then((response) => {
-    return response
-      .json()
-      .then((data) => {
-        // console.log(data);
-        return data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-}
-
 const titles = [
   { title: "Carbon Footprint", unit: "(CO2-e)" },
   { title: "Specific Electricity Consumption", unit: "(MWh)" },
@@ -101,44 +87,40 @@ const Sustainability = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
   const {
     dashboard: { activeTab: selectedView },
-    dispatch,
   } = useContext(RootContext);
-
   const [sustainabilityData, setSustainabilityData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  let isFetching = true;
 
-  useEffect(() => {
-    // Fetch sustainability data
-    setSustainabilityData(null);
-    const interval = setInterval(() => {
-      // fetch("http://localhost:8000/sustainability")
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //     setSustainabilityData(data);
-      //   });
+  const fetchData = async () => {
+    if (!isFetching) return;
+    isFetching = false;
+    try {
       const url = "http://localhost:8000/categories";
       const queryParams = new URLSearchParams({ process: selectedView });
-      // const requestUrl = `${url}?${queryParams}`;
       const requestUrl = `${url}/Sustainability?${queryParams}`;
-      // console.log(requestUrl);
-      async function fetchData() {
-        try {
-          const response = await fetch(requestUrl);
-          if (!response.ok) {
-            throw new Error("Failed to fetch data");
-          }
-          const data = await response.json();
-          setSustainabilityData(data);
-        } catch (error) {
-          console.error("Error fetching sustainability data:", error);
-        }
+      const response = await fetch(requestUrl);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
       }
+      const data = await response.json();
+      setSustainabilityData(data);
+    } catch (error) {
+      console.error("Error fetching sustainability data:", error);
+    } finally {
+      setLoading(false);
+    }
+    isFetching = true;
+  };
 
-      fetchData();
-    }, 1000);
+  useEffect(() => {
+    setLoading(true);
+
+    const interval = setInterval(fetchData, 1000);
+    fetchData();
+
     return () => clearInterval(interval);
   }, [selectedView]);
   // console.log(sustainabilityData);
@@ -159,7 +141,9 @@ const Sustainability = () => {
           paddingTop: 0,
         }}
       >
-        {sustainabilityData ? (
+        {loading ? (
+          <Loader />
+        ) : (
           <Flex style={{ width: "100%" }}>
             <Row
               gutter={[8, 8]}
@@ -231,8 +215,6 @@ const Sustainability = () => {
               </Col>
             </Row>
           </Flex>
-        ) : (
-          <Loader />
         )}
       </Layout>
     </MainLayout>

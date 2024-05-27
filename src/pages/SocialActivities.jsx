@@ -134,7 +134,7 @@ const SocialActivities = () => {
               maxWidth: "1800px",
             }}
           >
-            <Col span={8} className="Flex-1">
+            <Col span={7} className="Flex-1">
               <Row gutter={[8, 8]}>
                 <Col span={24}>
                   <Card
@@ -188,7 +188,7 @@ const SocialActivities = () => {
                 </Col>
               </Row>
             </Col>
-            <Col span={16} className="Flex-2">
+            <Col span={17} className="Flex-2" style={{ height: "100%" }}>
               <Card
                 title="Community Investment"
                 style={{
@@ -201,7 +201,7 @@ const SocialActivities = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "95%",
+                  height: "80%",
                 }}
               >
                 <Flex
@@ -211,6 +211,7 @@ const SocialActivities = () => {
                     justifyContent: "center",
                     width: "100%",
                     height: "100%",
+                    border: "1px solid red",
                   }}
                 >
                   <Stat
@@ -225,7 +226,7 @@ const SocialActivities = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       width: "100%",
-                      height: "100%",
+                      height: "90%",
                       marginTop: 8,
                     }}
                   >

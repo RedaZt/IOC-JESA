@@ -6,20 +6,9 @@ import { Layout, Card, Typography, Flex, Divider } from "antd";
 
 function TimeCard() {
   const date = new Date();
-  // const date = new Date(2009, 10, 10);  // 2009-11-10
-  // const testDate = new Date();
-  // const day = testDate.getDay();
-  // const month = testDate.toLocaleString("default", { month: "short" });
-  // const year = testDate.getFullYear();
-  // console.log(day, month, year);
-  // const testTime = new Date().toLocaleTimeString([], {
-  //   hour: "2-digit",
-  //   minute: "2-digit",
-  // });
-  // console.log(testTime);
 
   const [currTime, setCurrTime] = useState({
-    day: date.getDay(),
+    day: new Date().getDay(),
     weekday: date.toLocaleString("en-us", { weekday: "long" }),
     month: date.toLocaleString("default", { month: "short" }),
     year: date.getFullYear(),
@@ -35,7 +24,7 @@ function TimeCard() {
     const interval = setInterval(() => {
       const currDate = new Date();
       setCurrTime({
-        day: currDate.getDay(),
+        day: new Date().getDate(),
         weekday: currDate.toLocaleString("en-us", { weekday: "long" }),
         month: currDate.toLocaleString("default", { month: "short" }),
         year: currDate.getFullYear(),

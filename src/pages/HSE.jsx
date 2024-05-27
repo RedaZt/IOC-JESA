@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StatCard1 } from "../components/StatCard";
-import { theme, Flex, Layout, Card } from "antd";
+import { theme, Flex, Layout, Card, Row, Col } from "antd";
 import { Typography } from "antd";
 // import { Pie } from "react-chartjs-2";
 import SideBar from "../components/layouts/SideBar";
@@ -19,7 +19,7 @@ import {
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import MainLayout from "../layouts/MainLayout";
 import "../css/pages/PageStyle.css";
-import CCTV from "../components/common/CCTV";
+import CCTV from "../components/pages/HSE/CCTV";
 
 ChartJS.register(
   ArcElement,
@@ -252,38 +252,8 @@ const HSE = () => {
             maxWidth: "1800px",
           }}
         >
-          <Flex
-            className="section-1"
-            style={{
-              // alignItems: "center",
-              // justifyContent: "center",
-              width: "70%",
-              height: "100%",
-              // marginTop: 0,
-              // height: "100%",
-              // maxWidth: "1000px",
-              // padding: "20px 15px",
-              display: "flex",
-              // flexDirection: "column",
-              // border: "1px solid red",
-            }}
-          >
-            <Flex
-              className="section-1-1"
-              style={{
-                // alignItems: "center",
-                // justifyContent: "center",
-                width: "50%",
-                // height: "fit-content",
-                // marginTop: 0,
-                // height: "100%",
-                // maxWidth: "1000px",
-                // padding: "20px 15px",
-                display: "flex",
-                flexDirection: "column",
-                // border: "1px solid red",
-              }}
-            >
+          <Row gutter={[8, 8]}>
+            <Col span={8}>
               <Card
                 title="LTI"
                 style={{
@@ -307,6 +277,8 @@ const HSE = () => {
                   style={{ width: "100%" }}
                 />
               </Card>
+            </Col>
+            <Col span={8}>
               <Card
                 title="LTIFR"
                 style={{
@@ -330,6 +302,8 @@ const HSE = () => {
                   style={{ width: "100%" }}
                 />
               </Card>
+            </Col>
+            <Col span={8}>
               <Card
                 title="Fatal Incidents Rate"
                 style={{
@@ -353,23 +327,8 @@ const HSE = () => {
                   style={{ width: "100%" }}
                 />
               </Card>
-            </Flex>
-            <Flex
-              className="section-1-2"
-              style={{
-                // alignItems: "center",
-                // justifyContent: "center",
-                width: "50%",
-                // height: "fit-content",
-                // marginTop: 0,
-                // height: "100%",
-                // maxWidth: "1000px",
-                // padding: "20px 15px",
-                display: "flex",
-                flexDirection: "column",
-                // border: "1px solid red",
-              }}
-            >
+            </Col>
+            <Col span={8}>
               <Card
                 title="Safety Training Hours"
                 style={{
@@ -394,6 +353,8 @@ const HSE = () => {
                   />
                 </div>
               </Card>
+            </Col>
+            <Col span={8}>
               <Card
                 title="% of Trained Staff"
                 style={{
@@ -420,6 +381,8 @@ const HSE = () => {
                   <Doughnut data={trainedStaffChartData} />
                 </div>
               </Card>
+            </Col>
+            <Col span={8}>
               <Card
                 title="Actions"
                 style={{
@@ -441,61 +404,50 @@ const HSE = () => {
                   <Bar options={barChartOptions} data={actionsChartData} />
                 </div>
               </Card>
-            </Flex>
-          </Flex>
-          <Flex
-            className="section-2"
-            style={{
-              // alignItems: "center",
-              // justifyContent: "center",
-              width: "30%",
-              height: "100%",
-              // marginTop: 0,
-              // height: "100%",
-              // maxWidth: "1000px",
-              // padding: "20px 15px",
-              display: "flex",
-              flexDirection: "column",
-              // border: "1px solid red",
-            }}
-          >
-            <CCTV />
-            <Card
-              title="Site Manpower"
-              style={{
-                justifyContent: "center",
-                // height: "200px",
-                // height: "300px",
-                // height: "100%",
-                // width: "100%",
-                // padding: "auto",
-                borderRadius: "1.25rem",
-                // margin: "auto",
-                // display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {/* <img src="" alt="" /> */}
-              <div style={{ width: "100%" }}>
-                <Bar options={barChartOptions} data={siteManpowerChartData} />
-              </div>
-            </Card>
-            <Card
-              title="Site Manhours"
-              style={{
-                justifyContent: "center",
-                borderRadius: "1.25rem",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {/* <img src="" alt="" /> */}
-              <div style={{ width: "100%" }}>
-                <Bar options={barChartOptions} data={siteManhoursChartData} />
-              </div>
-            </Card>
-          </Flex>
+            </Col>
+            <Col span={8}>
+              <CCTV />
+            </Col>
+            <Col span={8}>
+              <Card
+                title="Site Manpower"
+                style={{
+                  justifyContent: "center",
+                  // height: "200px",
+                  // height: "300px",
+                  // height: "100%",
+                  // width: "100%",
+                  // padding: "auto",
+                  borderRadius: "1.25rem",
+                  // margin: "auto",
+                  // display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {/* <img src="" alt="" /> */}
+                <div style={{ width: "100%" }}>
+                  <Bar options={barChartOptions} data={siteManpowerChartData} />
+                </div>
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card
+                title="Site Manhours"
+                style={{
+                  justifyContent: "center",
+                  borderRadius: "1.25rem",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {/* <img src="" alt="" /> */}
+                <div style={{ width: "100%" }}>
+                  <Bar options={barChartOptions} data={siteManhoursChartData} />
+                </div>
+              </Card>
+            </Col>
+          </Row>
         </Flex>
       </Layout>
     </MainLayout>

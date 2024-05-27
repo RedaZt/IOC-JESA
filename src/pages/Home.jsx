@@ -42,7 +42,7 @@ import {
 import { Doughnut, Line, Radar, Bar } from "react-chartjs-2";
 import { getProductivityChartData } from "../data/data";
 import { getAssetsInfos } from "../data/data";
-import CCTV from "../components/common/CCTV";
+import CCTV from "../components/pages/Home/CCTV";
 
 ChartJS.register(
   ArcElement,
@@ -443,7 +443,9 @@ const Home = () => {
                       <WeatherCard />
                     </Col>
                     <Col span={15}>
-                      <AICard />
+                      <Flex style={{ height: "100%" }}>
+                        <AICard />
+                      </Flex>
                     </Col>
                   </Row>
                 </Col>

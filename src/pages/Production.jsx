@@ -54,29 +54,35 @@ const Production = () => {
   } = useContext(RootContext);
 
   const [productionData, setProductionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  let isFetching = true;
 
-  useEffect(() => {
-    setProductionData(null);
-    const interval = setInterval(() => {
+  const fetchData = async () => {
+    if (!isFetching) return;
+    isFetching = false;
+    try {
       const url = "http://localhost:8000/categories";
       const queryParams = new URLSearchParams({ process: selectedView });
       const requestUrl = `${url}/Production?${queryParams}`;
-      // console.log(requestUrl);
-      async function fetchData() {
-        try {
-          const response = await fetch(requestUrl);
-          if (!response.ok) {
-            throw new Error("Failed to fetch data");
-          }
-          const data = await response.json();
-          setProductionData(data);
-        } catch (error) {
-          console.error("Error fetching sustainability data:", error);
-        }
+      const response = await fetch(requestUrl);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
       }
+      const data = await response.json();
+      setProductionData(data);
+    } catch (error) {
+      console.error("Error fetching sustainability data:", error);
+    } finally {
+      setLoading(false);
+    }
+    isFetching = true;
+  };
 
-      fetchData();
-    }, 1000);
+  useEffect(() => {
+    setLoading(true);
+    const interval = setInterval(fetchData, 1000);
+    fetchData();
+
     return () => clearInterval(interval);
   }, [selectedView]);
 
@@ -93,7 +99,9 @@ const Production = () => {
           paddingTop: 0,
         }}
       >
-        {productionData ? (
+        {loading ? (
+          <Loader />
+        ) : (
           <Flex style={{ width: "100%", maxWidth: "1800px" }}>
             <Row
               gutter={[8, 8]}
@@ -176,8 +184,6 @@ const Production = () => {
               </Col>
             </Row>
           </Flex>
-        ) : (
-          <Loader />
         )}
       </Layout>
     </MainLayout>

@@ -127,21 +127,22 @@ function WeatherCard() {
             <Select
               value={selectedLocation}
               onChange={handleChange}
+              style={{ width: "100%" }}
               options={[
                 {
                   value: "benguerir",
                   label: "Benguerir",
                 },
                 {
-                  value: "lout",
-                  label: "Lout",
+                  value: "louta",
+                  label: "Louta",
                 },
                 {
-                  value: "mzinda",
+                  value: "mzinda,morocco",
                   label: "Mzinda",
                 },
                 {
-                  value: "assafi",
+                  value: "safi, morocco",
                   label: "Safi",
                   // disabled: true,
                 },
@@ -191,11 +192,11 @@ function WeatherCard() {
                   label: "Louta",
                 },
                 {
-                  value: "mzinda",
+                  value: "mzinda,morocco",
                   label: "Mzinda",
                 },
                 {
-                  value: "assafi",
+                  value: "safi, morocco",
                   label: "Safi",
                   // disabled: true,
                 },
