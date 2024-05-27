@@ -171,11 +171,8 @@ const barChartData = {
 function IntegratedOperationsCard() {
   return (
     <Card
-      title={
-        <a href="/Production" style={{ color: "black" }}>
-          Integrated Operations Metrics
-        </a>
-      }
+      title={"Integrated Operations Metrics"}
+      extra={<a href="/Production">More</a>}
       style={{
         justifyContent: "center",
         height: "fit-content",

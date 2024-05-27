@@ -6,14 +6,15 @@
   background-color: #1b3a71; /* Change this to your desired active dot color */
 }
 
-.ai-alert .ant-card-head {
+/* .ai-alert .ant-card-head {
   background: rgba(255, 0, 0, 0.2) !important;
 }
 
-.ai-observation .ant-card-head {
-  background: rgba(0, 200, 0, 0.2) !important;
+.ai-observation .ant-card-body {
+  border-radius: 1.25rem 1.25rem 0 0;
+  background: rgba(0, 200, 50, 0.2) !important;
 }
 
 .ai-warning .ant-card-head {
   background: rgba(255, 200, 0, 0.2) !important;
-}
+} */

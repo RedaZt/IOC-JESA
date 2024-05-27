@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Divider, Statistic, Row, Col } from "antd";
+import { Card, Divider, Statistic, Row, Col, Dropdown, Space } from "antd";
 import { Typography } from "antd";
 import {
   SafetyCertificateOutlined,
@@ -10,6 +10,7 @@ import {
   BarChartOutlined,
   TableOutlined,
   TeamOutlined,
+  DownOutlined,
 } from "@ant-design/icons";
 import {
   Chart as ChartJS,
@@ -48,6 +49,19 @@ const radarChartData = {
   ],
 };
 
+const items = [
+  {
+    key: "1",
+    label: <a href="/Cybersecurity">Cybersecurity</a>,
+  },
+  {
+    key: "2",
+    label: <a href="/Cybersecurity">HSE</a>,
+    // icon: <SmileOutlined />,
+    // disabled: true,
+  },
+];
+
 function BusinessRisksCard() {
   return (
     <Card
@@ -55,6 +69,20 @@ function BusinessRisksCard() {
         <a href="/Cybersecurity" style={{ color: "black" }}>
           Business Risks
         </a>
+      }
+      extra={
+        <Dropdown
+          menu={{
+            items,
+          }}
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              More
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
       }
       style={{
         justifyContent: "center",
