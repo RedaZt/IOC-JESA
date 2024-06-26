@@ -56,7 +56,7 @@ const items = [
   },
   {
     key: "2",
-    label: <a href="/Cybersecurity">HSE</a>,
+    label: <a href="/HSE">HSE</a>,
     // icon: <SmileOutlined />,
     // disabled: true,
   },
@@ -65,11 +65,7 @@ const items = [
 function BusinessRisksCard() {
   return (
     <Card
-      title={
-        <a href="/Cybersecurity" style={{ color: "black" }}>
-          Business Risks
-        </a>
-      }
+      title="Business Risks"
       extra={
         <Dropdown
           menu={{

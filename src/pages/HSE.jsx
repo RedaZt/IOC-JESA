@@ -252,7 +252,7 @@ const HSE = () => {
             maxWidth: "1800px",
           }}
         >
-          <Row gutter={[8, 8]}>
+          <Row gutter={[8, 8]} style={{ height: "100%" }}>
             <Col span={8}>
               <Card
                 title="LTI"
@@ -355,6 +355,9 @@ const HSE = () => {
               </Card>
             </Col>
             <Col span={8}>
+              <CCTV />
+            </Col>
+            <Col span={8}>
               <Card
                 title="% of Trained Staff"
                 style={{
@@ -404,9 +407,6 @@ const HSE = () => {
                   <Bar options={barChartOptions} data={actionsChartData} />
                 </div>
               </Card>
-            </Col>
-            <Col span={8}>
-              <CCTV />
             </Col>
             <Col span={8}>
               <Card

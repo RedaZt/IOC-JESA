@@ -65,7 +65,7 @@ function AssetsPerformanceCard() {
   useEffect(() => {
     setLoading(true);
 
-    const interval = setInterval(fetchData, 1000);
+    const interval = setInterval(fetchData, 500);
     fetchData();
 
     return () => clearInterval(interval);

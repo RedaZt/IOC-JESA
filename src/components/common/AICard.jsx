@@ -35,124 +35,123 @@ const contentStyle = {
 
 function AICard() {
   return (
-    // <Card
-    //   title="AI Recommendations"
-    //   style={{
-    //     height: "100%",
-    //     width: "100%",
-    //     borderRadius: "1.25rem",
-    //   }}
-    //   bodyStyle={{
-    //     display: "flex",
-    //     height: "80%",
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //   }}
-    // >
-    <div style={{ width: "100%", height: "100%", border: "1px solid red" }}>
-      <Carousel
-        className="ai-carousel"
+    <Card
+      title="AI Recommendations"
+      style={{
+        height: "100%",
+        width: "100%",
+        borderRadius: "1.25rem",
+      }}
+      bodyStyle={{
+        display: "flex",
+        height: "80%",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {/* <div
         style={{
-          width: "100%",
-          height: "100%",
-          // height: "160px",
-          // color: "red",
-          border: "1px solid blue",
+          width: "95%",
+          overflow: "hidden",
+          overflowX: "scroll",
+          scrollbarWidth: "none",
+          display: "flex",
         }}
-        autoplay
       >
-        <Flex
-          style={{
-            width: "100%",
-            height: "100%",
-            // height: "160px",
-            // color: "red",
-            border: "1px solid green",
-          }}
-        >
-          <Card
-            className="ai-observation"
-            // type="inner"
-            // title="Observation"
-            title={
-              <Flex style={{ alignItems: "center" }}>
-                <CheckCircleOutlined />
-                <h3 style={{ marginLeft: 5 }}>Observation</h3>
-              </Flex>
-            }
-            style={{
-              height: "100%",
-              width: "100%",
-              height: "100%",
-              borderRadius: "1.25rem",
-              // background: "rgba(0, 200, 50, 0.2)",
-              overflow: "hidden",
-            }}
-            headStyle={{ background: "rgba(0, 200, 50, 0.2)" }}
-            // bodyStyle={{
-            //   background: "#ffffff",
-            //   borderRadius: "0 0 1.25rem 1.25rem",
-            // }}
-          >
-            <h4>8% increase in asset availability.</h4>
-          </Card>
-        </Flex>
-        {/* <div>
-          <Card
-            className="ai-warning"
-            // type="inner"
-            // title="Observation"
-            title={
-              <Flex style={{ alignItems: "center" }}>
-                <InfoCircleOutlined />
-                <h3 style={{ marginLeft: 5 }}>Warning</h3>
-              </Flex>
-            }
-            style={{
-              height: "100%",
-              width: "100%",
-              borderRadius: "1.25rem",
-              // background: "rgba(0, 200, 50, 0.2)",
-              overflow: "hidden",
-            }}
-            headStyle={{ background: "rgba(255, 200, 0, 0.2)" }}
-            // bodyStyle={{
-            //   background: "#ffffff",
-            //   borderRadius: "0 0 1.25rem 1.25rem",
-            // }}
-          >
-            <h4>Heavy rain expected next week.</h4>
-          </Card>
+        <div>
+          <h3 style={contentStyle}>1</h3>
         </div>
         <div>
-          <Card
-            className="ai-alert"
-            // type="inner"
-            // title="Observation"
-            title={
-              <Flex style={{ alignItems: "center" }}>
-                <CloseCircleOutlined />
-                <h3 style={{ marginLeft: 5 }}>Alert</h3>
-              </Flex>
-            }
-            style={{
-              height: "100%",
-              width: "100%",
-              borderRadius: "1.25rem",
-              // background: "rgba(0, 200, 50, 0.2)",
-              overflow: "hidden",
-            }}
-            headStyle={{ background: "rgba(255, 0, 0, 0.2)" }}
-            // bodyStyle={{
-            //   background: "#ffffff",
-            //   borderRadius: "0 0 1.25rem 1.25rem",
-            // }}
-          >
-            <h4>System Failure in 8hrs.</h4>
-          </Card>
-        </div> */}
-      </Carousel>
-    </div>
+          <h3 style={contentStyle}>2</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>3</h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>4</h3>
+        </div>
+      </div> */}
+      {/* <div
+        style={{
+          width: "95%",
+          height: "100px",
+          overflow: "hidden",
+          overflowX: "scroll",
+          scrollbarWidth: "none",
+          display: "flex",
+        }}
+      > */}
+      <div style={{ width: "95%" }}>
+        <Carousel
+          className="ai-carousel"
+          style={{
+            width: "100%",
+            // height: "160px",
+            color: "red",
+          }}
+          autoplay
+        >
+          <div style={{ height: "500px", width: "70%" }}>
+            <Card
+              className="ai-observation"
+              type="inner"
+              // title="Observation"
+              title={
+                <Flex style={{ alignItems: "center" }}>
+                  <CheckCircleOutlined />
+                  <h3 style={{ marginLeft: 5 }}>Observation</h3>
+                </Flex>
+              }
+              // extra={<a href="#">More</a>}
+              style={{ height: "80%", width: "100%" }}
+            >
+              <h4>8% increase in asset availability.</h4>
+            </Card>
+          </div>
+          <div style={{ height: "500px", width: "70%" }}>
+            <Card
+              className="ai-warning"
+              type="inner"
+              title={
+                <Flex style={{ alignItems: "center" }}>
+                  <InfoCircleOutlined />
+                  <h3 style={{ marginLeft: 5 }}>Warning</h3>
+                </Flex>
+              }
+              // title="Alert"
+              // extra={<a href="#">More</a>}
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <h4>Heavy rain expected next week.</h4>
+            </Card>
+          </div>
+          <div style={{ height: "500px", width: "70%" }}>
+            <Card
+              className="ai-alert"
+              type="inner"
+              title={
+                <Flex style={{ alignItems: "center" }}>
+                  <CloseCircleOutlined />
+                  <h3 style={{ marginLeft: 5 }}>Alert</h3>
+                </Flex>
+              }
+              // title="Alert"
+              // extra={<a href="#">More</a>}
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <h4>System Failure in 8hrs.</h4>
+            </Card>
+          </div>
+        </Carousel>
+      </div>
+      {/* </div> */}
+    </Card>
   );
 }
 

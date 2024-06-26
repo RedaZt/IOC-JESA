@@ -51,113 +51,11 @@ async def readRoot() -> dict:
 
 @app.get("/chatbot")
 async def pingChatbot(prompt: str) -> dict:
-    # print(prompt)
-    # prompt = ' '.join(prompt.split('+'))
     params = {"text": prompt}
     res = requests.get(url, params=params).json()
     # # print(res["output"])
     # # print(prompt)
     return res
-
-def simulateUsage():
-    a = random.randint(20, 30)
-    b = random.randint(30, 40)
-    c = 100 - a - b
-
-    return [a, b, c]
-
-@app.get("/sustainability")
-async def getSustainibilityData() -> dict:
-    sustainabilityData = {
-        "labels": ["Mine & Treatment", "MPH", "SPH - PSA"],
-        "datasets": [
-            {
-                "label": r"% of Carbon Footprint",
-                # "data": [21, 39, 40],
-                "data": simulateUsage(),
-                "backgroundColor": [
-                    "rgba(54, 162, 235, 0.2)",
-                    "rgba(255, 206, 86, 0.2)",
-                    "rgba(75, 192, 192, 0.2)",
-                ],
-                "borderColor": [
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)",
-                    "rgba(75, 192, 192, 1)",
-                ],
-                "borderWidth": 1,
-            },
-        ],
-    }
-    lineChartLabels = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-    ]
-    lineChartData = {
-        "labels": lineChartLabels,
-        "datasets": [
-            {
-            "label": "Dataset 1",
-            # "data": [600, 550, 580, 700, 720, 600, 570],
-            "data": [random.randint(500, 750) for i in range(7)],
-            "borderColor": "rgb(255, 99, 132)",
-            "backgroundColor": "rgba(255, 99, 132, 0.5)",
-            },
-        ],
-    }
-
-    data = {
-        "sustainabilityData": sustainabilityData,
-        "lineChartData": lineChartData,
-    }
-
-    return data
-
-
-# @app.get("/production")
-# async def getSustainibilityData() -> dict:
-#     months = [
-#         "January",
-#         "February",
-#         "March",
-#         "April",
-#         "May",
-#         "June",
-#         "July",
-#         "August",
-#         "September",
-#         "October",
-#         "November",
-#     ]
-
-#     data = {
-#         "Product Quality": {
-#             "labels": months,
-#             "data": [random.randint(93,99) for i in range(11)],
-#         },
-#         "Operating Cost/Ton": {
-#             "labels": months,
-#             "data": [random.randint(440_000,670_000) for i in range(11)],
-#         },
-#         "Labor Productivity": {
-#             "labels": months,
-#             "data": [random.randint(85,95) for i in range(11)],
-#         },
-#         "Labor Productivity Cost": {
-#             "labels": months,
-#             "data": [random.randint(9_000,24_000) for i in range(11)],
-#         },
-#         "Availability": random.randint(90, 99),
-#         "Performance": random.randint(90, 99),
-#         "Quality": random.randint(90, 99),
-#     }
-#     return data
-
 
 def getDataFromDB(process, kpi, label, fun="AVG"):
     dateLabels = [
@@ -275,16 +173,16 @@ async def fetchKPI(process: str):
 async def fetchKPI(process: str):
     results = {}
     maintenance_KPIs = [
+        "OEE",
+        "Asset Availability",
+        "Equipment Failures/Day",
         "MTBF",
-        "Maintenance Cost",
-        "MMH",
         "MTTR",
         "MDT",
+        "MMH",
         "Maintenance Ratio",
-        "Asset Availability",
-        "Maintenance Duration",
-        "Equipment Failures/Day",
-        # "OEE",
+        "Maintenance Cost",
+        # "Maintenance Duration",
     ]
     for kpi in maintenance_KPIs:
         data, labels = getDataFromDB(process, kpi, "Second")
@@ -303,3 +201,34 @@ async def fetchKPI(process: str):
         }
 
     return results
+
+
+@app.get("/machines")
+async def fetchKPI(process: str):
+    requestQuery = f'''
+    WITH RecursiveProcess AS (
+        SELECT idProcess, nameProcess, idParent
+        FROM Process
+        WHERE idProcess = '{process}'
+        UNION ALL
+        SELECT p.idProcess, p.nameProcess, p.idParent
+        FROM Process p
+        INNER JOIN RecursiveProcess rp ON p.idParent = rp.idProcess
+    )
+    SELECT 
+        idMachine,
+        nameMachine, 
+        latitudeMachine, 
+        longitudeMachine, 
+        statusMachine, 
+        idProcess
+    FROM Machine
+    WHERE idProcess IN (SELECT idProcess FROM RecursiveProcess)
+    '''
+
+    try:
+        with engine.connect() as connection:
+            queryResults = [[*x] for x in connection.execute(text(requestQuery))]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return {"machines": queryResults}

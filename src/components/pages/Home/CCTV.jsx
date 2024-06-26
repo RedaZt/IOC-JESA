@@ -28,12 +28,24 @@ function CCTV() {
           borderRadius: "0.75rem",
         }}
       >
-        <img
+        {/* <img
           src="/img/CCTV.png"
           alt="CCTV-Footage"
           style={{
             maxWidth: "100%",
           }}
+        /> */}
+        <video
+          src={"/vid/JESA's corporate video.mp4"}
+          //   width="100%"
+          //   height="100%"
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+          }}
+          autoPlay
+          loop
+          muted
         />
       </div>
     </Card>

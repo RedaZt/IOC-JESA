@@ -1,6 +1,6 @@
 import React from "react";
-import { LoadingOutlined } from "@ant-design/icons";
 import { Flex, Spin } from "antd";
+import "../../css/components/common/Loader.css";
 
 const Loader = () => (
   // <Spin
@@ -14,6 +14,7 @@ const Loader = () => (
   //   }
   // />
   <Flex
+    className="loader-container"
     style={{
       width: "100%",
       height: "100%",

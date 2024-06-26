@@ -119,14 +119,16 @@ const SocialActivities = () => {
       <Layout
         className="content-container"
         style={{
+          display: "flex",
           alignItems: "center",
           width: "100%",
+          height: "100%",
+          // padding: "20px 15px",
           padding: "10px 16px",
           paddingTop: 0,
-          display: "flex",
         }}
       >
-        <Flex style={{ width: "100%" }}>
+        <Flex style={{ width: "100%", maxWidth: "1800px" }}>
           <Row
             gutter={[8, 8]}
             style={{
@@ -201,7 +203,8 @@ const SocialActivities = () => {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "80%",
+                  height: "90%",
+                  // border: "1px solid blue",
                 }}
               >
                 <Flex
@@ -211,7 +214,7 @@ const SocialActivities = () => {
                     justifyContent: "center",
                     width: "100%",
                     height: "100%",
-                    border: "1px solid red",
+                    // border: "1px solid red",
                   }}
                 >
                   <Stat
@@ -226,7 +229,7 @@ const SocialActivities = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       width: "100%",
-                      height: "90%",
+                      height: "85%",
                       marginTop: 8,
                     }}
                   >

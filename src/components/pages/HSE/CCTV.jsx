@@ -4,17 +4,17 @@ import { Card } from "antd";
 function CCTV() {
   return (
     <Card
-      title={
-        <a href="/HSE" style={{ color: "black" }}>
-          CCTV-Footage
-        </a>
-      }
+      // title={"CCTV-Footage"}
       style={{
         width: "100%",
+        height: "100%",
         borderRadius: "1.25rem",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       bodyStyle={{
-        padding: 15,
+        height: "100%",
+        // padding: 0,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -28,15 +28,28 @@ function CCTV() {
           overflow: "hidden",
           width: "100%",
           height: "100%",
-          borderRadius: "0.75rem",
+          // borderRadius: "0.75rem",
         }}
       >
-        <img
+        {/* <img
           src="/img/CCTV.png"
           alt="CCTV-Footage"
           style={{
             maxWidth: "100%",
           }}
+        /> */}
+        <video
+          src={"/vid/JESA's corporate video.mp4"}
+          //   width="100%"
+          //   height="100%"
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            borderRadius: "1rem",
+          }}
+          autoPlay
+          loop
+          muted
         />
       </div>
     </Card>
